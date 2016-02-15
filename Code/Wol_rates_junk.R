@@ -124,9 +124,9 @@ fit.1 <- jags(data = W.data, inits = my.inits , my.params, n.chains = 4,  n.it
 ##### Model 1, this mode is not correct
 
 
-Pos <- WD$y
-N <- WD$n
-Species <- length(WD$y)
+Pos <- W.data$Pos
+N <- W.data$N
+Species <- length(W.data$Pos)
 
 Mod.1 <- function(){
 	#prior
@@ -262,8 +262,9 @@ bn.conf.exact <- function(x, n, conf.level){
 	print(out)
 }
 
+bn.conf.exact(1, 2, conf.level = 0.95) #show the addition
 bn.conf.exact(100, 200, conf.level = 0.95)
-bn.conf.exact(1, 2, conf.level = 0.95)
+
 
 colSums(WD.sp[, 2:4])
 bn.conf.exact(sum(WD.sp[, 3]), sum(WD.sp[, 2]), conf.level = 0.95)
