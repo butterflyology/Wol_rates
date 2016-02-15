@@ -262,7 +262,7 @@ bn.conf.exact <- function(x, n, conf.level){
 	print(out)
 }
 
-bn.conf.exact(1, 2, conf.level = 0.95) #show the addition
+bn.conf.exact(1, 2, conf.level = 0.95) #show the effect of addition
 bn.conf.exact(100, 200, conf.level = 0.95)
 
 
