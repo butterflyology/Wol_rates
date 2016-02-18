@@ -1,0 +1,67 @@
+\documentclass[12pt]{article}
+\linespread{1.5}
+\usepackage{natbib}
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+\usepackage{gensymb}
+\usepackage{fancyhdr}
+\usepackage{pifont}
+\usepackage{graphicx}
+\usepackage{mdwlist}
+\pagestyle{fancy}
+\usepackage{amsmath}
+\usepackage{lineno}
+  \pagewiselinenumbers
+  \modulolinenumbers[2]
+\usepackage{setspace}
+  \doublespacing
+
+
+
+\begin{document}
+\raggedright
+\setlength{\parindent}{0.3in}
+
+\section{Methods}
+\subsection{Motivating data and previous analysis}
+
+\cite{Ahmed:2015aa} 2015 used a likelihood-based approach to describe the distribution of \emph{Wolbachia} infection in Lepidoptera. Using the data from 37 previous studies, the dataset included over 300 species from 17 families across the order. \cite{Ahmed:2015aa} used a beta-binomial model to estimate the mean proportion of individuals infected within a given species \citep{Hilgenboecker:2008aa}. They used the same distribution to calculate the incidence of infection as well, where incidence was the proportion of species infected above a threshold frequency $c$ (i.e.,, one infection in 1000 individuals, or 0.001) \citep{Weinert:2015aa}. 
+
+\subsection{Bayesian hierarchical models}
+	In contrast to \cite{Ahmed:2015aa}, we adopted a hierachical Bayesian approach to estimate the probability of infection prevalence within and among species of Lepidoptera. Each observation ($N=661$)---the number of \emph{Wolbachia-infected} individuals---was nested within species ($S=301$) and  modeled as:
+
+\begin{equation}
+	infected_{ij} \sim \mathrm{Binomial}(\theta_{j}, n_{i}).
+\end{equation}
+
+where $i = 1, 2, \ldots, 661$ and $J = 1, 2, \ldots, 301$. Here $infected_{i,j}$ indicates the number of infected individuals from the $i$th observation of the $j$th species,  $n_{i}$ is the total number of screened insects in observation $i$, and $\theta_{j}$ is the probability of infection for species $j$. 
+
+	We then assumed that the species-level probabilities of infection were drawn from a common normal distribution with a mean ($\pi$) and standard deviation ($\sigma$). The normal distribution is unconstrained, but $\theta$ is bounded between zero and one. Therefore we used the inverse-logit function to transform each $\theta_{j}$ to the [0,1] interval: 
+    
+\begin{align}    
+	\theta_{j} &= \frac{1}{1 + \exp(-\alpha_{j})} \\
+    \alpha_{j} &\sim \mathrm{Normal}((logit(\pi), \sigma).
+\end{align}
+
+The mean ($\pi$) describes the overall probability of infection across the lepidopteran species studied, and we gave it an uninformative beta hyperprior. To convert $\pi$ to an unconstrained scale for use with the normal prior, we transformed it using the logit function. Thus:
+
+\begin{align}
+  \pi &\sim \mathrm{Beta}(1,1)\\
+  logit(\pi) &= \log \frac{\pi}{1-\pi}.
+\end{align}
+
+Likewise, the standard deviation ($\sigma$) measures how much variation in the probability of infection there is across species. If $\sigma$ is small, then infection probabilities will be similar among species. Conversely, if $\sigma$ is large, species-specific probabilities of infection will be more idiosyncratic. We chose a weakly informative prior for $\sigma$ as recommended by ***Gelman as follows:
+
+\begin{equation}
+	\sigma \sim \mathrm{half-Cauchy}(0,2).
+\end{equation}
+
+
+
+
+
+\bibliography{Wolbachia}
+%\renewcommand*{\bibname}{Literature Cited}
+ \bibliographystyle{amnat}
+
+\end{document}
+
