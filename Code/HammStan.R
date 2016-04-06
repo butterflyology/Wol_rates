@@ -32,3 +32,4 @@ sd(sppInfect)
 ##### data from Weinert et al 2015
 #####
 
+plot(density(rbeta(100, 1, 1)))
