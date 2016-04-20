@@ -1,4 +1,6 @@
-Regier_data/
+Regier_data/*.pdf
 Images/
 .Rapp.history
-Data
+Misof_trees/*.pdf
+MultiLevModel/*.pdf
+
