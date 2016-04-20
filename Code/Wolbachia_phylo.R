@@ -10,7 +10,7 @@ library("phytools")
 sessID <- sessionInfo()
 
 
-Lep.tree <- read.nexus("Regier_data/journal.pone.0058568.s009.TRE")
+Lep.tree <- read.nexus("Regier_data/Fam_codes.TRE")
 Lep.tree
 head(Lep.tree$tip.label)
 
