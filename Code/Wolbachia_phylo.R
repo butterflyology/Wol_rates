@@ -29,7 +29,10 @@ get.off <- which(duplicated(Lep.tree$tip.label))
 
 Lep.nodups <- drop.tip(Lep.tree, tip = get.off)
 length(Lep.nodups$tip.label)
-plot.phylo(Lep.nodups, cex = 0.4, no.margin = TRUE)
+
+# pdf(file = "Regier_fams.pdf", bg = "white")
+plot.phylo(Lep.nodups, cex = 0.5, no.margin = TRUE)
+# dev.off()
 duplicated(Lep.nodups$tip.label)
 
 Lep.vcv <- vcv.phylo(phy = Lep.nodups, corr = TRUE, model = "BM")
