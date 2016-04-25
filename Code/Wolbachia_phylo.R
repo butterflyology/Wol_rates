@@ -2,8 +2,8 @@
 
 set.seed(98523782)
 
-setwd("~/Desktop/Projects/Wolbachia_rates")
-
+### setwd("~/Desktop/Projects/Wolbachia_rates")
+setwd("~/Dropbox/Wol_rates")
 
 library("phytools")
 
@@ -32,6 +32,26 @@ length(Lep.nodups$tip.label)
 plot.phylo(Lep.nodups, cex = 0.4, no.margin = TRUE)
 duplicated(Lep.nodups$tip.label)
 
-Lep.vcv <- vcvPhylo(tree = Lep.nodups, anc.nodes = FALSE, model = "BM")
+Lep.vcv <- vcv.phylo(phy = Lep.nodups, corr = TRUE, model = "BM")
+oPhy <- order(colnames(Lep.vcv))
+Lep.vcv <- Lep.vcv[oPhy, oPhy]
+
+x <- famCode %in% colnames(Lep.vcv) != TRUE
+famCode[x]
+
+weinDat <- read.csv("Data/Weinert_data_cleaned.csv", stringsAsFactors = FALSE)
+
+wol <- weinDat[weinDat$Bacterium == "Wolbachia" & weinDat$Order == "lepidoptera" & weinDat$Infected <= weinDat$Total & weinDat$Family != "Unid." & weinDat$Family != "Unid",]
+
+wol$spp <- paste(wol$Family,wol$species, sep = "_")
+wol$fam <- wol$Family
+wol <- wol[order(wol$spp),]
+famCode <- casefold(substring(unique(wol$fam), 1,4), upper=TRUE)
+names(wol)
+
+
+
+
+
 
 head(Lep.vcv)
