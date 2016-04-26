@@ -6,6 +6,7 @@ set.seed(98523782)
 setwd("~/Dropbox/Wol_rates")
 
 library("phytools")
+library("geiger")
 
 sessID <- sessionInfo()
 
@@ -18,7 +19,7 @@ head(Lep.tree$tip.label)
 plot.phylo(Lep.tree, cex = 0.4, no.margin = TRUE)
 
 
-Lep.vcv <- vcvPhylo(tree = Lep.tree, anc.nodes = FALSE, model = "BM")
+# Lep.vcv <- vcvPhylo(tree = Lep.tree, anc.nodes = FALSE, model = "BM")
 
 length(Lep.tree$tip.label)
 length(unique(Lep.tree$tip.label))
@@ -51,10 +52,14 @@ wol$fam <- wol$Family
 wol <- wol[order(wol$spp),]
 famCode <- casefold(substring(unique(wol$fam), 1,4), upper=TRUE)
 names(wol)
-
-
-
-
-
-
 head(Lep.vcv)
+
+
+## rescale via OU model with different alphas
+vcv.ou.1 <- rescale(x = Lep.nodups, model = "OU", 0.1)
+
+vcv.ou.5 <- rescale(x = Lep.nodups, model = "OU", 0.5)
+
+vcv.ou.9 <- rescale(x = Lep.nodups, model = "OU", 0.9)
+##### Need to simulate data
+
