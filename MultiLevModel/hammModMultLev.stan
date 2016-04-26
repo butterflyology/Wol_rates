@@ -53,6 +53,7 @@ model {
 generated quantities {
 /* New data for posterior predictive check simulated according to our model. If model does a good job then the new data should be very close to actual data. */ 
 
+  vector[nObs] log_lik;
   vector<lower=0>[nObs] yNew;
   vector<lower=0,upper=1>[nSpp] infectNewS;	
   vector<lower=0, upper=1>[nFam] infectNewF;
@@ -68,6 +69,8 @@ generated quantities {
     infectNewS[s] <- bernoulli_rng(thetaS[s]);
 
 
-  for(n in 1:nObs)
+  for(n in 1:nObs) {
     yNew[n] <- binomial_rng(N[n], thetaS[Species[n]]);
+    log_lik[n] <- binomial_log(Pos[n], N[n], thetaS[Species[n]]);
+  }
 }
