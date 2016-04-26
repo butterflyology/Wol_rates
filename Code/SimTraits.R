@@ -32,8 +32,6 @@ BrownianEvolveParameters <- function(phy, start.value, rate, inverselogit = TRUE
     }
 }
 
-# evolve under logit
-# take inverse logit of output
 
 t1 <- pbtree(b = 0.5, d = 0.0001, n = 100, nsim = 1, type = "cont")
 plot(t1)
