@@ -25,7 +25,7 @@ BrownianEvolveParameters <- function(phy, start.value, rate, logspace = TRUE){
     }
 }
 
-t1 <- pbtree(b = 0.5, d = 0.001, n = 100, nsim = 1, type = "cont")
+t1 <- pbtree(b = 0.5, d = 0.0001, n = 100, nsim = 1, type = "cont")
 plot(t1)
 
 bt1 <- BrownianEvolveParameters(phy = t1, start.value = 0, rate = 0.0001)
