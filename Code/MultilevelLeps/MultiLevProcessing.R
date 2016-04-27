@@ -9,7 +9,8 @@ rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())
 
 # save(file = "Data/Wolbachia_output.RData", list = ls())
-load("Data/Lep.vcv.R")
+# load("Data/Lep.vcv.R")
+load("Data/Lep.vcv.ultra.R")
 
 
 weinDat <- read.csv("Data/Weinert_data_cleaned.csv",stringsAsFactors=FALSE)
@@ -105,8 +106,8 @@ OU1 <- as.data.frame(fitOU1, "infectG")
 OU5 <- as.data.frame(fitOU5, "infectG")
 OU9 <- as.data.frame(fitOU9, "infectG")
 
-prob <- rbind(nPhy, BM, OU1,OU5,OU9)$infectG
-mod <- rep(c("nP", "BM", "OU1", "OU5", "OU9"), each=nrow(BM))
+prob <- rbind(OU9, nPhy, OU1, OU5, BM)$infectG
+mod <- rep(c("OU9","NP", "OU5", "OU1","BM"), each=nrow(BM))
 out <- data.frame(prob=prob,mod=mod)
 
 upper <- function(x) {
@@ -127,15 +128,17 @@ pirateplot(prob~mod, data=out, ylim=c(0,1), line.fun=median, pal="bugs", bar.o=0
 
 
 
-OU5 <- as.data.frame(fitOU5, "infectF")
+OU9 <- as.data.frame(fitOU9, "infectF")
 
-meds <- apply(OU5,2,upper)
+meds <- apply(OU9,2,upper)
 medOrd <- order(meds)
-ouPost <- unlist(OU5[,medOrd])
-families <- rep(colnames(Lep.vcv$vcv.ou9)[medOrd], each=nrow(OU5))
+ouPost <- unlist(OU9[,medOrd])
+families <- rep(colnames(Lep.vcv$vcv.ou9)[medOrd], each=nrow(OU9))
 out <- data.frame(prob=ouPost, families=families)
 
-pirateplot(prob~families, data=out, ylim=c(0,1), line.fun=upper, pal="ghostbusters", bar.o=0, line.o=0.7, bean.o=0.8, point.o=0.05, yaxt="l",bty="l", las=1)
+xlabel <- rep(" ", ncol(OU9))
+
+pirateplot(prob~families, data=out, ylim=c(0,1), line.fun=upper, pal="ghostbusters", bar.o=0, line.o=0.7, bean.o=0.8, point.o=0.05, yaxt="l",bty="n", las=1, xaxt="l", xlab=NULL)
            
 pirateplot(prob~families, data=out, ylim=c(0,1), line.fun=lower, pal="ghostbusters", bar.o=0, line.o=0.7, bean.o=0, point.o=0, yaxt="l",bty="l", las=1, add=TRUE)
            

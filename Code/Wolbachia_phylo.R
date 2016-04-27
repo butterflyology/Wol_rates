@@ -3,7 +3,7 @@
 set.seed(98523782)
 
 ### setwd("~/Desktop/Projects/Wolbachia_rates")
-setwd("~/Dropbox/Wol_rates")
+### setwd("~/Dropbox/Wol_rates")
 
 library("phytools")
 library("geiger")
@@ -37,7 +37,30 @@ plot.phylo(Lep.nodups, cex = 0.5, no.margin = TRUE)
 # dev.off()
 duplicated(Lep.nodups$tip.label)
 
+
 ###### Get Weinert data ready
+
+
+lam <- 10^(-1:4)
+cv <- sapply(lam, function(x) sum(attr(chronopl(Lep.nodups, lambda = x, CV = TRUE), "D2")))
+plot(lam, cv, pch = 19, ylab = "cross-validation score", xlab = expression(paste(lambda)), las = 1, cex = 1.5) # lowest CV. Small lambda means that every branch gets its own rate, larger and you are more clock like. Best lambda is 1e3.
+
+Lep.nodups.ultra <- chronopl(phy = Lep.nodups, lambda = 1e3, CV = TRUE, eval.max = 1e3, iter.max = 1e4)
+is.ultrametric(Lep.nodups.ultra)
+plot(Lep.nodups.ultra)
+
+# write.nexus(Lep.nodups.ultra, file = "Regier_data/Lep.ultra.nex")
+ Lep.ultra <- read.nexus("Regier_data/Lep.ultra.nex")
+
+
+Lep.vcv <- vcv.phylo(phy = Lep.ultra, corr = TRUE, model = "BM")
+oPhy <- order(colnames(Lep.vcv))
+Lep.vcv <- Lep.vcv[oPhy, oPhy]
+
+x <- famCode %in% colnames(Lep.vcv) != TRUE
+famCode[x]
+
+
 weinDat <- read.csv("Data/Weinert_data_cleaned.csv", stringsAsFactors = FALSE)
 
 wol <- weinDat[weinDat$Bacterium == "Wolbachia" & weinDat$Order == "lepidoptera" & weinDat$Infected <= weinDat$Total & weinDat$Family != "Unid." & weinDat$Family != "Unid" & weinDat$Family != "Riodinidae",]
@@ -48,10 +71,10 @@ wol <- wol[order(wol$spp),]
 famCode <- casefold(substring(unique(wol$fam), 1,4), upper=TRUE)
 
 
-unShared <- which(Lep.nodups$tip.label %in% famCode == FALSE)
+unShared <- which(Lep.ultra$tip.label %in% famCode == FALSE)
 
-finalTree <- drop.tip(Lep.nodups, tip = unShared)
-## write.nexus(finalTree, file="finalTree.tre")
+finalTree <- drop.tip(Lep.ultra, tip = unShared)
+ write.nexus(finalTree, file="finalTree.tre")
 
 read.nexus("Data/finalTree.tre")
 
@@ -77,7 +100,7 @@ ou.9 <- rescale(x = finalTree, model = "OU", 0.9)
 vcv.ou9 <- vcv.phylo(phy = ou.9, corr = TRUE, model = "BM")[oPhy,oPhy]
 
 Lep.vcv <- list(vcv.BM=vcv.BM, vcv.ou1=vcv.ou1, vcv.ou5=vcv.ou5, vcv.ou9=vcv.ou9)
-save(Lep.vcv, file="Data/Lep.vcv.R")
+save(Lep.vcv, file="Data/Lep.vcv.ultra.R")
 
 
 ##### Need to simulate data
