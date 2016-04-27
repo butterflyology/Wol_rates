@@ -51,24 +51,35 @@ famCode <- casefold(substring(unique(wol$fam), 1,4), upper=TRUE)
 unShared <- which(Lep.nodups$tip.label %in% famCode == FALSE)
 
 finalTree <- drop.tip(Lep.nodups, tip = unShared)
-save(finalTree, file="finalTree.R")
+## write.nexus(finalTree, file="finalTree.tre")
 
-Lep.vcv <- vcv.phylo(phy = finalTree, corr = TRUE, model = "BM")
-oPhy <- order(colnames(Lep.vcv))
-Lep.vcv <- Lep.vcv[oPhy, oPhy]
+read.nexus("Data/finalTree.tre")
 
-save(Lep.vcv, file="Lep.vcv.R")
+
+vcv.BM <- vcv.phylo(phy = finalTree, corr = TRUE, model = "BM")
+oPhy <- order(colnames(vcv.BM))
+vcv.BM <- vcv.BM[oPhy, oPhy]
+
+
 
 names(wol)
 head(Lep.vcv)
 
 
 ## rescale via OU model with different alphas
-vcv.ou.1 <- rescale(x = Lep.nodups, model = "OU", 0.1)
+ou.1 <- rescale(x = finalTree, model = "OU", 0.1)
+vcv.ou1 <- vcv.phylo(phy = ou.1, corr = TRUE, model = "BM")[oPhy,oPhy]
 
-vcv.ou.5 <- rescale(x = Lep.nodups, model = "OU", 0.5)
+ou.5 <- rescale(x = finalTree, model = "OU", 0.5)
+vcv.ou5 <- vcv.phylo(phy = ou.5, corr = TRUE, model = "BM")[oPhy,oPhy]
 
-vcv.ou.9 <- rescale(x = Lep.nodups, model = "OU", 0.9)
+ou.9 <- rescale(x = finalTree, model = "OU", 0.9)
+vcv.ou9 <- vcv.phylo(phy = ou.9, corr = TRUE, model = "BM")[oPhy,oPhy]
+
+Lep.vcv <- list(vcv.BM=vcv.BM, vcv.ou1=vcv.ou1, vcv.ou5=vcv.ou5, vcv.ou9=vcv.ou9)
+save(Lep.vcv, file="Data/Lep.vcv.R")
+
+
 ##### Need to simulate data
 
 
