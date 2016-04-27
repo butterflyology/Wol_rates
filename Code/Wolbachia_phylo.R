@@ -3,7 +3,7 @@
 set.seed(98523782)
 
 ### setwd("~/Desktop/Projects/Wolbachia_rates")
-setwd("~/Dropbox/Wol_rates")
+### setwd("~/Dropbox/Wol_rates")
 
 library("phytools")
 library("geiger")
@@ -36,7 +36,20 @@ plot.phylo(Lep.nodups, cex = 0.5, no.margin = TRUE)
 # dev.off()
 duplicated(Lep.nodups$tip.label)
 
-Lep.vcv <- vcv.phylo(phy = Lep.nodups, corr = TRUE, model = "BM")
+
+lam <- 10^(-1:4)
+cv <- sapply(lam, function(x) sum(attr(chronopl(Lep.nodups, lambda = x, CV = TRUE), "D2")))
+plot(lam, cv, pch = 19, ylab = "cross-validation score", xlab = expression(paste(lambda)), las = 1, cex = 1.5) # lowest CV. Small lambda means that every branch gets its own rate, larger and you are more clock like. Best lambda is 1e3.
+
+Lep.nodups.ultra <- chronopl(phy = Lep.nodups, lambda = 1e3, CV = TRUE, eval.max = 1e3, iter.max = 1e4)
+is.ultrametric(Lep.nodups.ultra)
+plot(Lep.nodups.ultra)
+
+# write.nexus(Lep.nodups.ultra, file = "Regier_data/Lep.ultra.nex")
+# read.nexus("Regier_data/Lep.ultra.nex")
+
+
+Lep.vcv <- vcv.phylo(phy = Lep.nodups.ultra, corr = TRUE, model = "BM")
 oPhy <- order(colnames(Lep.vcv))
 Lep.vcv <- Lep.vcv[oPhy, oPhy]
 
