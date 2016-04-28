@@ -167,5 +167,12 @@ points(1:length(medS), as.vector(medS[oS]), pch = 16, col = "red", cex = 0.4)
 
 
 # barplot of sample size by family
+unique(wol$spp)
+length(unique(wol$spp))
+
 g <- table(wol$Family)
-barplot(g, las = 2)
+length(g)
+# pdf("Images/Fams_bar.pdf", bg = "white")
+par(mar = c(6.1, 4, 1, 1))
+barplot(sort(g), las = 2, ylim = c(0, 350), cex.names = 0.9, ylab = "Samples")
+# dev.off()
