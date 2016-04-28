@@ -8,4 +8,5 @@ Major commits by date (2016):
   * 24 April - Added OU correction with multiple alpha value
   * 25 April - Phylogenetically corrected model, early code for simulating data
   * 26 April - Models incorporating phylogenetic correction working, full simuation code working for BM and OU models
-  * 27 April - Made tree ultrametric
+  * 27 April - Made tree ultrametric, calculated vcv from ultrametric tree, ran models with different vcv corrections
+  * 28 April - Made figures
