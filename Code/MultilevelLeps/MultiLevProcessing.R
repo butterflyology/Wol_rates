@@ -29,8 +29,9 @@ wol <- weinDat[weinDat$Bacterium == "Wolbachia"
 wol$spp <- paste(wol$Family, wol$species, sep = "_")
 wol$fam <- wol$Family
 wol <- wol[order(wol$spp), ]
-
-
+str(wol)
+sum(wol$Total)
+sum(wol$Infected)
 
 temp <- unique.matrix(cbind(wol$fam, wol$spp)) 
 

@@ -9,4 +9,5 @@ Major commits by date (2016):
   * 25 April - Phylogenetically corrected model, early code for simulating data
   * 26 April - Models incorporating phylogenetic correction working, full simuation code working for BM and OU models
   * 27 April - Made tree ultrametric, calculated vcv from ultrametric tree, ran models with different vcv corrections
-  * 28 April - Made figures
+  * 28 April - Made figures, barplots by samples and proportion of species in family, added updated .tex files.
+
