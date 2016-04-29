@@ -75,16 +75,24 @@ datOU9 <- list(nObs = dim(wol)[1],
                Species = as.numeric(as.factor(wol$spp)),
                Family = as.numeric(as.factor(temp[, 1])))
 
-fitNPhy <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datNPhy, iter = 2500, chains = 4, seed = 4, control = list(adapt_delta = 0.96))
+# fitNPhy <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datNPhy, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
+# 
+# fitBM <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datBM, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
+# 
+# fitOU1 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU1, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
+# 
+# fitOU5 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU5, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
+# 
+# fitOU9 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU9, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
 
-fitBM <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datBM, iter = 2500, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp"), include = FALSE)
-
-fitOU1 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU1, iter = 2500, chains = 4, seed = 4, control = list(adapt_delta = 0.96))
-
-fitOU5 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU5, iter = 2500, chains = 4, seed = 4, control = list(adapt_delta = 0.96))
-
-fitOU9 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU9, iter = 2500, chains = 4, seed = 4, control = list(adapt_delta = 0.96))
-
+# mods <- list(fitNPhy=fitNPhy, fitBM=fitBM, fitOU1=fitOU1, fitOU5=fitOU5, fitOU9 = fitOU9)
+# save(mods, file="Code/MultilevelLeps/stanMods.R")
+load("Code/MultilevelLeps/stanMods.R")
+fitNPhy <- mods$fitNPhy
+fitBM <- mods$fitBM
+fitOU1 <- mods$fitOU1
+fitOU5 <- mods$fitOU5
+fitOU9 <- mods$fitOU9
 
 logNP <- extract_log_lik(fitNPhy)
 logBM <- extract_log_lik(fitBM)
@@ -119,9 +127,9 @@ lower <- function(x) {
   return(quantile(x, prob = 0.025))
 }
 
-
-par(mar = c(3, 4, 1.5, 0.8))
-pirateplot(prob ~ mod, data = out, ylim = c(0, 1), line.fun = upper, pal = "bugs", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "l", las = 1)
+pdf(width = 3.4, height = 4)
+par(mar = c(3, 4, 1.5, 0))
+piPlot(prob ~ mod, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.01, yaxt = "l", bty = "l", las = 1)
 
 pirateplot(prob ~ mod, data = out, ylim = c(0, 1), line.fun = lower, pal = "bugs", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE)
 
@@ -172,7 +180,12 @@ length(unique(wol$spp))
 
 g <- table(wol$Family)
 length(g)
-# pdf("Images/Fams_bar.pdf", bg = "white")
-par(mar = c(6.1, 4, 1, 1))
-barplot(sort(g), las = 2, ylim = c(0, 350), cex.names = 0.9, ylab = "Samples")
-# dev.off()
+pdf("Fams_bar.pdf", bg = "white", width=3.39, height=4)
+
+quartz(width=3.4, height=4, bg="white")
+#par(pin = c(3.39, 3.5))
+par(ps=10)
+par(mar = c(6.1, 3, 0.4, 0))
+
+barplot(sort(g), las = 2, ylim = c(0, 350), cex.names = 0.9, ylab = "Samples", axes=FALSE, space=0.3)
+ #dev.off()
