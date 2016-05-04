@@ -3,7 +3,9 @@ library("rstan")
 library("shinystan")
 library("loo")
 library("yarrr")
-setwd("~/Dropbox/Wol_rates")
+
+sessID <- sessionInfo()
+# setwd("~/Dropbox/Wol_rates")
 # setwd("~/Desktop/Projects/Wolbachia_rates")
 source("Code/pplots.R")
 rstan_options(auto_write = TRUE)
@@ -12,25 +14,25 @@ options(mc.cores = parallel::detectCores())
 # save(file = "Data/Wolbachia_output.RData", list = ls())
 # load("Data/Lep.vcv.R")
 load("Data/Lep.vcv.ultra.R")
+# source("~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R")
+
+weinDat <- read.csv("Data/Weinert_data_cleaned.csv", stringsAsFactors = FALSE)
 
 
-weinDat <- read.csv("Data/Weinert_data_cleaned.csv",stringsAsFactors=FALSE)
-
-
-sessID <- sessionInfo()
 
 wol <- weinDat[weinDat$Bacterium == "Wolbachia" 
                & weinDat$Order == "lepidoptera" 
                & weinDat$Infected <= weinDat$Total
                & weinDat$Family != "Unid." 
                & weinDat$Family != "Unid" 
-               & weinDat$Family != "Riodinidae",]
+               & weinDat$Family != "Riodinidae", ]
 
 wol$spp <- paste(wol$Family, wol$species, sep = "_")
 wol$fam <- wol$Family
 wol <- wol[order(wol$spp), ]
-
-
+str(wol)
+sum(wol$Total)
+sum(wol$Infected)
 
 temp <- unique.matrix(cbind(wol$fam, wol$spp)) 
 
@@ -146,8 +148,12 @@ quartz.save(type = "pdf",file = "Grand infection probability.pdf", dpi=300, bg="
 
 OU9 <- as.data.frame(fitOU9, "infectF")
 
+
 fams <- unique(wol$Family)
 meds <- apply(OU9,2,upper)
+
+meds <- apply(OU9, 2, upper)
+
 medOrd <- order(meds)
 ouPost <- unlist(OU9[, medOrd])
 families <- rep(fams[medOrd], each = nrow(OU9))
@@ -155,9 +161,20 @@ out <- data.frame(prob = ouPost, families = families)
 
 xlabel <- rep(" ", ncol(OU9))
 
+
 quartz(width=7.09, height=6, bg="white")
 par(mar = c(6.6, 3.4, 0.17, 0))
 par(xpd=FALSE)
+
+# pdf(file = "Images/Fam_freqs.pdf", bg = "white")
+par(las = 2)
+pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "n", las = 2, xaxt = "n", xlab = "Lepidoptera family", ylab = "Infection frequency")
+           
+pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = lower, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
+           
+pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
+# dev.off()
+
 
 pPlot2(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.01, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab="")
     
@@ -176,7 +193,7 @@ quartz.save(type = "pdf", file="familyProb.pdf")
 ## Phylogeny Plot
 #----------------------
 
-probS <- as.matrix(fit, "infectS")
+probS <- as.matrix(fitOU1, "infectS")
 medS <- apply(probS, 2, median)
 probS <- probS[oS, ]
 oS <- order(medS)
@@ -192,7 +209,7 @@ unique(wol$spp)
 length(unique(wol$spp))
 
 g <- table(wol$Family)
-g <- as.list(g)
+# g <- as.list(g)
 length(g)
 
 pdf("Fams_bar.pdf", bg = "white", width=3.39, height=4)
@@ -218,6 +235,11 @@ gprime <- as.table(c(g[1] / 185, g[2] / 49, g[3] / 113, g[4] / 9655, g[6] / 660,
 
 # pdf("Images/Prop_fams_bar.pdf", bg = "white")
 par(mar = c(6.1, 4.5, 1, 1))
+
 barplot(sort(gprime), las = 2, cex.names = 0.9, ylab = "Proportion of family represented", ylim = c(0, 0.7))
+# dev.off()
+
+
+barplot(sort(gprime), las = 2, cex.names = 0.9, ylab = "Proportion of family represented", ylim = c(0, 1.0))
 # dev.off()
 
