@@ -3,7 +3,9 @@ library("rstan")
 library("shinystan")
 library("loo")
 library("yarrr")
-setwd("~/Dropbox/Wol_rates")
+
+sessID <- sessionInfo()
+# setwd("~/Dropbox/Wol_rates")
 # setwd("~/Desktop/Projects/Wolbachia_rates")
 
 rstan_options(auto_write = TRUE)
@@ -12,19 +14,18 @@ options(mc.cores = parallel::detectCores())
 # save(file = "Data/Wolbachia_output.RData", list = ls())
 # load("Data/Lep.vcv.R")
 load("Data/Lep.vcv.ultra.R")
+# source("~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R")
+
+weinDat <- read.csv("Data/Weinert_data_cleaned.csv", stringsAsFactors = FALSE)
 
 
-weinDat <- read.csv("Data/Weinert_data_cleaned.csv",stringsAsFactors=FALSE)
-
-
-sessID <- sessionInfo()
 
 wol <- weinDat[weinDat$Bacterium == "Wolbachia" 
                & weinDat$Order == "lepidoptera" 
                & weinDat$Infected <= weinDat$Total
                & weinDat$Family != "Unid." 
                & weinDat$Family != "Unid" 
-               & weinDat$Family != "Riodinidae",]
+               & weinDat$Family != "Riodinidae", ]
 
 wol$spp <- paste(wol$Family, wol$species, sep = "_")
 wol$fam <- wol$Family
@@ -132,20 +133,21 @@ pirateplot(prob ~ mod, data = out, ylim = c(0, 1), line.fun = median, pal = "bug
 
 OU9 <- as.data.frame(fitOU9, "infectF")
 
-meds <- apply(OU9,2,upper)
+meds <- apply(OU9, 2, upper)
 medOrd <- order(meds)
 ouPost <- unlist(OU9[, medOrd])
 families <- rep(colnames(Lep.vcv$vcv.ou9)[medOrd], each = nrow(OU9))
 out <- data.frame(prob = ouPost, families = families)
 
 xlabel <- rep(" ", ncol(OU9))
-
-pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "n", las = 1, xaxt = "l", xlab = NULL)
+# pdf(file = "Images/Fam_freqs.pdf", bg = "white")
+par(las = 2)
+pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "n", las = 2, xaxt = "n", xlab = "Lepidoptera family", ylab = "Infection frequency")
            
-pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = lower, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE)
+pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = lower, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
            
-pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE)
-
+pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
+# dev.off()
 
 
 
