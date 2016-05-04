@@ -158,7 +158,7 @@ pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal =
 ## Phylogeny Plot
 #----------------------
 
-probS <- as.matrix(fit, "infectS")
+probS <- as.matrix(fitOU1, "infectS")
 medS <- apply(probS, 2, median)
 probS <- probS[oS, ]
 oS <- order(medS)
@@ -174,7 +174,7 @@ unique(wol$spp)
 length(unique(wol$spp))
 
 g <- table(wol$Family)
-g <- as.list(g)
+# g <- as.list(g)
 length(g)
 
 
@@ -189,5 +189,5 @@ gprime <- as.table(c(g[1] / 185, g[2] / 49, g[3] / 113, g[4] / 9655, g[6] / 660,
 
 # pdf("Images/Prop_fams_bar.pdf", bg = "white")
 par(mar = c(6.1, 4.5, 1, 1))
-barplot(sort(gprime), las = 2, cex.names = 0.9, ylab = "Proportion of family represented", ylim = c(0, 0.7))
+barplot(sort(gprime), las = 2, cex.names = 0.9, ylab = "Proportion of family represented", ylim = c(0, 1.0))
 # dev.off()
