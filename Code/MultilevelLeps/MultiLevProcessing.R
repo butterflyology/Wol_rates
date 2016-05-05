@@ -33,6 +33,20 @@ wol <- wol[order(wol$spp), ]
 str(wol)
 sum(wol$Total)
 sum(wol$Infected)
+unique(wol$spp)
+length(unique(wol$spp))
+length(unique(wol$Family))
+
+dim(wol[wol$Infected >= 0, ])
+dim(wol[wol$Infected >= 1, ])
+dim(wol[wol$Infected == 0, ])
+
+pos <- wol[wol$Infected >= 1, ]
+length(unique(pos$spp))
+neg <- wol[wol$Infected == 0, ]
+length(unique(neg$spp))
+tot <-wol[wol$Infected >= 0, ]
+length(unique(tot$Family))
 
 temp <- unique.matrix(cbind(wol$fam, wol$spp)) 
 
@@ -170,9 +184,6 @@ points(1:length(medS), as.vector(medS[oS]), pch = 16, col = "red", cex = 0.4)
 
 
 # barplot of sample size by family
-unique(wol$spp)
-length(unique(wol$spp))
-
 g <- table(wol$Family)
 # g <- as.list(g)
 length(g)
@@ -189,5 +200,5 @@ gprime <- as.table(c(g[1] / 185, g[2] / 49, g[3] / 113, g[4] / 9655, g[6] / 660,
 
 # pdf("Images/Prop_fams_bar.pdf", bg = "white")
 par(mar = c(6.1, 4.5, 1, 1))
-barplot(sort(gprime), las = 2, cex.names = 0.9, ylab = "Proportion of family represented", ylim = c(0, 1.0))
+barplot(sort(gprime), las = 2, cex.names = 0.9, ylab = "Proportion of family sampled", ylim = c(0, 1.0))
 # dev.off()
