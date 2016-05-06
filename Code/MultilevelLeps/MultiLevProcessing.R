@@ -3,9 +3,10 @@ library("rstan")
 library("shinystan")
 library("loo")
 library("yarrr")
+library("rethinking")
 
 sessID <- sessionInfo()
-# setwd("~/Dropbox/Wol_rates")
+ setwd("~/Dropbox/Wol_rates")
 # setwd("~/Desktop/Projects/Wolbachia_rates")
 source("Code/pplots.R")
 rstan_options(auto_write = TRUE)
@@ -77,49 +78,54 @@ datOU9 <- list(nObs = dim(wol)[1],
                Species = as.numeric(as.factor(wol$spp)),
                Family = as.numeric(as.factor(temp[, 1])))
 
-# fitNPhy <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datNPhy, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
-# 
-# fitBM <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datBM, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
-# 
-# fitOU1 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU1, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
-# 
-# fitOU5 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU5, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
-# 
-# fitOU9 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU9, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
+fitNPhy <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datNPhy, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE, thin=5)
+
+fitBM <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datBM, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE, thin=5)
+
+fitOU1 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU1, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE, thin=5)
+
+fitOU5 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU5, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE, thin=5)
+
+fitOU9 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU9, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE, thin=5)
 
 # mods <- list(fitNPhy=fitNPhy, fitBM=fitBM, fitOU1=fitOU1, fitOU5=fitOU5, fitOU9 = fitOU9)
 # save(mods, file="Code/MultilevelLeps/stanMods.R")
-load("Dropbox/Wol_Leps/MultiLevModel/stanMods.R")
-fitNPhy <- mods$fitNPhy
-fitBM <- mods$fitBM
-fitOU1 <- mods$fitOU1
-fitOU5 <- mods$fitOU5
-fitOU9 <- mods$fitOU9
+load("~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R")
+ fitNPhy <- mods$fitNPhy
+ fitBM <- mods$fitBM
+ fitOU1 <- mods$fitOU1
+ fitOU5 <- mods$fitOU5
+ fitOU9 <- mods$fitOU9
+# 
+# logNP <- extract_log_lik(fitNPhy)
+# logBM <- extract_log_lik(fitBM)
+# logOU1 <- extract_log_lik(fitOU1)
+# logOU5 <- extract_log_lik(fitOU5)
+# logOU9 <- extract_log_lik(fitOU9)
+# 
+# aicNP <- waic(logNP)
+# aicBM <- waic(logBM)
+# aicOU1 <- waic(logOU1)
+# aicOU5 <- waic(logOU5)
+# aicOU9 <- waic(logOU9)
+# compare(aicNP, aicBM, aicOU1, aicOU5, aicOU9)
 
-logNP <- extract_log_lik(fitNPhy)
-logBM <- extract_log_lik(fitBM)
-logOU1 <- extract_log_lik(fitOU1)
-logOU5 <- extract_log_lik(fitOU5)
-logOU9 <- extract_log_lik(fitOU9)
+x <- compare(fitNPhy, fitBM, fitOU1, fitOU5, fitOU9)
+wts <- data.frame(mod = dimnames(x@output)[[1]], wts = round(x@output$weight,3))
 
-aicNP <- waic(logNP)
-aicBM <- waic(logBM)
-aicOU1 <- waic(logOU1)
-aicOU5 <- waic(logOU5)
-aicOU9 <- waic(logOU9)
+# unaveraged
+nPhy <- as.data.frame(fitNPhy, "infectG")$infectG
+BM   <- as.data.frame(fitBM, "infectG")$infectG
+OU1  <- as.data.frame(fitOU1, "infectG")$infectG
+OU5  <- as.data.frame(fitOU5, "infectG")$infectG
+OU9  <- as.data.frame(fitOU9, "infectG")$infectG
 
-x <- compare(aicNP, aicBM, aicOU1, aicOU5, aicOU9)
-
-
-nPhy <- as.data.frame(fitNPhy, "infectG")
-BM <- as.data.frame(fitBM, "infectG")
-OU1 <- as.data.frame(fitOU1, "infectG")
-OU5 <- as.data.frame(fitOU5, "infectG")
-OU9 <- as.data.frame(fitOU9, "infectG")
-
-prob <- rbind(nPhy, BM, OU1, OU5, OU9)$infectG
-mod <- rep(c("NP","BM", "0.1", "0.5","0.9"), each = nrow(BM))
-out <- data.frame(prob = prob, mod = mod)
+avg <- rowSums(cbind(
+  as.matrix(fitNPhy, "infectG") * wts[wts$mod == "fitNPhy",2], 
+  as.matrix(fitBM, "infectG") * wts[wts$mod == "fitBM",2],  
+  as.matrix(fitOU1, "infectG") * wts[wts$mod == "fitOU1",2],
+  as.matrix(fitOU5, "infectG") * wts[wts$mod == "fitOU5",2],
+  as.matrix(fitOU9, "infectG") * wts[wts$mod == "fitOU9",2]))
 
 upper <- function(x) {
   return(quantile(x, prob = 0.975))
@@ -129,34 +135,55 @@ lower <- function(x) {
   return(quantile(x, prob = 0.025))
 }
 
-quartz(width=3.4, height=4, bg="white")
+
+prob <- c(nPhy, BM, OU1, OU5, OU9, avg)
+mod <- rep(c("NP","BM", "0.1", "0.5","0.9", " Model"), each = length(BM))
+out <- data.frame(prob = prob, mod = mod)
+
+#quartz(width=3.4, height=4, bg="white")
+
 par(mar = c(2.9, 3.4, 0.16, 0))
 par(xpd=TRUE)
-pPlot1(prob ~ mod, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.01, yaxt = "l", bty = "l", las = 1, ylab="", col.lab="white")
+pPlot1(prob ~ mod, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.03, yaxt = "l", bty = "l", las = 1, ylab="", col.lab="white", point.pch=16)
 
-pirateplot(prob ~ mod, data = out, ylim = c(0, 1), line.fun = lower, line.lwd=2.5, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE, ylab="" )
 
-pirateplot(prob ~ mod, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE, line.lwd=2.5)
+pPlot3(prob ~ mod, data = out, ylim = c(0, 1), line.fun = lower, line.lwd=2.5, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE, ylab="" )
+
+pPlot3(prob ~ mod, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE, line.lwd=2.5)
 
 mtext("Infection probability", 2, cex=1.11, line = 2.37, font=1)
-segments(x0 = 2.7, y0 = -0.14, x1 = 5.3, y1=-0.14, lwd=3)
+segments(x0 = 2.7, y0 = -0.15, x1 = 5.3, y1=-0.15, lwd=3)
 text(x=3.99, y=-0.189, expression(paste("OU ", bold(alpha))), cex=1.1, font=2)
-quartz.save(type = "pdf",file = "Grand infection probability.pdf", dpi=300, bg="white")
+
+text(x=6.1, y=-0.138, "\nAvg.", cex=1, font=1)
+
+quartz.save(type = "pdf",file = "infection probability.pdf", bg="white")
 
 
+nPhy <- as.data.frame(fitNPhy, "infectF")
+BM   <- as.data.frame(fitBM, "infectF")
+OU1  <- as.data.frame(fitOU1, "infectF")
+OU5  <- as.data.frame(fitOU5, "infectF")
+OU9  <- as.data.frame(fitOU9, "infectF")
 
+famList <- list(
+  as.matrix(fitNPhy, "infectF") * wts[wts$mod == "fitNPhy",2], 
+  as.matrix(fitBM, "infectF") * wts[wts$mod == "fitBM",2],  
+  as.matrix(fitOU1, "infectF") * wts[wts$mod == "fitOU1",2],
+  as.matrix(fitOU5, "infectF") * wts[wts$mod == "fitOU5",2],
+  as.matrix(fitOU9, "infectF") * wts[wts$mod == "fitOU9",2])
 
-OU9 <- as.data.frame(fitOU9, "infectF")
+avgF <- as.data.frame(Reduce('+', famList))
 
 
 fams <- unique(wol$Family)
-meds <- apply(OU9,2,upper)
+meds <- apply(avgF,2,upper)
 
-meds <- apply(OU9, 2, upper)
+meds <- apply(avgF, 2, upper)
 
 medOrd <- order(meds)
-ouPost <- unlist(OU9[, medOrd])
-families <- rep(fams[medOrd], each = nrow(OU9))
+ouPost <- unlist(avgF[, medOrd])
+families <- rep(fams[medOrd], each = nrow(avgF))
 out <- data.frame(prob = ouPost, families = families)
 
 xlabel <- rep(" ", ncol(OU9))
@@ -176,11 +203,11 @@ pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal =
 # dev.off()
 
 
-pPlot2(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.01, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab="")
+pPlot2(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab="", point.pch=16)
     
-pPlot2(prob ~ families, data = out, ylim = c(0, 1), line.fun = lower, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab="", line.lwd=2.5, add=TRUE)
+pPlot3(prob ~ families, data = out, ylim = c(0, 1), line.fun = lower, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab="", line.lwd=2.5, add=TRUE)
 
-pPlot2(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab="", line.lwd=2.5, add=TRUE)
+pPlot3(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab="", line.lwd=2.5, add=TRUE)
        
 
 mtext("Infection probability", 2, cex=1.11, line = 2.37, font=1)
