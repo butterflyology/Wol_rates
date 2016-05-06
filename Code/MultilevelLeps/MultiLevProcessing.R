@@ -34,6 +34,20 @@ wol <- wol[order(wol$spp), ]
 str(wol)
 sum(wol$Total)
 sum(wol$Infected)
+unique(wol$spp)
+length(unique(wol$spp))
+length(unique(wol$Family))
+
+dim(wol[wol$Infected >= 0, ])
+dim(wol[wol$Infected >= 1, ])
+dim(wol[wol$Infected == 0, ])
+
+pos <- wol[wol$Infected >= 1, ]
+length(unique(pos$spp))
+neg <- wol[wol$Infected == 0, ]
+length(unique(neg$spp))
+tot <-wol[wol$Infected >= 0, ]
+length(unique(tot$Family))
 
 temp <- unique.matrix(cbind(wol$fam, wol$spp)) 
 
@@ -78,15 +92,15 @@ datOU9 <- list(nObs = dim(wol)[1],
                Species = as.numeric(as.factor(wol$spp)),
                Family = as.numeric(as.factor(temp[, 1])))
 
-fitNPhy <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datNPhy, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE, thin=5)
+fitNPhy <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datNPhy, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
 
-fitBM <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datBM, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE, thin=5)
+fitBM <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datBM, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
 
-fitOU1 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU1, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE, thin=5)
+fitOU1 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU1, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
 
-fitOU5 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU5, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE, thin=5)
+fitOU5 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU5, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
 
-fitOU9 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU9, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE, thin=5)
+fitOU9 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU9, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
 
 # mods <- list(fitNPhy=fitNPhy, fitBM=fitBM, fitOU1=fitOU1, fitOU5=fitOU5, fitOU9 = fitOU9)
 # save(mods, file="Code/MultilevelLeps/stanMods.R")
@@ -232,9 +246,6 @@ points(1:length(medS), as.vector(medS[oS]), pch = 16, col = "red", cex = 0.4)
 
 
 # barplot of sample size by family
-unique(wol$spp)
-length(unique(wol$spp))
-
 g <- table(wol$Family)
 # g <- as.list(g)
 length(g)
@@ -268,5 +279,9 @@ barplot(sort(gprime), las = 2, cex.names = 0.9, ylab = "Proportion of family rep
 
 
 barplot(sort(gprime), las = 2, cex.names = 0.9, ylab = "Proportion of family represented", ylim = c(0, 1.0))
+# dev.off()
+
+
+barplot(sort(gprime), las = 2, cex.names = 0.9, ylab = "Proportion of family sampled", ylim = c(0, 1.0))
 # dev.off()
 
