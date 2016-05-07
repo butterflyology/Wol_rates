@@ -6,7 +6,7 @@ library("yarrr")
 library("rethinking")
 
 sessID <- sessionInfo()
- setwd("~/Dropbox/Wol_rates")
+# setwd("~/Dropbox/Wol_rates")
 # setwd("~/Desktop/Projects/Wolbachia_rates")
 source("Code/pplots.R")
 rstan_options(auto_write = TRUE)
@@ -250,17 +250,6 @@ g <- table(wol$Family)
 # g <- as.list(g)
 length(g)
 
-pdf("Fams_bar.pdf", bg = "white", width=3.39, height=4)
-
-quartz(width=3.4, height=4, bg="white")
-#par(pin = c(3.39, 3.5))
-par(ps=10)
-par(mar = c(6.1, 3, 0.4, 0))
-
-barplot(sort(g), las = 2, ylim = c(0, 350), cex.names = 0.9, ylab = "Samples", axes=FALSE, space=0.3)
- #dev.off()
-
-
 
 # pdf("Images/Fams_bar.pdf", bg = "white")
 par(mar = c(6.1, 4, 1, 1))
@@ -273,15 +262,5 @@ gprime <- as.table(c(g[1] / 185, g[2] / 49, g[3] / 113, g[4] / 9655, g[6] / 660,
 
 # pdf("Images/Prop_fams_bar.pdf", bg = "white")
 par(mar = c(6.1, 4.5, 1, 1))
-
-barplot(sort(gprime), las = 2, cex.names = 0.9, ylab = "Proportion of family represented", ylim = c(0, 0.7))
-# dev.off()
-
-
 barplot(sort(gprime), las = 2, cex.names = 0.9, ylab = "Proportion of family represented", ylim = c(0, 1.0))
 # dev.off()
-
-
-barplot(sort(gprime), las = 2, cex.names = 0.9, ylab = "Proportion of family sampled", ylim = c(0, 1.0))
-# dev.off()
-
