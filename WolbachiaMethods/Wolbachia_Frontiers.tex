@@ -1,65 +1,47 @@
-\documentclass[12pt]{article}
-\linespread{1.5}
-\usepackage{times}
-\usepackage{natbib}
-\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
-\usepackage{gensymb}
-\usepackage{fancyhdr}
-\usepackage{pifont}
-\usepackage{graphicx}
-\usepackage{mdwlist}
-\pagestyle{fancy}
-\usepackage{amsmath}
-\usepackage{lineno}
-  \pagewiselinenumbers
-  \modulolinenumbers[2]
-\usepackage{setspace}
-  \doublespacing
-\usepackage{float}
-  \floatstyle{plaintop}
-  \restylefloat{table}
-\usepackage{placeins}
-%%%%%%%%%
-%%%%%%%%%
-%%%%%%%%%
+\documentclass{frontiersSCNS} 
+\usepackage{url,hyperref,lineno,microtype,subcaption}
+\usepackage[onehalfspacing]{setspace}
+\linenumbers
+
+
+\def\keyFont{\fontsize{8}{11}\helveticabold }
+\def\firstAuthorLast{Marion {et~al.}} 
+\def\Authors{Zachary H. Marion\,$^{1,*}$ and Christopher A. Hamm\,$^{2}$}
+\def\Address{$^{1}$Department of Ecology \& Evolutionary Biology, University of Tennessee, Knoxville, TN, USA \\
+
+$^{2}$Department of Ecology \& Evolutionary Biology, University of Kansas, Lawrence, KA, USA  }
+\def\corrAuthor{Zachary H. Marion}
+\def\corrEmail{zmarion@vols.utk.edu}
+
+%%%%%%
+%%%%%%
+%%%%%%
+
 \begin{document}
-\raggedright
-\setlength{\parindent}{0.3in}
+\onecolumn
+\firstpage{1}
 
-\begin{titlepage}
-\title{A hierarchical Bayesian approach to estimate endosymbiont infection rates}
-\author{Zachary H. Marion\textsuperscript{1,2} and Christopher A. Hamm\textsuperscript{3}}
-\date{\today}
+\title[Endosymbiont infection estimation]{A hierarchical Bayesian approach to estimate endosymbiont infection rates} 
+
+\author[\firstAuthorLast ]{\Authors} %This field will be automatically populated
+\address{} %This field will be automatically populated
+\correspondance{} %This field will be automatically populated
+
+\extraAuth{Department of Ecology \& Evolutionary Biology, University of Tennessee, 569 Dabney Hall, 1416 Circle Drive, Knoxville, TN, 37996, USA}
+
 \maketitle
-
-\textsuperscript{1} Corresponding author:\\
-email: zmarion@vols.utk.edu\\
-
-\textsuperscript{2}
-Department of Ecology and Evolutionary Biology\\
-University of Tennessee\\
-Knoxville, TN 37996\\
-
-\textsuperscript{3}
-Department of Ecology and Evolutionary Biology\\
-University of Kansas\\
-\hfill
-
-\textbf{Invited submission to a special edition of Frontiers in Microbiology}
-\end{titlepage}
-
-%%%%%%%%%
-%%%%%%%%%
-%%%%%%%%%
 \begin{abstract}
+
+\section{}
 Endosymbionts may play an important role in the evolution of the Insecta. Bacteria such as \emph{Wolbachia, Cardinium, \emph{and} Rickettsia} are known to manipulate their host' reproduction to facilitate their own. Indeed, there are many well know cases where \emph{Wolbachia} (Alphaproteobacteria: Rickettsiaceae
 ) induces one of four manipulative phenotypes (cytoplasmic incompatibility, male killing, feminization, and parthenogenesis). The scale of infection among species has been a major subject of investigation, but this is not an easy endeavor and different approaches have yielded different estimates. One aspect of this problem that may be underappreciated arises when multiple yet independent samples are taken within a species. When independent samples within species are treated as levels of a hierarchy the problem is greatly simplified because error propagates through the model in a realistic and intuitive manner. Here, we present a hierarchical Bayesian approach to estimate infection frequency where multiple independent samples were collected across multiple taxonomic levels. We apply this model to estimate the rates of infection for \emph{Wolbachia} in the Lepidoptera, and apply the model with a correction to account for phylogenetic non-independence. In addition, we highlight the present body of knowledge regarding \emph{Wolbachia} and its effects with regards to the Lepidoptera. Our model estimates suggests that the rate of endosymbiont infection in the Lepidoptera is lower than previously estimated. Given our limited knowledge regarding the phenotypes induced by these endosymbionts, we urge caution when interpreting the results of a positive assays.
+
+\tiny
+ \keyFont{ \section{Keywords:} \emph{Wolbachia}, Lepidoptera, modeling, keyword, kewyord} % keywords should not be present in the title 
 \end{abstract}
-\newpage
-%%%%%%%%%
-%%%%%%%%%
-%%%%%%%%%
+
 \section{Introduction}
+
 Bacterial endosymbionts have been known to inhabit insects for decades. These endosymbionts are maternally transmitted through the cytoplasm of the egg. \textit{Wolbachia} was the first of these endosymbionts to be discovered when \citet{Hertig:1924wy} examined the adult ovaries and testes of \textit{Culex pipiens} (hence the specific epithet \textit{Wolbachia pipientis}) \citet{Hertig:1936}. Some years later, \citet{Yen:1971tc} observed that male \textit{C. pipiens} from one geographic area may not successfully reproduce with females from a different area, and reciprocal crosses could produce similar results; this phenomenon was given the name \textit{cytoplasmic incompatibility}. A \textit{Rickettsia}-like organism was determined to be the causative agent, which was later determined to be \textit{Wolbachia} \citep{Yen:1973vx}.
 
 Contemporary researchers detect the presence of \textit{Wolbachia} via the polymerase chain reaction (PCR). Today, any sample can be screened in a quick, easy, and relatively inexpensive manner \citep{Baldo:2006p7025,Simoes:2011p11073}, however, this development is relatively recent. Prior to the advent of PCR, \textit{Wolbachia} infection was only confirmed through painstaking work that included electron microscopy and other microbiological techniques. Indeed, these methods required such effort that they were employed once a researcher had an \textit{a priori} reason suspect the presence of the bacterium; we are aware of no cases in which exploratory assays for \textit{Wolbachia} were conducted prior to the appearance of PCR. It was under these circumstances that a researcher would observe a likely reproductive manipulation phenotype (\emph{male killing, feminization, \emph{or} parthenogenesis}) and then attribute it to \textit{Wolbachia}.
@@ -72,18 +54,15 @@ Experiments to determine if a manipulative phenotype exits have been conducted f
 
 ZACH, I'LL NEED TO YOU SET THE LAST PARAGRAPH OF THE INTRO. I CAN'T WRITE ABOUT IT WELL BUT MY ABORTED ATTEMPTS ARE BELOW.
 
-Here, we develop and employ a novel approach to the estimation of \textit{Wolbachia} infection frequencies across the Lepidoptera. Our model explicitly accounts for issues that arise with real world data, such as those relating to estimating infection levels at different scales. For example, there may be multiple observations of infection frequency collected from different populations within a species, often with disparate sample sizes. We do not consider it appropriate for these samples to be completely pooled, as that ignores population differences in infection frequency. Nor should observations within species be considered independent, because of shared ancestry.  Similarly, there may be single samples collected from many different species within a family. In this case, individual sampling error should be accounted for when estimating family level infection rates. Finally, we consider that there has been a bias towards studying only a few families of the Lepidoptera. This uneven sampling can cause a few well-studied families to drive estimates of overall infection frequency. Each of these concerns can be specifically considered and accounted for with hierarchical Bayesian approaches that explicitly incorporate phlogenetic correlations. 
+Here, we develop and employ a novel approach to the estimation of \textit{Wolbachia} infection frequencies across the Lepidoptera. Our model explicitly accounts for issues that arise with real world data, such as those relating to estimating infection levels at different scales. For example, there may be multiple observations of infection frequency collected from different populations within a species, often with disparate sample sizes. We do not consider it appropriate for these samples to be completely pooled, as that ignores population differences in infection frequency. Nor should observations within species be considered independent, because of shared ancestry.  Similarly, there may be single samples collected from many different species within a family. In this case, individual sampling error should be accounted for when estimating family level infection rates. Finally, we consider that there has been a bias towards studying only a few families of the Lepidoptera. This uneven sampling can cause a few well-studied families to drive estimates of overall infection frequency. Each of these concerns can be specifically considered and accounted for with hierarchical Bayesian approaches that explicitly incorporate phylogenetic correlations. 
 
 
-%%%%%%%%%
-%%%%%%%%%
-%%%%%%%%% 
 \section{Materials \& Methods}
 \subsection{Motivating data and previous analyses}
 
- Both \cite{Weinert:2015aa} \cite{Ahmed:2015aa} used a likelihood-based approach to describe the distribution of \emph{Wolbachia} infection across arthropods and Lepidoptera, respectively. Both studies used beta-binomial models to estimate the mean proportion of individuals infected within a given species \citep{Hilgenboecker:2008aa}. They used the same distribution to calculate the incidence of infection as well, where incidence was the proportion of species infected above a threshold frequency $c$ (i.e.,, one infection in 1000 individuals, or 0.001) \citep{Weinert:2015aa}. 
+ Both \cite{Weinert:2015aa} and \cite{Ahmed:2015aa} used a likelihood-based approach to describe the distribution of \emph{Wolbachia} infection across arthropods and Lepidoptera, respectively. Both studies used beta-binomial models to estimate the mean proportion of individuals infected within a given species \citep{Hilgenboecker:2008aa}. They used the same distribution to calculate the incidence of infection as well, where incidence was the proportion of species infected above a threshold frequency $c$  \citep[i.e.,, one infection in 1000 individuals, or 0.001;][]{Weinert:2015aa}. 
 
-In the case of \textit{Wolbachia}, insects screened for this bacterium may either be positive or not positive. It is important to state that “not positive” is the appropriate state here because an infection could have been missed for a number of reasons, including low density infections \citep{Schneider:2014jv}. However, for the sake of simplicity, we will treat \textit{Wolbachia} infection status as two mutually exclusive outcomes, (0 or 1; positive or not positive). This makes the question of infection a binomial sampling problem. The issue is the way that likelihood deals with error at each level, or rather how it does not. We will demonstrate this problem with two examples. First, let us assume that 200 individuals of a species are assayed for \textit{Wolbachia}, and 100 of those tests are positive for infection. The mean estimate of infection is 0.5 and the 95\% exact binomial confidence interval is 0.43 – 0.57. Next, let us say that two individuals from a species were assayed for \textit{Wolbachia}, and one tested positive. For this example, the proportion infected in this species is 0.5, however, the 95\% confidence interval is 0.01 – 0.99. It is clear that there is uncertainty around each estimate and that uncertainty varies with sample size. For this error to be properly incorporated into any estimate it must be treated at each level of the analysis (each species), rather than at the level of the study. 
+In the case of \textit{Wolbachia}, insects screened for this bacterium may either be positive or not positive. It is important to state that ?not positive? is the appropriate state here because an infection could have been missed for a number of reasons, including low density infections \citep{Schneider:2014jv}. However, for the sake of simplicity, we will treat \textit{Wolbachia} infection status as two mutually exclusive outcomes, (0 or 1; positive or not positive). This makes the question of infection a binomial sampling problem. The issue is the way that likelihood deals with error at each level, or rather how it does not. We will demonstrate this problem with two examples. First, let us assume that 200 individuals of a species are assayed for \textit{Wolbachia}, and 100 of those tests are positive for infection. The mean estimate of infection is 0.5 and the 95\% exact binomial confidence interval is 0.43 ? 0.57. Next, let us say that two individuals from a species were assayed for \textit{Wolbachia}, and one tested positive. For this example, the proportion infected in this species is 0.5, however, the 95\% confidence interval is 0.01 ? 0.99. It is clear that there is uncertainty around each estimate and that uncertainty varies with sample size. For this error to be properly incorporated into any estimate it must be treated at each level of the analysis (each species), rather than at the level of the study. 
 
 \subsection{Data}
 We used the data set synthesized by \citet{Weinert:2015aa}, which contains records from thousands of individual sampling efforts across the Arthropoda.  These data were arranged such that each row represented one independent sampling event (though each row may contain multiple individuals) and contained information on the family, genus, species, endosymbiont genus, number of individuals assayed, and number of positive individuals. We filtered these data such that they contained only \textit{Wolbachia} assays of Lepidoptera. The filtered data set contained 1037 sampling events on 10860 individual Lepidoptera, of which 3607 screened positive for \textit{Wolbachia} infection. We imported these data into the program R v3.2 (R Core Development Team) and there conducted all subsequent analyses. All data and code necessary to reproduce the analyses and figures in this paper are freely available on FigShare (DOI TBD: \textit{NB}, the data will be accessioned to FigShare once the manuscript and code are in their final form).
@@ -157,9 +136,7 @@ ZACH, please describe the model results (diagnostics, chain mixing, posterior pr
 \item Discuss family level estimate (is there a correlation between sample size and CI?)
 \end{enumerate}
 
-%%%%%%%%%
-%%%%%%%%%
-%%%%%%%%%
+
 \section{Discussion}
 
 Previous research on \textit{Wolbachia} in the Lepidoptera has estimated the infection frequency at very high levels, ~80\% \citet{Ahmed:2015aa} and ~77\% \citet{Weinert:2015aa}. 
@@ -191,7 +168,7 @@ It is a bit simplistic to just assume that there will be a reproductive manipula
 
 It could still be in the genome, (example from \textit{Drosophila} and \textit{Nasonia} REFS.
 
-Don’t forget \citet{Prout:1994th}, which demonstrated that vertically transmitted reproductive \textit{Wolbachia} should evolve to minimize harm to the host. 
+Don?t forget \citet{Prout:1994th}, which demonstrated that vertically transmitted reproductive \textit{Wolbachia} should evolve to minimize harm to the host. 
 
 
 
@@ -206,40 +183,102 @@ Make point that Fem \& MK likely manipulate the piRNA - REF!
 
 We conclude that the science of microbes in the Lepidoptera, especially with regards to the endosymbiont \textit{Wolbachia}, is still in its natural history phase wherein discovery is still largely in the descriptive phase, and as such we urge caution when interpreting positive \textit{Wolbachia} assays and extrapolating consequences. 
 
-The standard Wolbachia paradigm holds that the endosymbiont is a reproductive parasite that manipulates its host’s reproduction to facilitate its own. The phenotypic effects of infection are known for only a handful of Lepidoptera, given the recent advances in \textit{Wolbachia} research in other taxa (particularly \textit{Drosophila}) which demonstrate that infection does necessarily result in reproductive manipulation, we urge caution when interpreting positive \textit{Wolbachia} assays and extrapolating consequences.
+The standard Wolbachia paradigm holds that the endosymbiont is a reproductive parasite that manipulates its host?s reproduction to facilitate its own. The phenotypic effects of infection are known for only a handful of Lepidoptera, given the recent advances in \textit{Wolbachia} research in other taxa (particularly \textit{Drosophila}) which demonstrate that infection does necessarily result in reproductive manipulation, we urge caution when interpreting positive \textit{Wolbachia} assays and extrapolating consequences.
 
 We present a new analysis estimating the infection frequency of \textit{Wolbachia} in the Lepidoptera, which contrasts with a recently published estimate. Our model treats error hierarchically, which we feel is appropriate given the structure of the data. 
 
-Slow your ever-loving role – which will translate into “we urge caution.”
+Slow your ever-loving role ? which will translate into ?we urge caution.?
 The model cited in \citet{Nice:2009p7399} make a lot of assumptions as to how \textit{Wolbachia} works, please note that they did not estimate a phenotype.
 Wolbachia research in the Lepidoptera is still in the Natural History / Discovery phase
 
-Indirect evidence - Look for signature of reproductive manipulation: biased sex ratios, mito – nuclear discord in phylogenies. 
+Indirect evidence - Look for signature of reproductive manipulation: biased sex ratios, mito ? nuclear discord in phylogenies. 
 
 
-Model of \textit{Wolbachia} infection frequency - Handles error hierarchically (just like the data), consider binomial confidence interval for 1+ of 2. It’s huge! - Our model is awesome, generates credible intervals that are more reasonable - More like 50\% with HPD of 30 – 60. Plot the posteriors. 
+Model of \textit{Wolbachia} infection frequency - Handles error hierarchically (just like the data), consider binomial confidence interval for 1+ of 2. It?s huge! - Our model is awesome, generates credible intervals that are more reasonable - More like 50\% with HPD of 30 ? 60. Plot the posteriors. 
 
 
 Some families only had one sample, in which case there was little information for the model and inferences for these groups were driven by the prior and had large CIs (\textbf{Figure 3}).
 
-
-%%%%%%%%%
-%%%%%%%%%
-%%%%%%%%%
-\bibliography{Wolbachia}
-%\renewcommand*{\bibname}{Literature Cited}
-\bibliographystyle{amnat}
 \newpage
-%%%%%%%%%
-%%%%%%%%%
-%%%%%%%%%
-\section{Tables \& Figures}
-\FloatBarrier
-\begin{table}
-\begin{tabular}{l l l l}
-\hline
+
+%%%%%%
+%%%%%%
+%%%%%%
+
+\section*{Conflict of Interest Statement}
+The authors declare that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest.
+
+%%%%%%
+%%%%%%
+%%%%%%
+
+\section*{Author Contributions}
+ZM and CH conceived of the experiment; ZM and CH conducted the analyses; ZM and CH wrote the manuscript. 
+
+\section*{Funding}
+The authors received no external funding to conduct this research.
+
+\section*{Acknowledgments}
+We wish to thank James Fordyce, Christopher Peterson, Brian O'Meara and Jeremy Beaulieu for their input and advice during the preparation of this manuscript.
+
+\section*{Supplemental Data}
+ \href{http://home.frontiersin.org/about/author-guidelines#SupplementaryMaterial}{Supplementary Material} should be uploaded separately on submission, if there are Supplementary Figures, please include the caption in the same file as the figure. LaTeX Supplementary Material templates can be found in the Frontiers LaTeX folder 
+\newpage
+\bibliographystyle{frontiersinSCNS_ENG_HUMS} 
+\bibliography{Wolbachia}
+\newpage 
+
+%%%%%%
+%%%%%%
+%%%%%%
+
+\section*{Figures}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=85mm]{Fams_n_Props.pdf}% This is a *.jpg file
+\end{center}
+\caption{\textit{Wolbachia} sampling by family for total number \textbf{(A)} and scaled by proportion of species sampled in each family \textbf{(B)}.}
+\label{histograms}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=85mm]{infection_Prob.pdf}
+    \caption{Posterior density plots for the average frequency of \textit{Wolbachia} infection across Lepidoptera. Each posterior estimate is jittered and superimposed on the violins with transparency. Fatter regions of the  violins indicate regions of higher posterior density, as do darker regions of jittered points. Horizontal bars indicate the median and upper and lower 95\% Highest Density Interval (HDI).  Models (L to R): NP = No Phylogenetic correction; BM = Brownian Motion; OU = Ornstein-Uhlenbeck with varying levels of $\alpha$ (0.1, 0.5, 0.9); Model Avg. = WAIC model weighted averaging.}
+ \label{grand}
+  \end{center}
+\end{figure}
+
+\newpage 
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=180mm]{familyplotAvg.pdf}
+    \caption{Posterior density plots for the average frequency of \textit{Wolbachia} infection among 28 families of Lepidoptera. Each posterior estimate is jittered and superimposed on the violins with transparency. Fatter regions of the  violins indicate regions of higher posterior density, as do darker regions of jittered points. Horizontal bars indicate the median and upper and lower 95\% Highest Density Interval (HDI).}
+ \label{familyplot}
+  \end{center}
+\end{figure}
+\newpage
+
+% I think the model averaging gives the appearance of tight CIs when they really don't exist. For example, the one sample families have much tighter CIs with averaging and I think that masks reality. 
+%%%%%%
+%%%%%%
+%%%%%%
+
+\section*{Tables}
+
+\begin{table}[h!] \centering
+  \caption{Published phenotypic effects of \textit{Wolbachia} on Lepidoptera.  Phenotype: MK = male killing, Fem = feminization, CI = cytoplasmic incompatibility. * = induced by transfection with \textit{Wolbachia} strain from \textit{O. scapulalis}.} 
+  
+  \label{effects}
+\begin{tabular}{@{\extracolsep{5pt}} l c c c}
+\\
+\\[-1.8ex]\hline 
 Species & Family & Phenotype & Reference\\
-\hline
+\hline \\[-1.8ex] 
 \textit{Acrea encedana}& Nymphalidae & MK & \citet{Jiggins:2000gz}\\
 \textit{Acraea encedon} & Nymphalidae & MK & \citet{Jiggins:1998p7753}\\
 \textit{Ephestia kuehniella}* & Pyralidae & MK & \citet{Fujii:2001p8208}\\
@@ -247,39 +286,31 @@ Species & Family & Phenotype & Reference\\
 \textit{Hypolimnas bolima} & Nymphalidae & MK & \citet{Dyson:2002p8665,Mitsuhashi:2004p8229}\\
 \textit{Ostrinia scapulalis} & Crambidae & MK \& Fem & \citet{Sugimoto:2012ge}\\
 \textit{Ostrinia furnacalis} & Crambidae & Fem & \citet{Kageyama:2002p8664}\\
-\hline
+\hline \\[-1.8ex] 
+\\
 \end{tabular}
-\caption{Published phenotypic effects of \textit{Wolbachia} on Lepidoptera. Phenotype: MK = male killing, Fem = feminization, CI = cytoplasmic incompatibility. * = induced by transfection with \textit{Wolbachia} strain from \textit{O. scapulalis}.}
 \end{table}
-\newpage
-
-\begin{figure}[h!]
-  \begin{center}
-    \includegraphics[width=85.0mm]{Fams_n_Props.pdf}
-    \caption{\textit{Wolbachia} sampling by family for total number (Top) and scaled by proportion of species sampled in each family (Bottom)  }
- \label{histograms}
-  \end{center}
-\end{figure}
-
-\begin{figure}[h!]
-  \begin{center}
-    \includegraphics[width=85.0mm]{infection_Prob.pdf}
-    \caption{Posterior density plots for the median frequency of \textit{Wolbachia} infection in the Lepidoptera. Models (L to R): NP = No Phylogenetic correction; BM = Brownian Motion; OU = Ornstein-Uhlenbeck with varying levels of $\alpha$ (0.1, 0.5, 0.9); Model Avg = AIC model weighted averaging.}
- \label{grand}
-  \end{center}
-\end{figure}
-
-
-\begin{figure}[h!]
-  \begin{center}
-    \includegraphics[width=180.0mm]{familyProb.pdf}
-    \caption{Posterior density plots for the probabilities of \emph{Wolbachia} infection for 28 families of Lepidoptera}
- \label{familyplot}
-  \end{center}
-\end{figure}
 
 
 
+\begin{table}[h!] \centering 
+  \caption{Models with different phylogenetic correlation structures ranked according to WAIC and their respective model weights. The no-phylogeny model had an identity matrix (ones on the diagonal and zeros on the off-diagonals) in place of a correlation matrix. Smaller WAIC values indicate better estimates. $\Delta_{\mathrm{waic}}$ is the difference between each WAIC and the lowest WAIC value. SE$_{\mathrm{waic}}$ and SE$_\Delta$ are the standard errors for WAIC and $\Delta_{\mathrm{waic}}$ respectively.}
+  
+  \label{aicTable} 
+\begin{tabular}{@{\extracolsep{5pt}} lcccccc} 
+\\
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Model & WAIC & SE$_{\mathrm{waic}}$ & $p_{\mathrm{waic}}$ & $\Delta_{\mathrm{waic}}$ & SE$_\Delta$ & weight \\ 
+\hline \\[-1.8ex] 
+OU: $\alpha=0.9$ & $3,464.07$ & $319.83$ & $247.35$ & $0$ & $$ & $0.38$ \\ 
+No Phylogeny & $3,465.65$ & $320.51$ & $247.43$ & $1.58$ & $2.15$ & $0.17$ \\ 
+Brownian Motion & $3,465.67$ & $320.41$ & $248.36$ & $1.60$ & $2.09$ & $0.17$ \\ 
+OU: $\alpha=0.1$ & $3,465.83$ & $319.68$ & $249.51$ & $1.75$ & $1.43$ & $0.16$ \\ 
+OU: $\alpha=0.5$ & $3,466.23$ & $320.43$ & $248.52$ & $2.15$ & $1.78$ & $0.13$ \\ 
+\hline \\[-1.8ex] 
+\\
+\end{tabular} 
+\end{table} 
 
 \end{document}
-
