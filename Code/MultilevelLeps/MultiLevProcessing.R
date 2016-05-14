@@ -5,15 +5,20 @@ library("loo")
 library("yarrr")
 library("rethinking")
 
+
 library("stargazer")
 
 library("dplyr")
 options(dplyr.print_max = 30)
 
+library("dplyr"); options(dplyr.print_max = 30)
+
+
 sessID <- sessionInfo()
 # setwd("~/Dropbox/Wol_rates")
 # setwd("~/Desktop/Projects/Wolbachia_rates")
 source("Code/pplots.R")
+source('~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R')
 rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())
 
@@ -294,7 +299,7 @@ barplot(w1$sum, ylim = c(0, 4000), names.arg = w1$Family, las = 2, cex.names = 1
 
 # pdf("Images/Fams_bar.pdf", bg = "white")
 par(mar = c(6.1, 4, 1, 1))
-barplot(sort(g), las = 2, ylim = c(0, 350), cex.names = 0.9, ylab = "Samples")
+barplot(sort(g), las = 2, ylim = c(0, 350), cex.names = 0.9, ylab = "Species")
 # dev.off()
 
 
