@@ -4,10 +4,14 @@ library("shinystan")
 library("loo")
 library("yarrr")
 library("rethinking")
+
 library("stargazer")
 
+library("dplyr")
+options(dplyr.print_max = 30)
+
 sessID <- sessionInfo()
- setwd("~/Dropbox/Wol_rates")
+# setwd("~/Dropbox/Wol_rates")
 # setwd("~/Desktop/Projects/Wolbachia_rates")
 source("Code/pplots.R")
 rstan_options(auto_write = TRUE)
@@ -180,11 +184,14 @@ text(x=3.99, y=-0.189, expression(paste("OU ", bold(alpha))), cex=1.1, font=2)
 text(x=6.1, y=-0.138, "\nAvg.", cex=1, font=1)
 
 
+quartz.save(type = "pdf",file = "infection probability.pdf", bg="white")
+
+# Lep-level quantiles
 quantile(avg, probs=c(0.025, 0.5, 0.975))
 
 
+# quartz.save(type = "pdf",file = "infection probability.pdf", bg="white")
 
-quartz.save(type = "pdf",file = "infection probability.pdf", bg="white")
 
 
 nPhy <- as.data.frame(fitNPhy, "infectF")
@@ -216,6 +223,7 @@ out <- data.frame(prob = ouPost, families = families)
 xlabel <- rep(" ", ncol(OU9))
 
 
+
 #quartz(width=7.09, height=6, bg="white")
 par(mar = c(6.6, 3.4, 0.17, 0))
 par(xpd=FALSE)
@@ -229,6 +237,18 @@ par(xpd=FALSE)
 # pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
 # # dev.off()
 
+# pdf(file = "Images/Fam_freqs.pdf", bg = "white")
+#quartz(width=7.09, height=6, bg="white")
+par(mar = c(6.6, 3.4, 0.17, 0))
+par(xpd=FALSE)
+
+# par(las = 2)
+# pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "n", las = 2, xaxt = "n", xlab = "Lepidoptera family", ylab = "Infection frequency")
+#            
+# pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = lower, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
+#            
+# pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
+# dev.off()
 
 pPlot2(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab="", point.pch=16)
     
@@ -259,21 +279,18 @@ points(1:length(medS), as.vector(medS[oS]), pch = 16, col = "red", cex = 0.4)
 
 
 # barplot of sample size by family
-g <- table(wol$Family)
+g <- table(wol$Family) # species counts
 # g <- as.list(g)
 length(g)
 
-pdf("Fams_bar.pdf", bg = "white", width=3.39, height=4)
+# plots by samples
+w1 <- wol %>% group_by(Family) %>% summarize(sum = sum(Total))
+w1 <- w1[order(w1$sum), ]
 
-quartz(width=3.4, height=4, bg="white")
-#par(pin = c(3.39, 3.5))
-par(ps=10)
-par(mar = c(6.1, 3, 0.4, 0))
-
-barplot(sort(g), las = 2, ylim = c(0, 350), cex.names = 0.9, ylab = "Samples", axes=FALSE, space=0.3)
- #dev.off()
-
-
+# pdf(file = "Images/samples_plot.pdf", bg = "white")
+par(mar = c(7.8, 4.5, 1, 1))
+barplot(w1$sum, ylim = c(0, 4000), names.arg = w1$Family, las = 2, cex.names = 1.2, ylab = "Samples")
+# dev.off()
 
 # pdf("Images/Fams_bar.pdf", bg = "white")
 par(mar = c(6.1, 4, 1, 1))
@@ -285,6 +302,7 @@ barplot(sort(g), las = 2, ylim = c(0, 350), cex.names = 0.9, ylab = "Samples")
 gprime <- as.table(c(g[1] / 185, g[2] / 49, g[3] / 113, g[4] / 9655, g[6] / 660, g[7] / 20, g[8] / 24569, g[9] / 339, g[10] / 4700, g[11] / 23002, g[12] / 1866, g[13] / 36, g[14] / 606, g[15] / 1952, g[16] / 5201, g[17] / 11772, g[18] / 3800, g[19] / 6152, g[20] / 570, g[21] / 1164, g[22] / 150, g[23] / 1318, g[24] / 5921, g[25] / 2349, g[26] / 1463, g[27] / 10387, g[28] / 686))
 
 # pdf("Images/Prop_fams_bar.pdf", bg = "white")
+
 quartz(width=3.4, height=4, bg="white")
 par(mar = c(6.1, 2, 0.2, 0.2))
 par(ps=10)
@@ -297,10 +315,8 @@ mtext("Proportion of family represented", 2, cex=1, line = 1.2, font=1)
 # dev.off()
 
 
+
+par(mar = c(6.1, 4.5, 1, 1))
+
 barplot(sort(gprime), las = 2, cex.names = 0.9, ylab = "Proportion of family represented", ylim = c(0, 1.0))
 # dev.off()
-
-
-barplot(sort(gprime), las = 2, cex.names = 0.9, ylab = "Proportion of family sampled", ylim = c(0, 1.0))
-# dev.off()
-

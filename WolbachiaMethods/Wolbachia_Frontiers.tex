@@ -1,3 +1,4 @@
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This is just an example/guide for you to refer to when submitting manuscripts to Frontiers, it is not mandatory to use Frontiers .cls files nor frontiers.tex  %
 % This will only generate the Manuscript, the final article will be typeset by Frontiers after acceptance.   
@@ -16,9 +17,12 @@
 %\documentclass{frontiersFPHY} % for Physics and Applied Mathematics and Statistics articles
 
 %\setcitestyle{square}
+
+\documentclass{frontiersSCNS} 
 \usepackage{url,hyperref,lineno,microtype,subcaption}
 \usepackage[onehalfspacing]{setspace}
 \linenumbers
+
 
 
 % Leave a blank line between paragraphs instead of using \\
@@ -41,6 +45,20 @@ $^{2}$Department of Ecology and Evolutionary Biology, University of Kansas, Lawe
 
 
 
+\def\keyFont{\fontsize{8}{11}\helveticabold }
+\def\firstAuthorLast{Marion {et~al.}} 
+\def\Authors{Zachary H. Marion\,$^{1,*}$ and Christopher A. Hamm\,$^{2}$}
+\def\Address{$^{1}$Department of Ecology \& Evolutionary Biology, University of Tennessee, Knoxville, TN, USA \\
+
+$^{2}$Department of Ecology \& Evolutionary Biology, University of Kansas, Lawrence, KA, USA  }
+\def\corrAuthor{Zachary H. Marion}
+\def\corrEmail{zmarion@vols.utk.edu}
+
+%%%%%%
+%%%%%%
+%%%%%%
+
+
 \begin{document}
 \onecolumn
 \firstpage{1}
@@ -50,6 +68,7 @@ $^{2}$Department of Ecology and Evolutionary Biology, University of Kansas, Lawe
 \author[\firstAuthorLast ]{\Authors} %This field will be automatically populated
 \address{} %This field will be automatically populated
 \correspondance{} %This field will be automatically populated
+
 
 \extraAuth{Department of Ecology \& Evolutionary Biology, University of Tennessee, 569 Dabney Hall, 1416 Circle Drive, Knoxville, TN, 37996, USA}% If there are more than 1 corresponding author, comment this line and uncomment the next one.
 %\extraAuth{corresponding Author2 \\ Laboratory X2, Institute X2, Department X2, Organization X2, Street X2, City X2 , State XX2 (only USA, Canada and Australia), Zip Code2, X2 Country X2, email2@uni2.edu}
@@ -61,12 +80,23 @@ $^{2}$Department of Ecology and Evolutionary Biology, University of Kansas, Lawe
 \begin{abstract}
 
 %%% Leave the Abstract empty if your article does not require one, please see the Summary Table for full details.
+
+\extraAuth{Department of Ecology \& Evolutionary Biology, University of Tennessee, 569 Dabney Hall, 1416 Circle Drive, Knoxville, TN, 37996, USA}
+
+\maketitle
+\begin{abstract}
+
+
 \section{}
 Endosymbionts may play an important role in the evolution of the Insecta. Bacteria such as \emph{Wolbachia, Cardinium, \emph{and} Rickettsia} are known to manipulate their host' reproduction to facilitate their own. Indeed, there are many well know cases where \emph{Wolbachia} (Alphaproteobacteria: Rickettsiaceae
 ) induces one of four manipulative phenotypes (cytoplasmic incompatibility, male killing, feminization, and parthenogenesis). The scale of infection among species has been a major subject of investigation, but this is not an easy endeavor and different approaches have yielded different estimates. One aspect of this problem that may be underappreciated arises when multiple yet independent samples are taken within a species. When independent samples within species are treated as levels of a hierarchy the problem is greatly simplified because error propagates through the model in a realistic and intuitive manner. Here, we present a hierarchical Bayesian approach to estimate infection frequency where multiple independent samples were collected across multiple taxonomic levels. We apply this model to estimate the rates of infection for \emph{Wolbachia} in the Lepidoptera, and apply the model with a correction to account for phylogenetic non-independence. In addition, we highlight the present body of knowledge regarding \emph{Wolbachia} and its effects with regards to the Lepidoptera. Our model estimates suggests that the rate of endosymbiont infection in the Lepidoptera is lower than previously estimated. Given our limited knowledge regarding the phenotypes induced by these endosymbionts, we urge caution when interpreting the results of a positive assays.
 
 \tiny
+
  \keyFont{ \section{Keywords:} Bayesian Model, \emph{Wolbachia}, Endosymbiont, Lepidoptera, Hierarchical, keyword, keyword, keyword} %All article types: you may provide up to 8 keywords; at least 5 are mandatory.
+
+ \keyFont{ \section{Keywords:} \emph{Wolbachia}, Lepidoptera, modeling, keyword, kewyord} % keywords should not be present in the title 
+
 \end{abstract}
 
 \section{Introduction}
@@ -84,11 +114,15 @@ Experiments to determine if a manipulative phenotype exits have been conducted f
 ZACH, I'LL NEED TO YOU SET THE LAST PARAGRAPH OF THE INTRO. I CAN'T WRITE ABOUT IT WELL BUT MY ABORTED ATTEMPTS ARE BELOW.
 
 Here, we develop and employ a novel approach to the estimation of \textit{Wolbachia} infection frequencies across the Lepidoptera. Our model explicitly accounts for issues that arise with real world data, such as those relating to estimating infection levels at different scales. For example, there may be multiple observations of infection frequency collected from different populations within a species, often with disparate sample sizes. We do not consider it appropriate for these samples to be completely pooled, as that ignores population differences in infection frequency. Nor should observations within species be considered independent, because of shared ancestry.  Similarly, there may be single samples collected from many different species within a family. In this case, individual sampling error should be accounted for when estimating family level infection rates. Finally, we consider that there has been a bias towards studying only a few families of the Lepidoptera. This uneven sampling can cause a few well-studied families to drive estimates of overall infection frequency. Each of these concerns can be specifically considered and accounted for with hierarchical Bayesian approaches that explicitly incorporate phylogenetic correlations. 
+
 \section{Article types}
 
 For requirements for a specific article type please refer to the Article Types on any Frontiers journal page. Please also refer to  \href{http://home.frontiersin.org/about/author-guidelines#Sections}{Author Guidelines} for further information on how to organize your manuscript in the required sections or their equivalents for your field
 
 % For Original Research articles, please note that the Material and Methods section can be placed in any of the following ways: before Results, before Discussion or after Discussion.
+
+
+
 
 \section{Materials \& Methods}
 \subsection{Motivating data and previous analyses}
@@ -154,11 +188,16 @@ where $\boldsymbol{\eta}$ is a $k \times k$ diagonal matrix with the overall sta
 
 where again $t_{3}^{+}$ is half-Student-t distribution with $\nu=3$ degrees of freedom. 
 
+
 Posterior probabilities for model parameters were estimated using Markov chain Monte Carlo (MCMC) sampling in the Stan programming language \citep{Carpenter:2016aa} via the RStan interface \citep{stan:2016aa}. For each model, four MCMC chains were used with 5,000 iterations each. The first 2,500 iterations for each chain were adaptive and thus discarded as warm-up. We used several diagnostic tests to confirm that each model had reached a stationary distribution including visual examination of MCMC chain history and calculation of effective sample size (ESS) and the Gelman and Rubin convergence diagnostic \citep{Gelman:1992aa,Brooks:1998aa}. In particular, model convergence was assessed by inspecting the diagnostics of the log-posterior density. 
+
+Posterior probabilities for model parameters were estimated using Markov chain Monte Carlo (MCMC) sampling in the Stan programming language \citep{Carpenter:2016aa} via the RStan interface \citep{stan:2016aa}. For each model, four MCMC chains were used with 5,000 iterations each. The first 2,500 iterations for each chain were adaptive and thus discarded as warm-up. We used several diagnostic tests to confirm that each model had reached a stationary distribution including visual examination of MCMC chain history and calculation of effective sample size (ESS) and the Gelman-Rubin convergence diagnostic \citep[$\hat{R}$; ][]{Gelman:1992aa,Brooks:1998aa}. In particular, model convergence was assessed by inspecting the diagnostics of the log-posterior density. Model fit was also assessed by posterior predictive checks by simulating ``new" data from the posterior distribution and plotting it against the original data. %Cite Gelman et al. 2013
+
 
 We used WAIC \citep[the widely applicable or Watanabe-Akaike information criterion;][]{Watanabe:2010aa,Gelman:2014aa} to compare models with different phylogenetic correlation matrices (e.g., Brownian motion vs. OU processes) using functions in the loo package \citep{Vehtari:2016aa}. 
 
 \section{Results}
+
 After filtering the \citet{Weinert:2015aa} data to contain only Lepidoptera that were screened for \textit{Wolbachia} we retained 1037 independent sampling events of 411 unique species from 28 families, representing a total of 10860 individual assays. Of these, 3607 samples from 163 species and members of 19 families were scored PCR positive for \textit{Wolbachia}.
 
 ZACH, please describe the model results (diagnostics, chain mixing, posterior predictive.
@@ -168,6 +207,16 @@ ZACH, please describe the model results (diagnostics, chain mixing, posterior pr
 \item Median estimate for Order, almost identical regardless of model
 \item Discuss family level estimate (is there a correlation between sample size and CI?)
 \end{enumerate}
+
+After filtering the \citet{Weinert:2015aa} data to contain only Lepidoptera that were screened for \textit{Wolbachia} we retained 1037 independent sampling events with 411 unique species from 28 families, representing a total of 10860 individual assays. Of these, 3607 samples from 163 species and members of 19 families were scored PCR positive for \textit{Wolbachia}. 
+
+The $\hat{R}$ diagnostic for all parameters (including the log-posterior density) was 1.0, indicating that each model had reached a stationary posterior distribution. Visual assessment of the MCMC chain history confirmed this. Additionally, the effective sample size for the log-posterior density was $> 2000$ for all models. Predictive plots of the posterior medians of the simulated ``new" observationss regressed against the original observations resulted in tight concordance, suggesting the models were doing a good job at describing the data and providing a good fit. %make plots for suppliment
+
+All models, including those which contained phylogenetic correction, had similar WAIC scores with standard errors that completely overlapped (Table~\ref{aicTable}).  Therefore, each model was in the same ``family" of best models. Additionally, the results were almost identical across models, and all models predicted a median infection frequency of $\sim 15\%$. Rather than consider each model separately, we created a consensus model using model weighted averaging based on the $\Delta_{WAIC}$ scores (Table~\ref{aicTable}) to describe \emph{Wolbachia} infection frequency in the Lepidoptera. 
+
+Our estimate for the median \emph{Wolbachia} infection frequency in the Lepidoptera was 12.1\% (95\% CI = 0.045 - 0.33; Figure~\ref{grand}) . Estimates for median family level infection frequency varied considerably with a positive association between sample size and credible interval (Figure~\ref{familyplot}). For example, the Lycaenidae (n = 346 samples) and Nymph
+
+
 
 
 \section{Discussion}
@@ -234,6 +283,7 @@ Some families only had one sample, in which case there was little information fo
 
 
 
+
 \subsection{Figures}
 Frontiers requires figures to be submitted individually, in the same order as they are referred to in the manuscript. Figures will then be automatically embedded at the bottom of the submitted manuscript. Kindly ensure that each table and figure is mentioned in the text and in numerical order. Figures must be of sufficient resolution for publication \href{http://home.frontiersin.org/about/author-guidelines#ResolutionRequirements}{see here for examples and minimum requirements}. Figures which are not according to the guidelines will cause substantial delay during the production process. Please see \href{http://home.frontiersin.org/about/author-guidelines#GeneralStyleGuidelinesforFigures}{here} for full Figure guidelines
 
@@ -291,6 +341,43 @@ This is a short text to acknowledge the contributions of specific colleagues, in
 %%% If using panelled/compiled figures with subcaptions, use the subcaption package as in the second example.  N.B. This package is incompatible with the subfigure and subfig packages
 %%%  NB logo1.jpg is required in the path in order to correctly compile front page header %%%
 
+
+\newpage
+
+%%%%%%
+%%%%%%
+%%%%%%
+
+\section*{Conflict of Interest Statement}
+The authors declare that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest.
+
+%%%%%%
+%%%%%%
+%%%%%%
+
+\section*{Author Contributions}
+ZM and CH conceived of the experiment; ZM and CH conducted the analyses; ZM and CH wrote the manuscript. 
+
+\section*{Funding}
+The authors received no external funding to conduct this research.
+
+\section*{Acknowledgments}
+We wish to thank James Fordyce, Christopher Peterson, Brian O'Meara and Jeremy Beaulieu for their input and advice during the preparation of this manuscript.
+
+\section*{Supplemental Data}
+ \href{http://home.frontiersin.org/about/author-guidelines#SupplementaryMaterial}{Supplementary Material} should be uploaded separately on submission, if there are Supplementary Figures, please include the caption in the same file as the figure. LaTeX Supplementary Material templates can be found in the Frontiers LaTeX folder 
+\newpage
+\bibliographystyle{frontiersinSCNS_ENG_HUMS} 
+\bibliography{Wolbachia}
+\newpage 
+
+%%%%%%
+%%%%%%
+%%%%%%
+
+\section*{Figures}
+
+
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=85mm]{Fams_n_Props.pdf}% This is a *.jpg file
@@ -303,14 +390,29 @@ This is a short text to acknowledge the contributions of specific colleagues, in
   \begin{center}
     \includegraphics[width=85mm]{infection_Prob.pdf}
     \caption{Posterior density plots for the median frequency of \textit{Wolbachia} infection in the Lepidoptera. Models (L to R): NP = No Phylogenetic correction; BM = Brownian Motion; OU = Ornstein-Uhlenbeck with varying levels of $\alpha$ (0.1, 0.5, 0.9); Model Avg = AIC model weighted averaging.}
+
+\caption{\textit{Wolbachia} sampling by family for total number \textbf{(A)} and scaled by proportion of species sampled in each family \textbf{(B)}.}
+\label{histograms}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=85mm]{infection_Prob.pdf}
+    \caption{Posterior density plots for the average frequency of \textit{Wolbachia} infection across Lepidoptera. Each posterior estimate is jittered and superimposed on the violins with transparency. Fatter regions of the  violins indicate regions of higher posterior density, as do darker regions of jittered points. Horizontal bars indicate the median and upper and lower 95\% Highest Density Interval (HDI).  Models (L to R): NP = No Phylogenetic correction; BM = Brownian Motion; OU = Ornstein-Uhlenbeck with varying levels of $\alpha$ (0.1, 0.5, 0.9); Model Avg. = WAIC model weighted averaging.
  \label{grand}
   \end{center}
 \end{figure}
 
 
+\newpage 
+
+
 \begin{figure}[h!]
   \begin{center}
     \includegraphics[width=180mm]{familyplotAvg.pdf}
+
     \caption{Posterior density plots for the probabilities of \emph{Wolbachia} infection for 28 families of Lepidoptera}
  \label{familyplot}
   \end{center}
@@ -335,5 +437,70 @@ This is a short text to acknowledge the contributions of specific colleagues, in
 %%% Frontiers will add the figures at the end of the provisional pdf automatically %%%
 
 %%% The use of LaTeX coding to draw Diagrams/Figures/Structures should be avoided. They should be external callouts including graphics.
+
+    \caption{Posterior density plots for the average frequency of \textit{Wolbachia} infection among 28 families of Lepidoptera. Each posterior estimate is jittered and superimposed on the violins with transparency. Fatter regions of the  violins indicate regions of higher posterior density, as do darker regions of jittered points. Horizontal bars indicate the median and upper and lower 95\% Highest Density Interval (HDI).}
+ \label{familyplot}
+  \end{center}
+\end{figure}
+\newpage
+
+% I think the model averaging gives the appearance of tight CIs when they really don't exist. For example, the one sample families have much tighter CIs with averaging and I think that masks reality. 
+%%%%%%
+%%%%%%
+%%%%%%
+
+\section*{Tables}
+
+
+
+\begin{table}[h!] \centering 
+  \caption{Models with different phylogenetic correlation structures ranked according to WAIC and their respective model weights. The no-phylogeny model had an identity matrix (ones on the diagonal and zeros on the off-diagonals) in place of a correlation matrix. Smaller WAIC values indicate better estimates. $\Delta_{\mathrm{waic}}$ is the difference between each WAIC and the lowest WAIC value. SE$_{\mathrm{waic}}$ and SE$_\Delta$ are the standard errors for WAIC and $\Delta_{\mathrm{waic}}$ respectively.}
+  
+  \label{aicTable} 
+\begin{tabular}{@{\extracolsep{5pt}} lcccccc} 
+\\
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Model & WAIC & SE$_{\mathrm{waic}}$ & $p_{\mathrm{waic}}$ & $\Delta_{\mathrm{waic}}$ & SE$_\Delta$ & weight \\ 
+\hline \\[-1.8ex] 
+OU: $\alpha=0.1$ & $3,458.7$ & $318.1$ & $245.2$ & $0.0$ & $ $ & $0.79$ \\ 
+OU: $\alpha=0.5$ & $3,462.8$ & $319.7$ & $245.7$ & $4.1$ & $2.55$ & $0.10$ \\ 
+Brownian Motion & $3,464.1$ & $320.3$ & $246.6$ & $5.4$ & $3.44$ & $0.05$ \\ 
+No Phylogeny & $3,464.9$ & $320.2$ & $247.9$ & $6.3$ & $3.07$ & $0.03$ \\ 
+OU: $\alpha=0.9$ & $3,465.9$ & $320.1$ & $247.1$ & $7.2$ & $3.13$ & $0.02$ \\ 
+
+
+
+
+\hline \\[-1.8ex] 
+\\
+\end{tabular} 
+\end{table} 
+
+
+
+
+\begin{table}[h!] \centering
+  \caption{Published phenotypic effects of \textit{Wolbachia} on Lepidoptera.  Phenotype: MK = male killing, Fem = feminization, CI = cytoplasmic incompatibility. * = induced by transfection with \textit{Wolbachia} strain from \textit{O. scapulalis}.} 
+  
+  \label{effects}
+\begin{tabular}{@{\extracolsep{5pt}} l c c c}
+\\
+\\[-1.8ex]\hline 
+Species & Family & Phenotype & Reference\\
+\hline \\[-1.8ex] 
+\textit{Acrea encedana}& Nymphalidae & MK & \citet{Jiggins:2000gz}\\
+\textit{Acraea encedon} & Nymphalidae & MK & \citet{Jiggins:1998p7753}\\
+\textit{Ephestia kuehniella}* & Pyralidae & MK & \citet{Fujii:2001p8208}\\
+\textit{Eurema hecabe} & Pieridae & CI & \citet{Narita:2007p8218}\\
+\textit{Hypolimnas bolima} & Nymphalidae & MK & \citet{Dyson:2002p8665,Mitsuhashi:2004p8229}\\
+\textit{Ostrinia scapulalis} & Crambidae & MK \& Fem & \citet{Sugimoto:2012ge}\\
+\textit{Ostrinia furnacalis} & Crambidae & Fem & \citet{Kageyama:2002p8664}\\
+\hline \\[-1.8ex] 
+\\
+\end{tabular}
+\end{table}
+
+
 
 \end{document}
