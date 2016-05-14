@@ -4,6 +4,8 @@ library("shinystan")
 library("loo")
 library("yarrr")
 library("rethinking")
+library("dplyr")
+options(dplyr.print_max = 30)
 
 sessID <- sessionInfo()
 # setwd("~/Dropbox/Wol_rates")
@@ -171,7 +173,7 @@ text(x=3.99, y=-0.189, expression(paste("OU ", bold(alpha))), cex=1.1, font=2)
 
 text(x=6.1, y=-0.138, "\nAvg.", cex=1, font=1)
 
-quartz.save(type = "pdf",file = "infection probability.pdf", bg="white")
+# quartz.save(type = "pdf",file = "infection probability.pdf", bg="white")
 
 
 nPhy <- as.data.frame(fitNPhy, "infectF")
@@ -203,11 +205,11 @@ out <- data.frame(prob = ouPost, families = families)
 xlabel <- rep(" ", ncol(OU9))
 
 
+# pdf(file = "Images/Fam_freqs.pdf", bg = "white")
 quartz(width=7.09, height=6, bg="white")
 par(mar = c(6.6, 3.4, 0.17, 0))
 par(xpd=FALSE)
 
-# pdf(file = "Images/Fam_freqs.pdf", bg = "white")
 par(las = 2)
 pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "n", las = 2, xaxt = "n", xlab = "Lepidoptera family", ylab = "Infection frequency")
            
@@ -227,7 +229,7 @@ pPlot3(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "gho
 mtext("Infection probability", 2, cex=1.11, line = 2.37, font=1)
 mtext("Family", 1, cex=1.11, line = 5.5, font=1)
 
-quartz.save(type = "pdf", file="familyProb.pdf")
+# quartz.save(type = "pdf", file="familyProb.pdf")
 
 
 #----------------------
@@ -246,10 +248,18 @@ points(1:length(medS), as.vector(medS[oS]), pch = 16, col = "red", cex = 0.4)
 
 
 # barplot of sample size by family
-g <- table(wol$Family)
+g <- table(wol$Family) # species counts
 # g <- as.list(g)
 length(g)
 
+# plots by samples
+w1 <- wol %>% group_by(Family) %>% summarize(sum = sum(Total))
+w1 <- w1[order(w1$sum), ]
+
+# pdf(file = "Images/samples_plot.pdf", bg = "white")
+par(mar = c(7.8, 4.5, 1, 1))
+barplot(w1$sum, ylim = c(0, 4000), names.arg = w1$Family, las = 2, cex.names = 1.2, ylab = "Samples")
+# dev.off()
 
 # pdf("Images/Fams_bar.pdf", bg = "white")
 par(mar = c(6.1, 4, 1, 1))

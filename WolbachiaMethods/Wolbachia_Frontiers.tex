@@ -121,20 +121,19 @@ where $\boldsymbol{\eta}$ is a $k \times k$ diagonal matrix with the overall sta
 
 where again $t_{3}^{+}$ is half-Student-t distribution with $\nu=3$ degrees of freedom. 
 
-Posterior probabilities for model parameters were estimated using Markov chain Monte Carlo (MCMC) sampling in the Stan programming language \citep{Carpenter:2016aa} via the RStan interface \citep{stan:2016aa}. For each model, four MCMC chains were used with 5,000 iterations each. The first 2,500 iterations for each chain were adaptive and thus discarded as warm-up. We used several diagnostic tests to confirm that each model had reached a stationary distribution including visual examination of MCMC chain history and calculation of effective sample size (ESS) and the Gelman and Rubin convergence diagnostic \citep{Gelman:1992aa,Brooks:1998aa}. In particular, model convergence was assessed by inspecting the diagnostics of the log-posterior density. 
+Posterior probabilities for model parameters were estimated using Markov chain Monte Carlo (MCMC) sampling in the Stan programming language \citep{Carpenter:2016aa} via the RStan interface \citep{stan:2016aa}. For each model, four MCMC chains were used with 5,000 iterations each. The first 2,500 iterations for each chain were adaptive and thus discarded as warm-up. We used several diagnostic tests to confirm that each model had reached a stationary distribution including visual examination of MCMC chain history and calculation of effective sample size (ESS) and the Gelman-Rubin convergence diagnostic \citep[$\hat{R}$; ][]{Gelman:1992aa,Brooks:1998aa}. In particular, model convergence was assessed by inspecting the diagnostics of the log-posterior density. Model fit was also assessed by posterior predictive checks by simulating ``new" data from the posterior distribution and plotting it against the original data. %Cite Gelman et al. 2013
 
 We used WAIC \citep[the widely applicable or Watanabe-Akaike information criterion;][]{Watanabe:2010aa,Gelman:2014aa} to compare models with different phylogenetic correlation matrices (e.g., Brownian motion vs. OU processes) using functions in the loo package \citep{Vehtari:2016aa}. 
 
 \section{Results}
-After filtering the \citet{Weinert:2015aa} data to contain only Lepidoptera that were screened for \textit{Wolbachia} we retained 1037 independent sampling events of 411 unique species from 28 families, representing a total of 10860 individual assays. Of these, 3607 samples from 163 species and members of 19 families were scored PCR positive for \textit{Wolbachia}.
+After filtering the \citet{Weinert:2015aa} data to contain only Lepidoptera that were screened for \textit{Wolbachia} we retained 1037 independent sampling events with 411 unique species from 28 families, representing a total of 10860 individual assays. Of these, 3607 samples from 163 species and members of 19 families were scored PCR positive for \textit{Wolbachia}. 
 
-ZACH, please describe the model results (diagnostics, chain mixing, posterior predictive.
+The $\hat{R}$ diagnostic for all parameters (including the log-posterior density) was 1.0, indicating that each model had reached a stationary posterior distribution. Visual assessment of the MCMC chain history confirmed this. Additionally, the effective sample size for the log-posterior density was $> 2000$ for all models. Predictive plots of the posterior medians of the simulated ``new" observationss regressed against the original observations resulted in tight concordance, suggesting the models were doing a good job at describing the data and providing a good fit. %make plots for suppliment
 
-\begin{enumerate}  
-\item WAIC scores among models
-\item Median estimate for Order, almost identical regardless of model
-\item Discuss family level estimate (is there a correlation between sample size and CI?)
-\end{enumerate}
+All models, including those which contained phylogenetic correction, had similar WAIC scores with standard errors that completely overlapped (Table~\ref{aicTable}).  Therefore, each model was in the same ``family" of best models. Additionally, the results were almost identical across models, and all models predicted a median infection frequency of $\sim 15\%$. Rather than consider each model separately, we created a consensus model using model weighted averaging based on the $\Delta_{WAIC}$ scores (Table~\ref{aicTable}) to describe \emph{Wolbachia} infection frequency in the Lepidoptera. 
+
+Our estimate for the median \emph{Wolbachia} infection frequency in the Lepidoptera was 12.1\% (95\% CI = 0.045 - 0.33; Figure~\ref{grand}) . Estimates for median family level infection frequency varied considerably with a positive association between sample size and credible interval (Figure~\ref{familyplot}). For example, the Lycaenidae (n = 346 samples) and Nymph
+
 
 
 \section{Discussion}
@@ -270,6 +269,35 @@ We wish to thank James Fordyce, Christopher Peterson, Brian O'Meara and Jeremy B
 
 \section*{Tables}
 
+
+
+\begin{table}[h!] \centering 
+  \caption{Models with different phylogenetic correlation structures ranked according to WAIC and their respective model weights. The no-phylogeny model had an identity matrix (ones on the diagonal and zeros on the off-diagonals) in place of a correlation matrix. Smaller WAIC values indicate better estimates. $\Delta_{\mathrm{waic}}$ is the difference between each WAIC and the lowest WAIC value. SE$_{\mathrm{waic}}$ and SE$_\Delta$ are the standard errors for WAIC and $\Delta_{\mathrm{waic}}$ respectively.}
+  
+  \label{aicTable} 
+\begin{tabular}{@{\extracolsep{5pt}} lcccccc} 
+\\
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Model & WAIC & SE$_{\mathrm{waic}}$ & $p_{\mathrm{waic}}$ & $\Delta_{\mathrm{waic}}$ & SE$_\Delta$ & weight \\ 
+\hline \\[-1.8ex] 
+OU: $\alpha=0.1$ & $3,458.7$ & $318.1$ & $245.2$ & $0.0$ & $ $ & $0.79$ \\ 
+OU: $\alpha=0.5$ & $3,462.8$ & $319.7$ & $245.7$ & $4.1$ & $2.55$ & $0.10$ \\ 
+Brownian Motion & $3,464.1$ & $320.3$ & $246.6$ & $5.4$ & $3.44$ & $0.05$ \\ 
+No Phylogeny & $3,464.9$ & $320.2$ & $247.9$ & $6.3$ & $3.07$ & $0.03$ \\ 
+OU: $\alpha=0.9$ & $3,465.9$ & $320.1$ & $247.1$ & $7.2$ & $3.13$ & $0.02$ \\ 
+
+
+
+
+\hline \\[-1.8ex] 
+\\
+\end{tabular} 
+\end{table} 
+
+
+
+
 \begin{table}[h!] \centering
   \caption{Published phenotypic effects of \textit{Wolbachia} on Lepidoptera.  Phenotype: MK = male killing, Fem = feminization, CI = cytoplasmic incompatibility. * = induced by transfection with \textit{Wolbachia} strain from \textit{O. scapulalis}.} 
   
@@ -291,26 +319,5 @@ Species & Family & Phenotype & Reference\\
 \end{tabular}
 \end{table}
 
-
-
-\begin{table}[h!] \centering 
-  \caption{Models with different phylogenetic correlation structures ranked according to WAIC and their respective model weights. The no-phylogeny model had an identity matrix (ones on the diagonal and zeros on the off-diagonals) in place of a correlation matrix. Smaller WAIC values indicate better estimates. $\Delta_{\mathrm{waic}}$ is the difference between each WAIC and the lowest WAIC value. SE$_{\mathrm{waic}}$ and SE$_\Delta$ are the standard errors for WAIC and $\Delta_{\mathrm{waic}}$ respectively.}
-  
-  \label{aicTable} 
-\begin{tabular}{@{\extracolsep{5pt}} lcccccc} 
-\\
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
-Model & WAIC & SE$_{\mathrm{waic}}$ & $p_{\mathrm{waic}}$ & $\Delta_{\mathrm{waic}}$ & SE$_\Delta$ & weight \\ 
-\hline \\[-1.8ex] 
-OU: $\alpha=0.9$ & $3,464.07$ & $319.83$ & $247.35$ & $0$ & $$ & $0.38$ \\ 
-No Phylogeny & $3,465.65$ & $320.51$ & $247.43$ & $1.58$ & $2.15$ & $0.17$ \\ 
-Brownian Motion & $3,465.67$ & $320.41$ & $248.36$ & $1.60$ & $2.09$ & $0.17$ \\ 
-OU: $\alpha=0.1$ & $3,465.83$ & $319.68$ & $249.51$ & $1.75$ & $1.43$ & $0.16$ \\ 
-OU: $\alpha=0.5$ & $3,466.23$ & $320.43$ & $248.52$ & $2.15$ & $1.78$ & $0.13$ \\ 
-\hline \\[-1.8ex] 
-\\
-\end{tabular} 
-\end{table} 
 
 \end{document}
