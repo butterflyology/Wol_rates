@@ -17,7 +17,8 @@ options(mc.cores = parallel::detectCores())
 # save(file = "Data/Wolbachia_output.RData", list = ls())
 # load("Data/Lep.vcv.R")
 load("Data/Lep.vcv.ultra.R")
-# source("~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R")
+# load("~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R")
+
 
 weinDat <- read.csv("Data/Weinert_data_cleaned.csv", stringsAsFactors = FALSE)
 
@@ -106,7 +107,7 @@ fitOU9 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU9, ite
 
 # mods <- list(fitNPhy=fitNPhy, fitBM=fitBM, fitOU1=fitOU1, fitOU5=fitOU5, fitOU9 = fitOU9)
 # save(mods, file="Code/MultilevelLeps/stanMods.R")
-load("~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R")
+# load("~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R")
  fitNPhy <- mods$fitNPhy
  fitBM <- mods$fitBM
  fitOU1 <- mods$fitOU1
@@ -127,7 +128,7 @@ load("~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R")
 # compare(aicNP, aicBM, aicOU1, aicOU5, aicOU9)
 
 x <- compare(fitNPhy, fitBM, fitOU1, fitOU5, fitOU9)
-wts <- data.frame(mod = dimnames(x@output)[[1]], wts = round(x@output$weight,3))
+wts <- data.frame(mod = dimnames(x@output)[[1]], wts = round(x@output$weight, 3))
 
 # unaveraged
 nPhy <- as.data.frame(fitNPhy, "infectG")$infectG
@@ -160,18 +161,17 @@ out <- data.frame(prob = prob, mod = mod)
 
 par(mar = c(2.9, 3.4, 0.16, 0))
 par(xpd=TRUE)
-pPlot1(prob ~ mod, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.03, yaxt = "l", bty = "l", las = 1, ylab="", col.lab="white", point.pch=16)
+pPlot1(prob ~ mod, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.03, yaxt = "l", bty = "l", las = 1, ylab = "", col.lab="white", point.pch = 19)
 
+pPlot3(prob ~ mod, data = out, ylim = c(0, 1), line.fun = lower, line.lwd=2.5, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE, ylab = "" )
 
-pPlot3(prob ~ mod, data = out, ylim = c(0, 1), line.fun = lower, line.lwd=2.5, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE, ylab="" )
+pPlot3(prob ~ mod, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE, line.lwd = 2.5)
 
-pPlot3(prob ~ mod, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE, line.lwd=2.5)
+mtext("Infection probability", 2, cex = 1.11, line = 2.37, font = 1)
+segments(x0 = 2.7, y0 = -0.15, x1 = 5.3, y1 = -0.15, lwd = 3)
+text(x = 3.99, y = -0.189, expression(paste("OU ", bold(alpha))), cex = 1.1, font = 2)
 
-mtext("Infection probability", 2, cex=1.11, line = 2.37, font=1)
-segments(x0 = 2.7, y0 = -0.15, x1 = 5.3, y1=-0.15, lwd=3)
-text(x=3.99, y=-0.189, expression(paste("OU ", bold(alpha))), cex=1.1, font=2)
-
-text(x=6.1, y=-0.138, "\nAvg.", cex=1, font=1)
+text(x = 6.1, y = -0.138, "\nAvg.", cex = 1, font = 1)
 
 # quartz.save(type = "pdf",file = "infection probability.pdf", bg="white")
 
@@ -206,7 +206,7 @@ xlabel <- rep(" ", ncol(OU9))
 
 
 # pdf(file = "Images/Fam_freqs.pdf", bg = "white")
-quartz(width=7.09, height=6, bg="white")
+quartz(width = 7.09, height = 6, bg = "white")
 par(mar = c(6.6, 3.4, 0.17, 0))
 par(xpd=FALSE)
 
@@ -219,15 +219,15 @@ pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal =
 # dev.off()
 
 
-pPlot2(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab="", point.pch=16)
+pPlot2(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", point.pch = 19)
     
-pPlot3(prob ~ families, data = out, ylim = c(0, 1), line.fun = lower, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab="", line.lwd=2.5, add=TRUE)
+pPlot3(prob ~ families, data = out, ylim = c(0, 1), line.fun = lower, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", line.lwd = 2.5, add = TRUE)
 
-pPlot3(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab="", line.lwd=2.5, add=TRUE)
+pPlot3(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", line.lwd = 2.5, add = TRUE)
        
 
 mtext("Infection probability", 2, cex=1.11, line = 2.37, font=1)
-mtext("Family", 1, cex=1.11, line = 5.5, font=1)
+mtext("Family", 1, cex=1.11, line = 5.5, font = 1)
 
 # quartz.save(type = "pdf", file="familyProb.pdf")
 
