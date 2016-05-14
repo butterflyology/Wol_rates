@@ -1,12 +1,14 @@
+
 This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  14 MAY 2016 17:07
+
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
 **Wolbachia_Frontiers.tex
 (./Wolbachia_Frontiers.tex
-LaTeX2e <2015/01/01>
-Babel <3.9l> and hyphenation patterns for 79 languages loaded.
+LaTeX2e <2016/03/31>
+Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
 (./frontiersSCNS.cls
 Document Class: frontiersSCNS 2016/02/09 2.5
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/inputenc.sty
@@ -21,12 +23,12 @@ Package: crop 2003/05/20 v1.9 crop marks (mf)
 \CROP@index=\count79
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
+Package: color 2016/01/03 v1.1b Standard LaTeX Color (DPC)
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 142.
+Package color Info: Driver file: pdftex.def on input line 143.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
@@ -40,15 +42,15 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gread@gobject=\count80
 ))
 (/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+Package: graphics 2016/01/03 v1.0q Standard LaTeX Graphics (DPC,SPQR)
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/graphics.cfg
 File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
-Package graphics Info: Driver file: pdftex.def on input line 94.
+Package graphics Info: Driver file: pdftex.def on input line 95.
 )
 \CROP@offset=\count81
 Package crop Info: Local config file crop.cfg used on input line 605.
@@ -65,40 +67,40 @@ Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \Gin@req@width=\dimen105
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2013/01/14 v2.14 AMS math features
+Package: amsmath 2016/03/10 v2.15b AMS math features
 \@mathmargin=\skip41
 
 For additional information on amsmath, use the `?' option.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amstext.sty
-Package: amstext 2000/06/29 v2.01
+Package: amstext 2000/06/29 v2.01 AMS text
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsgen.sty
-File: amsgen.sty 1999/11/30 v2.0
+File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks17
 \ex@=\dimen106
 ))
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsbsy.sty
-Package: amsbsy 1999/11/29 v1.2d
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen107
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsopn.sty
-Package: amsopn 1999/12/14 v2.01 operator names
+Package: amsopn 2016/03/08 v2.02 operator names
 )
 \inf@bad=\count82
-LaTeX Info: Redefining \frac on input line 210.
+LaTeX Info: Redefining \frac on input line 199.
 \uproot@=\count83
 \leftroot@=\count84
-LaTeX Info: Redefining \overline on input line 306.
+LaTeX Info: Redefining \overline on input line 297.
 \classnum@=\count85
 \DOTSCASE@=\count86
-LaTeX Info: Redefining \ldots on input line 378.
-LaTeX Info: Redefining \dots on input line 381.
-LaTeX Info: Redefining \cdots on input line 466.
+LaTeX Info: Redefining \ldots on input line 394.
+LaTeX Info: Redefining \dots on input line 397.
+LaTeX Info: Redefining \cdots on input line 518.
 \Mathstrutbox@=\box26
 \strutbox@=\box27
 \big@size=\dimen108
-LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OML on input line 634.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 635.
 \macc@depth=\count87
 \c@MaxMatrixCols=\count88
 \dotsspace@=\muskip10
@@ -119,8 +121,8 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \multlinegap=\skip42
 \multlinetaggap=\skip43
 \mathdisplay@stack=\toks21
-LaTeX Info: Redefining \[ on input line 2665.
-LaTeX Info: Redefining \] on input line 2666.
+LaTeX Info: Redefining \[ on input line 2739.
+LaTeX Info: Redefining \] on input line 2740.
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/tools/array.sty
 Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
@@ -160,7 +162,7 @@ Package: flushend 2015/04/14 v3.1 Balancing columns in twocolumn mode
 \atColsEnd=\toks24
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2015/05/04 v2.2 e-TeX tools for LaTeX (JAW)
+Package: etoolbox 2015/08/02 v2.2a e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count95
 ))
 (./stfloats.sty
@@ -329,14 +331,14 @@ Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/dvipsnam.def
-File: dvipsnam.def 2014/10/14 v3.0j Driver-dependent file (DPC,SPQR)
+File: dvipsnam.def 2015/12/30 v3.0k Driver-dependent file (DPC,SPQR)
 ))
 (/usr/local/texlive/2015/texmf-dist/tex/latex/caption/caption.sty
-Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
-Package caption3 Info: TeX engine: e-TeX on input line 57.
+Package: caption3 2016/02/04 v1.7-139 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
 \captionmargin=\dimen121
 \captionmargin@=\dimen122
 \captionwidth=\dimen123
@@ -357,7 +359,7 @@ See the caption package documentation for explanation.
 Package caption Info: \@makecaption = undefined.
 \c@ContinuedFloat=\count126
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/caption/subcaption.sty
-Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
+Package: subcaption 2016/02/20 v1.1-142 Sub-captions (AR)
 )
 \c@section=\count127
 \c@subsection=\count128
@@ -524,21 +526,21 @@ Package: setspace 2011/12/19 v6.7a set line spacing
 (./Wolbachia_Frontiers.aux)
 \openout1 = `Wolbachia_Frontiers.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 61.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
@@ -557,14 +559,14 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 \makeMPintoPDFobject=\count160
 \everyMPtoPDFconversion=\toks38
 )
-Package crop Info: requested driver: `' on input line 20.
-Package crop Info: detected driver: `pdftex' on input line 20.
-Package crop Info: using `pdftex' graphics driver on input line 20.
+Package crop Info: requested driver: `' on input line 61.
+Package crop Info: detected driver: `pdftex' on input line 61.
+Package crop Info: using `pdftex' graphics driver on input line 61.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box37
-Package hyperref Info: Link coloring OFF on input line 20.
+Package hyperref Info: Link coloring OFF on input line 61.
  (/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
@@ -573,15 +575,15 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count161
 )
-LaTeX Info: Redefining \ref on input line 20.
-LaTeX Info: Redefining \pageref on input line 20.
-LaTeX Info: Redefining \nameref on input line 20.
+LaTeX Info: Redefining \ref on input line 61.
+LaTeX Info: Redefining \pageref on input line 61.
+LaTeX Info: Redefining \nameref on input line 61.
 
 (./Wolbachia_Frontiers.out) (./Wolbachia_Frontiers.out)
 \@outlinefile=\write3
 \openout3 = `Wolbachia_Frontiers.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 20.
+LaTeX Info: Redefining \microtypecontext on input line 61.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2),
 (microtype)             factor: 1500.
@@ -596,7 +598,7 @@ Package microtype Info: No adjustment of character kerning.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/microtype/mt-ptm.cfg
 File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 )
-LaTeX Font Info:    Try loading font information for OT1+phv on input line 33.
+LaTeX Font Info:    Try loading font information for OT1+phv on input line 77.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
@@ -606,30 +608,30 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-<./logo1.jpg, id=32, 335.3328pt x 120.2091pt>
+<./logo1.jpg, id=4, 335.3328pt x 120.2091pt>
 File: ./logo1.jpg Graphic file (type jpg)
  <use ./logo1.jpg>
-Package pdftex.def Info: ./logo1.jpg used on input line 33.
+Package pdftex.def Info: ./logo1.jpg used on input line 77.
 (pdftex.def)             Requested size: 144.0pt x 51.62103pt.
 
-Underfull \hbox (badness 10000) detected at line 33
+Underfull \hbox (badness 10000) detected at line 77
 []
  []
 
 
-Overfull \hbox (8.53581pt too wide) in paragraph at lines 33--33
+Overfull \hbox (8.53581pt too wide) in paragraph at lines 77--77
 [][] 
  []
 
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <12> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 33.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 77.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <20> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 33.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 77.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 33.
+LaTeX Font Info:    Try loading font information for U+msa on input line 77.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -637,7 +639,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/local/texlive/2015/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 33.
+LaTeX Font Info:    Try loading font information for U+msb on input line 77.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -645,13 +647,14 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 (/usr/local/texlive/2015/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-Underfull \hbox (badness 10000) detected at line 33
+Underfull \hbox (badness 10000) detected at line 77
 []
  []
 
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <12> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 36.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 90.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <8> not available
+<<<<<<< HEAD
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 39.
 LaTeX Font Info:    Font shape `OT1/phv/bx/it' in size <8> not available
 (Font)              Font shape `OT1/phv/b/it' tried instead on input line 39.
@@ -661,33 +664,183 @@ LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <13> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 42.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <11> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 45.
+=======
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 95.
+LaTeX Font Info:    Font shape `OT1/phv/bx/it' in size <8> not available
+(Font)              Font shape `OT1/phv/b/it' tried instead on input line 95.
+LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <8> not available
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 95.
+LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <11> not available
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 98.
+>>>>>>> 87de7d1826f1698187da5483640891829afda9e7
 [1
 
 
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./logo1
 .jpg>]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 103.
+
+
+Package natbib Warning: Citation `Hertig:1924wy' on page 2 undefined on input l
+ine 103.
+
+
+Package natbib Warning: Citation `Hertig:1936' on page 2 undefined on input lin
+e 103.
+
+
+Package natbib Warning: Citation `Yen:1971tc' on page 2 undefined on input line
+ 103.
+
+
+Package natbib Warning: Citation `Yen:1973vx' on page 2 undefined on input line
+ 103.
+
+
+Package natbib Warning: Citation `Baldo:2006p7025' on page 2 undefined on input
+ line 105.
+
+
+Package natbib Warning: Citation `Simoes:2011p11073' on page 2 undefined on inp
+ut line 105.
+
+
+Package natbib Warning: Citation `Rigaud:2001fv' on page 2 undefined on input l
+ine 107.
+
+
+Package natbib Warning: Citation `Hoffmann:2011p11474' on page 2 undefined on i
+nput line 107.
+
+
+Package natbib Warning: Citation `Ishmael:2009p8257' on page 2 undefined on inp
+ut line 107.
+
+
+Package natbib Warning: Citation `Hamm:2014cv' on page 2 undefined on input lin
+e 107.
+
+
+Package natbib Warning: Citation `Zhang:2010jl' on page 2 undefined on input li
+ne 107.
+
+
+Package natbib Warning: Citation `Zhang:2013eo' on page 2 undefined on input li
+ne 107.
+
+
+Package natbib Warning: Citation `Regier:2013fp' on page 2 undefined on input l
+ine 109.
+
+
+Package natbib Warning: Citation `Hamm:2014wi' on page 2 undefined on input lin
+e 109.
+
 LaTeX Font Info:    Font shape `OT1/phv/bx/it' in size <11> not available
+<<<<<<< HEAD
 (Font)              Font shape `OT1/phv/b/it' tried instead on input line 57.
 LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <11> not available
 (Font)              Font shape `OT1/phv/b/sl' tried instead on input line 57.
+=======
+(Font)              Font shape `OT1/phv/b/it' tried instead on input line 112.
+LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <11> not available
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 112.
+>>>>>>> 87de7d1826f1698187da5483640891829afda9e7
 
 Overfull \vbox (3.49998pt too high) has occurred while \output is active []
 
 
 [2]
+
+Package natbib Warning: Citation `Weinert:2015aa' on page 3 undefined on input 
+line 129.
+
+
+Package natbib Warning: Citation `Ahmed:2015aa' on page 3 undefined on input li
+ne 129.
+
+
+Package natbib Warning: Citation `Hilgenboecker:2008aa' on page 3 undefined on 
+input line 129.
+
+
+Package natbib Warning: Citation `Weinert:2015aa' on page 3 undefined on input 
+line 129.
+
+
+Package natbib Warning: Citation `Schneider:2014jv' on page 3 undefined on inpu
+t line 131.
+
+
 Overfull \vbox (3.49998pt too high) has occurred while \output is active []
 
 
 [3]
+
+Package natbib Warning: Citation `Weinert:2015aa' on page 4 undefined on input 
+line 134.
+
+
+Package natbib Warning: Citation `Regier:2013fp' on page 4 undefined on input l
+ine 136.
+
+
+Package natbib Warning: Citation `Weinert:2015aa' on page 4 undefined on input 
+line 136.
+
+
+Package natbib Warning: Citation `Sanderson:2002vy' on page 4 undefined on inpu
+t line 136.
+
+
+Package natbib Warning: Citation `Paradis:2004dv' on page 4 undefined on input 
+line 136.
+
+
+Package natbib Warning: Citation `Paradis:2012wn' on page 4 undefined on input 
+line 136.
+
+
+Package natbib Warning: Citation `Paradis:2012wn' on page 4 undefined on input 
+line 136.
+
+
+Package natbib Warning: Citation `Paradis:2012wn' on page 4 undefined on input 
+line 136.
+
+
+Package natbib Warning: Citation `Ahmed:2015aa' on page 4 undefined on input li
+ne 139.
+
+
+Package natbib Warning: Citation `Weinert:2015aa' on page 4 undefined on input 
+line 139.
+
+
 Overfull \vbox (3.49998pt too high) has occurred while \output is active []
 
 
 [4]
+
+Package natbib Warning: Citation `Papaspiliopoulos:2007aa' on page 5 undefined 
+on input line 147.
+
+
+Package natbib Warning: Citation `Carvalho:2009aa' on page 5 undefined on input
+ line 154.
+
+
+Package natbib Warning: Citation `Carvalho:2010aa' on page 5 undefined on input
+ line 154.
+
+
 Overfull \vbox (3.49998pt too high) has occurred while \output is active []
 
 
 [5]
+<<<<<<< HEAD
 
 ./Wolbachia_Frontiers.tex:141: LaTeX Error: Bad math environment delimiter.
 
@@ -723,8 +876,13 @@ l.141 ... is a taxonomic bias in the data, and 3\)
 ? 
 
 Overfull \vbox (3.49998pt too high) has occurred while \output is active []
+=======
+>>>>>>> 87de7d1826f1698187da5483640891829afda9e7
 
+Package natbib Warning: Citation `Carpenter:2016aa' on page 6 undefined on inpu
+t line 191.
 
+<<<<<<< HEAD
 [6]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 147.
@@ -737,246 +895,128 @@ ine 147.
 Package natbib Warning: Citation `Cattel:IMB12245' on page 7 undefined on input
  line 149.
 
+=======
+>>>>>>> 87de7d1826f1698187da5483640891829afda9e7
+
+Package natbib Warning: Citation `stan:2016aa' on page 6 undefined on input lin
+e 191.
+
+
+Package natbib Warning: Citation `Gelman:1992aa' on page 6 undefined on input l
+ine 191.
+
+
+Package natbib Warning: Citation `Brooks:1998aa' on page 6 undefined on input l
+ine 191.
+
+
+Package natbib Warning: Citation `Carpenter:2016aa' on page 6 undefined on inpu
+t line 193.
+
+
+Package natbib Warning: Citation `stan:2016aa' on page 6 undefined on input lin
+e 193.
+
+
+Package natbib Warning: Citation `Gelman:1992aa' on page 6 undefined on input l
+ine 193.
+
+
+Package natbib Warning: Citation `Brooks:1998aa' on page 6 undefined on input l
+ine 193.
+
+
+Package natbib Warning: Citation `Watanabe:2010aa' on page 6 undefined on input
+ line 196.
+
+
+Package natbib Warning: Citation `Gelman:2014aa' on page 6 undefined on input l
+ine 196.
+
+
+Package natbib Warning: Citation `Vehtari:2016aa' on page 6 undefined on input 
+line 196.
+
+
+Package natbib Warning: Citation `Weinert:2015aa' on page 6 undefined on input 
+line 200.
+
+
+Package natbib Warning: Citation `Weinert:2015aa' on page 6 undefined on input 
+line 210.
+
+
+LaTeX Warning: Reference `aicTable' on page 6 undefined on input line 214.
+
+
+LaTeX Warning: Reference `aicTable' on page 6 undefined on input line 214.
+
 
 Overfull \vbox (3.49998pt too high) has occurred while \output is active []
 
 
-[7]
-Overfull \vbox (3.49998pt too high) has occurred while \output is active []
+[6]
+
+LaTeX Warning: Reference `grand' on page 7 undefined on input line 216.
 
 
-[8] (./Wolbachia_Frontiers.bbl
-
-./Wolbachia_Frontiers.bbl:70: Package babel Error: You haven't defined the lang
-uage eng yet.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.70 \newblock {\selectlanguage{eng}
-                                    {Wolbachia infection associated with all...
-
-? 
-
-./Wolbachia_Frontiers.bbl:72: Package babel Error: Unknown language `english'. 
-Either you have
-(babel)                misspelled its name, it has not been installed,
-(babel)                or you requested it in a previous run. Fix its name,
-(babel)                install it or just rerun the file, respectively.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.72 ... transmission of a butterfly male killer}}
-                                                  .
-? 
-
-./Wolbachia_Frontiers.bbl:80: Package babel Error: Unknown language `english'. 
-Either you have
-(babel)                misspelled its name, it has not been installed,
-(babel)                or you requested it in a previous run. Fix its name,
-(babel)                install it or just rerun the file, respectively.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.80 \newblock {\selectlanguage{English}
-                                        {Transfection of Wolbachia in Lepido...
-
-? 
-
-./Wolbachia_Frontiers.bbl:82: Package babel Error: Unknown language `english'. 
-Either you have
-(babel)                misspelled its name, it has not been installed,
-(babel)                or you requested it in a previous run. Fix its name,
-(babel)                install it or just rerun the file, respectively.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.82 ...terranean flour moth Ephestia kuehniella}}
-                                                  .
-? 
-
-Overfull \vbox (3.49998pt too high) has occurred while \output is active []
+LaTeX Warning: Reference `familyplot' on page 7 undefined on input line 216.
 
 
-[9]
-
-./Wolbachia_Frontiers.bbl:168: Package babel Error: Unknown language `english'.
- Either you have
-(babel)                misspelled its name, it has not been installed,
-(babel)                or you requested it in a previous run. Fix its name,
-(babel)                install it or just rerun the file, respectively.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.168 \newblock {\selectlanguage{English}
-                                         {Sex-ratio-distorting Wolbachia causes
-
-? 
-
-./Wolbachia_Frontiers.bbl:169: Package babel Error: Unknown language `english'.
- Either you have
-(babel)                misspelled its name, it has not been installed,
-(babel)                or you requested it in a previous run. Fix its name,
-(babel)                install it or just rerun the file, respectively.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.169   sex-role reversal in its butterfly host.}}
-                                                  
-? 
-
-./Wolbachia_Frontiers.bbl:194: Package babel Error: Unknown language `english'.
- Either you have
-(babel)                misspelled its name, it has not been installed,
-(babel)                or you requested it in a previous run. Fix its name,
-(babel)                install it or just rerun the file, respectively.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.194 \newblock {\selectlanguage{English}
-                                         {Feminizing Wolbachia in an insect,...
-
-? 
-
-./Wolbachia_Frontiers.bbl:195: Package babel Error: Unknown language `english'.
- Either you have
-(babel)                misspelled its name, it has not been installed,
-(babel)                or you requested it in a previous run. Fix its name,
-(babel)                install it or just rerun the file, respectively.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.195   furnacalis (Lepidoptera : Crambidae)}}
-                                              .
-? 
-
-./Wolbachia_Frontiers.bbl:203: Package babel Error: Unknown language `english'.
- Either you have
-(babel)                misspelled its name, it has not been installed,
-(babel)                or you requested it in a previous run. Fix its name,
-(babel)                install it or just rerun the file, respectively.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.203 \newblock {\selectlanguage{English}
-                                         {Male-killing Wolbachia in the butt...
-
-? 
-
-./Wolbachia_Frontiers.bbl:204: Package babel Error: Unknown language `english'.
- Either you have
-(babel)                misspelled its name, it has not been installed,
-(babel)                or you requested it in a previous run. Fix its name,
-(babel)                install it or just rerun the file, respectively.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.204   Hypolimnas bolina}}
-                           .
-? 
-
-./Wolbachia_Frontiers.bbl:211: Package babel Error: Unknown language `english'.
- Either you have
-(babel)                misspelled its name, it has not been installed,
-(babel)                or you requested it in a previous run. Fix its name,
-(babel)                install it or just rerun the file, respectively.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.211 \newblock {\selectlanguage{English}
-                                         {Unexpected mechanism of symbiont-i...
-
-? 
-
-./Wolbachia_Frontiers.bbl:213: Package babel Error: Unknown language `english'.
- Either you have
-(babel)                misspelled its name, it has not been installed,
-(babel)                or you requested it in a previous run. Fix its name,
-(babel)                install it or just rerun the file, respectively.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.213 ...Eurema hecabe during larval development}}
-                                                  .
-? 
-
-./Wolbachia_Frontiers.bbl:298: Package babel Error: Unknown language `english'.
- Either you have
-(babel)                misspelled its name, it has not been installed,
-(babel)                or you requested it in a previous run. Fix its name,
-(babel)                install it or just rerun the file, respectively.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.298 \newblock {\selectlanguage{English}
-                                         {A male-killing Wolbachia carries a
-? 
-
-./Wolbachia_Frontiers.bbl:300: Package babel Error: Unknown language `english'.
- Either you have
-(babel)                misspelled its name, it has not been installed,
-(babel)                or you requested it in a previous run. Fix its name,
-(babel)                install it or just rerun the file, respectively.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.300   system of its host}}
-                            .
-? 
-
-Overfull \vbox (3.49998pt too high) has occurred while \output is active []
+Package natbib Warning: Citation `Ahmed:2015aa' on page 7 undefined on input li
+ne 223.
 
 
-[10])
-Overfull \vbox (3.49998pt too high) has occurred while \output is active []
+Package natbib Warning: Citation `Weinert:2015aa' on page 7 undefined on input 
+line 223.
 
 
+Package natbib Warning: Citation `Hilgenboecker:2008aa' on page 7 undefined on 
+input line 237.
+
+
+Package natbib Warning: Citation `Ahmed:2015aa' on page 7 undefined on input li
+ne 238.
+
+
+Package natbib Warning: Citation `Weinert:2015aa' on page 7 undefined on input 
+line 238.
+
+
+Package natbib Warning: Citation `Nice:2009p7399' on page 7 undefined on input 
+line 248.
+
+<<<<<<< HEAD
 [11] <Fams_n_Props.pdf, id=279, 505.89pt x 1011.78pt>
 File: Fams_n_Props.pdf Graphic file (type pdf)
  <use Fams_n_Props.pdf>
 Package pdftex.def Info: Fams_n_Props.pdf used on input line 206.
 (pdftex.def)             Requested size: 241.84842pt x 483.70363pt.
+=======
+>>>>>>> 87de7d1826f1698187da5483640891829afda9e7
 
-Overfull \vbox (3.49998pt too high) has occurred while \output is active []
+Package natbib Warning: Citation `Hamm:2014wi' on page 7 undefined on input lin
+e 248.
 
 
+<<<<<<< HEAD
 [12 <./Fams_n_Props.pdf>] <infection_Prob.pdf, id=297, 244.915pt x 289.08pt>
 File: infection_Prob.pdf Graphic file (type pdf)
 
 <use infection_Prob.pdf>
 Package pdftex.def Info: infection_Prob.pdf used on input line 216.
 (pdftex.def)             Requested size: 241.84842pt x 285.46667pt.
+=======
+Package natbib Warning: Citation `Prout:1994th' on page 7 undefined on input li
+ne 252.
 
-Overfull \vbox (3.49998pt too high) has occurred while \output is active []
+>>>>>>> 87de7d1826f1698187da5483640891829afda9e7
+
+Package natbib Warning: Citation `vanNieukerken:2011a123' on page 7 undefined o
+n input line 256.
 
 
+<<<<<<< HEAD
 [13 <./infection_Prob.pdf>] <familyplotAvg.pdf, id=315, 511.9125pt x 433.62pt>
 File: familyplotAvg.pdf Graphic file (type pdf)
 
@@ -987,20 +1027,33 @@ Package pdftex.def Info: familyplotAvg.pdf used on input line 226.
 Overfull \hbox (8.1496pt too wide) in paragraph at lines 226--227
  [] 
  []
+=======
+Package natbib Warning: Citation `Jiggins:2001p7754' on page 7 undefined on inp
+ut line 258.
+
+
+Package natbib Warning: Citation `Jiggins:2001uo' on page 7 undefined on input 
+line 260.
+>>>>>>> 87de7d1826f1698187da5483640891829afda9e7
 
 
 Overfull \vbox (3.49998pt too high) has occurred while \output is active []
 
 
-[14 <./familyplotAvg.pdf>]
+[7]
 
-Package caption Warning: Unused \captionsetup[sub] on input line 3.
-See the caption package documentation for explanation.
+Package natbib Warning: Citation `Nice:2009p7399' on page 8 undefined on input 
+line 272.
 
 
 Overfull \vbox (3.49998pt too high) has occurred while \output is active []
 
 
+[8] (./Wolbachia_Frontiers.bbl
+Overfull \vbox (3.49998pt too high) has occurred while \output is active []
+
+
+<<<<<<< HEAD
 [15]
 
 Package natbib Warning: There were undefined citations.
@@ -1044,3 +1097,37 @@ PDF statistics:
  78 named destinations out of 1000 (max. 500000)
  32845 words of extra memory for PDF output out of 35830 (max. 10000000)
 
+=======
+[9]
+
+./Wolbachia_Frontiers.bbl:70: Package babel Error: You haven't defined the lang
+uage eng yet.
+
+See the babel package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.70 \newblock {\selectlanguage{eng}
+                                    {Wolbachia infection associated with all...
+
+? 
+./Wolbachia_Frontiers.bbl:70: Emergency stop.
+ ...                                              
+                                                  
+l.70 \newblock {\selectlanguage{eng}
+                                    {Wolbachia infection associated with all...
+
+Your command will be ignored, type <return> to proceed
+
+ 
+Here is how much of TeX's memory you used:
+ 11697 strings out of 493027
+ 175953 string characters out of 6134070
+ 318745 words of memory out of 5000000
+ 14824 multiletter control sequences out of 15000+600000
+ 41187 words of font info for 165 fonts, out of 8000000 for 9000
+ 1145 hyphenation exceptions out of 8191
+ 60i,8n,94p,1626b,529s stack positions out of 5000i,500n,10000p,200000b,80000s
+./Wolbachia_Frontiers.bbl:70:  ==> Fatal error occurred, no output PDF file pro
+duced!
+>>>>>>> 87de7d1826f1698187da5483640891829afda9e7
