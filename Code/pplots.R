@@ -1,3 +1,11 @@
+upper <- function(x) {
+  return(quantile(x, prob = 0.975))
+}
+
+lower <- function(x) {
+  return(quantile(x, prob = 0.025))
+}
+
 pPlot1 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = gray(1), 
                   point.cex = 1, point.pch = 1, point.lwd = 1, cut.min = NULL, 
                   cut.max = NULL, width.min = 0.3, width.max = NA, bean.o = NULL, 
