@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  13 MAY 2016 14:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  14 MAY 2016 17:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -652,15 +652,15 @@ Underfull \hbox (badness 10000) detected at line 33
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <12> not available
 (Font)              Font shape `OT1/phv/m/sl' tried instead on input line 36.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <8> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 40.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 39.
 LaTeX Font Info:    Font shape `OT1/phv/bx/it' in size <8> not available
-(Font)              Font shape `OT1/phv/b/it' tried instead on input line 40.
+(Font)              Font shape `OT1/phv/b/it' tried instead on input line 39.
 LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <8> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 40.
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 39.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <13> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 43.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 42.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <11> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 46.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 45.
 [1
 
 
@@ -668,9 +668,9 @@ LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <11> not available
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./logo1
 .jpg>]
 LaTeX Font Info:    Font shape `OT1/phv/bx/it' in size <11> not available
-(Font)              Font shape `OT1/phv/b/it' tried instead on input line 58.
+(Font)              Font shape `OT1/phv/b/it' tried instead on input line 57.
 LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <11> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 58.
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 57.
 
 Overfull \vbox (3.49998pt too high) has occurred while \output is active []
 
@@ -688,12 +688,55 @@ Overfull \vbox (3.49998pt too high) has occurred while \output is active []
 
 
 [5]
+
+./Wolbachia_Frontiers.tex:141: LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.141 ...tet{Weinert:2015aa} these biases are: 1\)
+                                                   some species are represen...
+
+? 
+
+./Wolbachia_Frontiers.tex:141: LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.141 ...s are represented by a single sample, 2\)
+                                                   there is a taxonomic bias...
+
+? 
+
+./Wolbachia_Frontiers.tex:141: LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.141 ... is a taxonomic bias in the data, and 3\)
+                                                   research may be focused o...
+
+? 
+
 Overfull \vbox (3.49998pt too high) has occurred while \output is active []
 
 
 [6]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 199.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 147.
+
+
+Package natbib Warning: Citation `Miller:2010ki' on page 7 undefined on input l
+ine 147.
+
+
+Package natbib Warning: Citation `Cattel:IMB12245' on page 7 undefined on input
+ line 149.
+
 
 Overfull \vbox (3.49998pt too high) has occurred while \output is active []
 
@@ -915,33 +958,33 @@ Overfull \vbox (3.49998pt too high) has occurred while \output is active []
 Overfull \vbox (3.49998pt too high) has occurred while \output is active []
 
 
-[11] <Fams_n_Props.pdf, id=263, 505.89pt x 1011.78pt>
+[11] <Fams_n_Props.pdf, id=279, 505.89pt x 1011.78pt>
 File: Fams_n_Props.pdf Graphic file (type pdf)
  <use Fams_n_Props.pdf>
-Package pdftex.def Info: Fams_n_Props.pdf used on input line 238.
+Package pdftex.def Info: Fams_n_Props.pdf used on input line 206.
 (pdftex.def)             Requested size: 241.84842pt x 483.70363pt.
 
 Overfull \vbox (3.49998pt too high) has occurred while \output is active []
 
 
-[12 <./Fams_n_Props.pdf>] <infection_Prob.pdf, id=281, 244.915pt x 289.08pt>
+[12 <./Fams_n_Props.pdf>] <infection_Prob.pdf, id=297, 244.915pt x 289.08pt>
 File: infection_Prob.pdf Graphic file (type pdf)
 
 <use infection_Prob.pdf>
-Package pdftex.def Info: infection_Prob.pdf used on input line 248.
+Package pdftex.def Info: infection_Prob.pdf used on input line 216.
 (pdftex.def)             Requested size: 241.84842pt x 285.46667pt.
 
 Overfull \vbox (3.49998pt too high) has occurred while \output is active []
 
 
-[13 <./infection_Prob.pdf>] <familyplotAvg.pdf, id=299, 511.9125pt x 433.62pt>
+[13 <./infection_Prob.pdf>] <familyplotAvg.pdf, id=315, 511.9125pt x 433.62pt>
 File: familyplotAvg.pdf Graphic file (type pdf)
 
 <use familyplotAvg.pdf>
-Package pdftex.def Info: familyplotAvg.pdf used on input line 258.
+Package pdftex.def Info: familyplotAvg.pdf used on input line 226.
 (pdftex.def)             Requested size: 512.1496pt x 433.85051pt.
 
-Overfull \hbox (8.1496pt too wide) in paragraph at lines 258--259
+Overfull \hbox (8.1496pt too wide) in paragraph at lines 226--227
  [] 
  []
 
@@ -959,22 +1002,25 @@ Overfull \vbox (3.49998pt too high) has occurred while \output is active []
 
 
 [15]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 323.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 323.
- (./Wolbachia_Frontiers.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 323.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 323.
+
+Package natbib Warning: There were undefined citations.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 290.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 290.
+(./Wolbachia_Frontiers.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 290.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 290.
 Package rerunfilecheck Info: File `Wolbachia_Frontiers.out' has not changed.
 (rerunfilecheck)             Checksum: 986AB6E9DB2EDCDBBAED322A742204DA;407.
  ) 
 Here is how much of TeX's memory you used:
- 11982 strings out of 493089
- 180510 string characters out of 6134842
+ 12002 strings out of 493089
+ 180701 string characters out of 6134842
  326680 words of memory out of 5000000
- 14855 multiletter control sequences out of 15000+600000
- 49989 words of font info for 237 fonts, out of 8000000 for 9000
+ 14857 multiletter control sequences out of 15000+600000
+ 50943 words of font info for 249 fonts, out of 8000000 for 9000
  1145 hyphenation exceptions out of 8191
- 60i,11n,94p,1626b,523s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,11n,94p,1737b,523s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/te
 xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/tex
@@ -991,10 +1037,10 @@ ts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type
 1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/
 times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmr
 8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Wolbachia_Frontiers.pdf (15 pages, 20902533 bytes).
+Output written on Wolbachia_Frontiers.pdf (15 pages, 20904814 bytes).
 PDF statistics:
- 407 PDF objects out of 1000 (max. 8388607)
- 356 compressed objects within 4 object streams
+ 422 PDF objects out of 1000 (max. 8388607)
+ 371 compressed objects within 4 object streams
  78 named destinations out of 1000 (max. 500000)
  32845 words of extra memory for PDF output out of 35830 (max. 10000000)
 
