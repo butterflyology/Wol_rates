@@ -4,6 +4,7 @@ library("shinystan")
 library("loo")
 library("yarrr")
 library("rethinking")
+library("stargazer")
 
 sessID <- sessionInfo()
  setwd("~/Dropbox/Wol_rates")
@@ -92,18 +93,18 @@ datOU9 <- list(nObs = dim(wol)[1],
                Species = as.numeric(as.factor(wol$spp)),
                Family = as.numeric(as.factor(temp[, 1])))
 
-fitNPhy <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datNPhy, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
+fitNPhy <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datNPhy, iter = 5000, chains = 4, seed = 5, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
 
-fitBM <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datBM, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
+fitBM <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datBM, iter = 5000, chains = 4, seed = 5, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
 
-fitOU1 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU1, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
+fitOU1 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU1, iter = 5000, chains = 4, seed = 5, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
 
-fitOU5 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU5, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
+fitOU5 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU5, iter = 5000, chains = 4, seed = 5, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
 
-fitOU9 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU9, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
+fitOU9 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU9, iter = 5000, chains = 4, seed = 5, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
 
-# mods <- list(fitNPhy=fitNPhy, fitBM=fitBM, fitOU1=fitOU1, fitOU5=fitOU5, fitOU9 = fitOU9)
-# save(mods, file="Code/MultilevelLeps/stanMods.R")
+ mods <- list(fitNPhy=fitNPhy, fitBM=fitBM, fitOU1=fitOU1, fitOU5=fitOU5, fitOU9 = fitOU9)
+ save(mods, file="Code/MultilevelLeps/stanMods.R")
 load("~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R")
  fitNPhy <- mods$fitNPhy
  fitBM <- mods$fitBM
@@ -125,6 +126,13 @@ load("~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R")
 # compare(aicNP, aicBM, aicOU1, aicOU5, aicOU9)
 
 x <- compare(fitNPhy, fitBM, fitOU1, fitOU5, fitOU9)
+aicO <- c(3, 4, 2, 1, 5)
+twAIC <- as.data.frame(round(x@output,2), row.names = dimnames(x@output)[[1]])[,aicO]
+
+### outputs a nice latex table that can be modified in overleaf
+stargazer(twAIC, summary=FALSE, digits=2)
+
+
 wts <- data.frame(mod = dimnames(x@output)[[1]], wts = round(x@output$weight,3))
 
 # unaveraged
@@ -171,6 +179,11 @@ text(x=3.99, y=-0.189, expression(paste("OU ", bold(alpha))), cex=1.1, font=2)
 
 text(x=6.1, y=-0.138, "\nAvg.", cex=1, font=1)
 
+
+quantile(avg, probs=c(0.025, 0.5, 0.975))
+
+
+
 quartz.save(type = "pdf",file = "infection probability.pdf", bg="white")
 
 
@@ -203,18 +216,18 @@ out <- data.frame(prob = ouPost, families = families)
 xlabel <- rep(" ", ncol(OU9))
 
 
-quartz(width=7.09, height=6, bg="white")
+#quartz(width=7.09, height=6, bg="white")
 par(mar = c(6.6, 3.4, 0.17, 0))
 par(xpd=FALSE)
 
 # pdf(file = "Images/Fam_freqs.pdf", bg = "white")
-par(las = 2)
-pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "n", las = 2, xaxt = "n", xlab = "Lepidoptera family", ylab = "Infection frequency")
-           
-pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = lower, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
-           
-pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
-# dev.off()
+# par(las = 2)
+# pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "n", las = 2, xaxt = "n", xlab = "Lepidoptera family", ylab = "Infection frequency")
+#            
+# pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = lower, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
+#            
+# pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
+# # dev.off()
 
 
 pPlot2(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab="", point.pch=16)
@@ -227,7 +240,7 @@ pPlot3(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "gho
 mtext("Infection probability", 2, cex=1.11, line = 2.37, font=1)
 mtext("Family", 1, cex=1.11, line = 5.5, font=1)
 
-quartz.save(type = "pdf", file="familyProb.pdf")
+# quartz.save(type = "pdf", file="familyProb.pdf")
 
 
 #----------------------
@@ -272,9 +285,15 @@ barplot(sort(g), las = 2, ylim = c(0, 350), cex.names = 0.9, ylab = "Samples")
 gprime <- as.table(c(g[1] / 185, g[2] / 49, g[3] / 113, g[4] / 9655, g[6] / 660, g[7] / 20, g[8] / 24569, g[9] / 339, g[10] / 4700, g[11] / 23002, g[12] / 1866, g[13] / 36, g[14] / 606, g[15] / 1952, g[16] / 5201, g[17] / 11772, g[18] / 3800, g[19] / 6152, g[20] / 570, g[21] / 1164, g[22] / 150, g[23] / 1318, g[24] / 5921, g[25] / 2349, g[26] / 1463, g[27] / 10387, g[28] / 686))
 
 # pdf("Images/Prop_fams_bar.pdf", bg = "white")
-par(mar = c(6.1, 4.5, 1, 1))
+quartz(width=3.4, height=4, bg="white")
+par(mar = c(6.1, 2, 0.2, 0.2))
+par(ps=10)
+x<-barplot(sort(gprime), las = 2, cex.names = 1, ylim = c(0, 0.65), axes=FALSE, ylab=NULL, yaxt="n", xaxs="i")
 
-barplot(sort(gprime), las = 2, cex.names = 0.9, ylab = "Proportion of family represented", ylim = c(0, 0.7))
+axis(2, at = seq(0, 0.7, by=0.1), las=1, cex.axis=0.9, mgp=c(1,0.4,0),tcl=-0.3, line=0)
+mtext("Proportion of family represented", 2, cex=1, line = 1.2, font=1)
+
+
 # dev.off()
 
 
