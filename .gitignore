@@ -3,14 +3,4 @@ Images/
 .Rapp.history
 Misof_trees/*.pdf
 MultiLevModel/*.pdf
-WolbachiaMethods/*.pdf
-WolbachiaMethods/infection_prob.pdf
-WolbachiaMethods/Wolbachia_Methods-mpgraph.mp
-	WolbachiaMethods/Wolbachia_Methods.aux
-	WolbachiaMethods/Wolbachia_Methods.bbl
-	WolbachiaMethods/Wolbachia_Methods.blg
-	WolbachiaMethods/Wolbachia_Methods.log
-	WolbachiaMethods/Wolbachia_Methods.synctex.gz
-	WolbachiaMethods/Wolbachia_Methods.tex
-	WolbachiaMethods/Wolbachia_Methods.top
-	WolbachiaMethods/Wolbachia_Methods.tui
+wolbachia-paper/*.pdf
