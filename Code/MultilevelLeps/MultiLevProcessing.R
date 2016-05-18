@@ -257,12 +257,14 @@ w1 <- w1[order(w1$sum), ]
 
 # pdf(file = "Images/samples_plot.pdf", bg = "white")
 par(mar = c(7.8, 4.5, 1, 1))
-barplot(w1$sum, ylim = c(0, 4000), names.arg = w1$Family, las = 2, cex.names = 1.2, ylab = "Samples")
+barplot(w1$sum, ylim = c(0, 4000), names.arg = w1$Family, las = 2, cex.names = 1.2, ylab = "Total samples")
+mtext("(A)", 2, las = 1, at = 4000, line = -2, cex = 1.5)
 # dev.off()
 
 # pdf("Images/Fams_bar.pdf", bg = "white")
-par(mar = c(6.1, 4, 1, 1))
-barplot(sort(g), las = 2, ylim = c(0, 350), cex.names = 0.9, ylab = "Species")
+par(mar = c(7.8, 4.5, 1, 1))
+barplot(sort(g), las = 2, ylim = c(0, 350), cex.names = 1.2, ylab = "Species represented")
+mtext("(B)", 2, las = 1, at = 350, line = -2, cex = 1.5)
 # dev.off()
 
 
@@ -270,6 +272,7 @@ barplot(sort(g), las = 2, ylim = c(0, 350), cex.names = 0.9, ylab = "Species")
 gprime <- as.table(c(g[1] / 185, g[2] / 49, g[3] / 113, g[4] / 9655, g[6] / 660, g[7] / 20, g[8] / 24569, g[9] / 339, g[10] / 4700, g[11] / 23002, g[12] / 1866, g[13] / 36, g[14] / 606, g[15] / 1952, g[16] / 5201, g[17] / 11772, g[18] / 3800, g[19] / 6152, g[20] / 570, g[21] / 1164, g[22] / 150, g[23] / 1318, g[24] / 5921, g[25] / 2349, g[26] / 1463, g[27] / 10387, g[28] / 686))
 
 # pdf("Images/Prop_fams_bar.pdf", bg = "white")
-par(mar = c(6.1, 4.5, 1, 1))
-barplot(sort(gprime), las = 2, cex.names = 0.9, ylab = "Proportion of family represented", ylim = c(0, 1.0))
+par(mar = c(7.8, 4.5, 1, 1))
+barplot(sort(gprime), las = 2, cex.names = 1.2, ylab = "Proportion  of species represented", ylim = c(0, 1.0))
+mtext("(C)", 2, las = 1, at = 1.0, line = -2, cex = 1.5)
 # dev.off()
