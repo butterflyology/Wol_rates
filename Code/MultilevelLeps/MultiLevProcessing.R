@@ -38,6 +38,7 @@ sum(wol$Total)
 sum(wol$Infected)
 unique(wol$spp)
 length(unique(wol$spp))
+which(wol$spp == "Nymphalidae")
 length(unique(wol$Family))
 
 dim(wol[wol$Infected >= 0, ])
@@ -192,9 +193,8 @@ avgF <- as.data.frame(Reduce('+', famList))
 
 
 fams <- unique(wol$Family)
-meds <- apply(avgF,2,upper)
-
 meds <- apply(avgF, 2, upper)
+
 
 medOrd <- order(meds)
 ouPost <- unlist(avgF[, medOrd])
@@ -251,19 +251,24 @@ g <- table(wol$Family) # species counts
 # g <- as.list(g)
 length(g)
 
+# barplot of species by family
+# grep everything before
+
+
+
 # plots by samples
 w1 <- wol %>% group_by(Family) %>% summarize(sum = sum(Total))
 w1 <- w1[order(w1$sum), ]
 
 # pdf(file = "Images/samples_plot.pdf", bg = "white")
 par(mar = c(7.8, 4.5, 1, 1))
-barplot(w1$sum, ylim = c(0, 4000), names.arg = w1$Family, las = 2, cex.names = 1.2, ylab = "Total samples")
+barplot(w1$sum, ylim = c(0, 4000), names.arg = w1$Family, las = 2, cex.names = 1.2, ylab = "Total assays")
 mtext("(A)", 2, las = 1, at = 4000, line = -2, cex = 1.5)
 # dev.off()
 
 # pdf("Images/Fams_bar.pdf", bg = "white")
 par(mar = c(7.8, 4.5, 1, 1))
-barplot(sort(g), las = 2, ylim = c(0, 350), cex.names = 1.2, ylab = "Species represented")
+barplot(sort(g), las = 2, ylim = c(0, 350), cex.names = 1.2, ylab = "Species")
 mtext("(B)", 2, las = 1, at = 350, line = -2, cex = 1.5)
 # dev.off()
 
