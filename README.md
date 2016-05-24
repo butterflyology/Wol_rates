@@ -14,3 +14,4 @@ Major commits by date (2016):
   * 4 May - Updated plots, added model averaging
   * 8 May - Updated ms latex files
   * 14 May - Corrected model averaging error for family level predictions
+  * 24 May - Added correlation and plots for association between CI and sample size

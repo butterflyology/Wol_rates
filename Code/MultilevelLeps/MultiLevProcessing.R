@@ -5,6 +5,7 @@ library("loo")
 library("yarrr")
 library("rethinking")
 library("dplyr"); options(dplyr.print_max = 30)
+library("ggplot2")
 
 sessID <- sessionInfo()
 # setwd("~/Dropbox/Wol_rates")
@@ -183,17 +184,18 @@ OU5  <- as.data.frame(fitOU5, "infectF")
 OU9  <- as.data.frame(fitOU9, "infectF")
 
 famList <- list(
-  as.matrix(fitNPhy, "infectF") * wts[wts$mod == "fitNPhy",2], 
-  as.matrix(fitBM, "infectF") * wts[wts$mod == "fitBM",2],  
-  as.matrix(fitOU1, "infectF") * wts[wts$mod == "fitOU1",2],
-  as.matrix(fitOU5, "infectF") * wts[wts$mod == "fitOU5",2],
-  as.matrix(fitOU9, "infectF") * wts[wts$mod == "fitOU9",2])
+  as.matrix(fitNPhy, "infectF") * wts[wts$mod == "fitNPhy", 2], 
+  as.matrix(fitBM, "infectF") * wts[wts$mod == "fitBM", 2],  
+  as.matrix(fitOU1, "infectF") * wts[wts$mod == "fitOU1", 2],
+  as.matrix(fitOU5, "infectF") * wts[wts$mod == "fitOU5", 2],
+  as.matrix(fitOU9, "infectF") * wts[wts$mod == "fitOU9", 2])
 
 avgF <- as.data.frame(Reduce('+', famList))
 
 
 fams <- unique(wol$Family)
 meds <- apply(avgF, 2, upper)
+
 
 
 medOrd <- order(meds)
@@ -281,3 +283,22 @@ par(mar = c(7.8, 4.5, 1, 1))
 barplot(sort(gprime), las = 2, cex.names = 1.2, ylab = "Proportion  of species represented", ylim = c(0, 1.0))
 mtext("(C)", 2, las = 1, at = 1.0, line = -2, cex = 1.5)
 # dev.off()
+
+
+# Pull the 95% CIs from individual models
+CIrange <- apply(avgF, 2, quantile, probs = c(0.025, 0.975))
+colnames(CIrange) <- fams
+CIrange
+str(CIrange)
+FamRange <- CIrange[2, ] - CIrange[1, ]
+FamRange <- data.frame(Family = row.names(FamRange), CIRange = FamRange[, 1])
+FamRange <- tbl_df(FamRange)
+FamRange$Family <- as.character(FamRange$Family)
+
+ttys <- left_join(FamRange, w1, by = "Family")
+
+plot(x = ttys$sum, y = ttys$CIRange, pch = 19, ylab = "CI range", xlab = "Samples", las = 1, ylim = c(0, 1))
+CI.lm <- lm(CIRange ~ sum, data = ttys)
+summary(CI.lm)
+
+ggplot(ttys, aes(x = sum, y = CIRange)) + geom_point(size = 2, shape = 19) + ylim(-0.4, 1) + stat_smooth(method = lm, se = TRUE, color = "black", level = 0.95) + labs(x = "Samples", y = "CI Range")
