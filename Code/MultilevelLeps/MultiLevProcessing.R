@@ -16,7 +16,8 @@ options(mc.cores = parallel::detectCores())
 
 # save(file = "Data/Wolbachia_output.RData", list = ls())
 # load("Data/Lep.vcv.R")
-load("Data/Lep.vcv.ultra.R")
+# load("Data/Lep.vcv.ultra.R")
+# load("Data/Wolbachia_output.RData")
 # load("~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R")
 
 
@@ -291,14 +292,16 @@ colnames(CIrange) <- fams
 CIrange
 str(CIrange)
 FamRange <- CIrange[2, ] - CIrange[1, ]
-FamRange <- data.frame(Family = row.names(FamRange), CIRange = FamRange[, 1])
+FamRange <- data.frame(Family = names(FamRange), CIRange = FamRange[1:28])
 FamRange <- tbl_df(FamRange)
 FamRange$Family <- as.character(FamRange$Family)
 
 ttys <- left_join(FamRange, w1, by = "Family")
 
-plot(x = ttys$sum, y = ttys$CIRange, pch = 19, ylab = "CI range", xlab = "Samples", las = 1, ylim = c(0, 1))
-CI.lm <- lm(CIRange ~ sum, data = ttys)
+plot(x = ttys$sum, y = ttys$CIRange, pch = 19, ylab = "HPD range", xlab = "Samples", las = 1, ylim = c(0, 1))
+CI.lm <- lm(scale(CIRange, center = TRUE, scale = TRUE) ~ sum, data = ttys)
 summary(CI.lm)
 
-ggplot(ttys, aes(x = sum, y = CIRange)) + geom_point(size = 2, shape = 19) + ylim(-0.4, 1) + stat_smooth(method = lm, se = TRUE, color = "black", level = 0.95) + labs(x = "Samples", y = "CI Range")
+pdf(file = "N_CI.pdf", bg = "white")
+ggplot(ttys, aes(x = sum, y = CIRange)) + geom_point(size = 2, shape = 19) + ylim(-0.4, 1) + stat_smooth(method = lm, se = TRUE, color = "black", level = 0.95) + labs(x = "Samples", y = "95% HPD Range")
+dev.off()
