@@ -5,6 +5,7 @@ library("loo")
 library("yarrr")
 library("rethinking")
 library("dplyr"); options(dplyr.print_max = 30)
+library("ggplot2")
 
 sessID <- sessionInfo()
 # setwd("~/Dropbox/Wol_rates")
@@ -15,7 +16,8 @@ options(mc.cores = parallel::detectCores())
 
 # save(file = "Data/Wolbachia_output.RData", list = ls())
 # load("Data/Lep.vcv.R")
-load("Data/Lep.vcv.ultra.R")
+# load("Data/Lep.vcv.ultra.R")
+# load("Data/Wolbachia_output.RData")
 # load("~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R")
 
 
@@ -38,6 +40,7 @@ sum(wol$Total)
 sum(wol$Infected)
 unique(wol$spp)
 length(unique(wol$spp))
+which(wol$spp == "Nymphalidae")
 length(unique(wol$Family))
 
 dim(wol[wol$Infected >= 0, ])
@@ -182,19 +185,19 @@ OU5  <- as.data.frame(fitOU5, "infectF")
 OU9  <- as.data.frame(fitOU9, "infectF")
 
 famList <- list(
-  as.matrix(fitNPhy, "infectF") * wts[wts$mod == "fitNPhy",2], 
-  as.matrix(fitBM, "infectF") * wts[wts$mod == "fitBM",2],  
-  as.matrix(fitOU1, "infectF") * wts[wts$mod == "fitOU1",2],
-  as.matrix(fitOU5, "infectF") * wts[wts$mod == "fitOU5",2],
-  as.matrix(fitOU9, "infectF") * wts[wts$mod == "fitOU9",2])
+  as.matrix(fitNPhy, "infectF") * wts[wts$mod == "fitNPhy", 2], 
+  as.matrix(fitBM, "infectF") * wts[wts$mod == "fitBM", 2],  
+  as.matrix(fitOU1, "infectF") * wts[wts$mod == "fitOU1", 2],
+  as.matrix(fitOU5, "infectF") * wts[wts$mod == "fitOU5", 2],
+  as.matrix(fitOU9, "infectF") * wts[wts$mod == "fitOU9", 2])
 
 avgF <- as.data.frame(Reduce('+', famList))
 
 
 fams <- unique(wol$Family)
-meds <- apply(avgF,2,upper)
-
 meds <- apply(avgF, 2, upper)
+
+
 
 medOrd <- order(meds)
 ouPost <- unlist(avgF[, medOrd])
@@ -251,19 +254,24 @@ g <- table(wol$Family) # species counts
 # g <- as.list(g)
 length(g)
 
+# barplot of species by family
+# grep everything before
+
+
+
 # plots by samples
 w1 <- wol %>% group_by(Family) %>% summarize(sum = sum(Total))
 w1 <- w1[order(w1$sum), ]
 
 # pdf(file = "Images/samples_plot.pdf", bg = "white")
 par(mar = c(7.8, 4.5, 1, 1))
-barplot(w1$sum, ylim = c(0, 4000), names.arg = w1$Family, las = 2, cex.names = 1.2, ylab = "Total samples")
+barplot(w1$sum, ylim = c(0, 4000), names.arg = w1$Family, las = 2, cex.names = 1.2, ylab = "Total assays")
 mtext("(A)", 2, las = 1, at = 4000, line = -2, cex = 1.5)
 # dev.off()
 
 # pdf("Images/Fams_bar.pdf", bg = "white")
 par(mar = c(7.8, 4.5, 1, 1))
-barplot(sort(g), las = 2, ylim = c(0, 350), cex.names = 1.2, ylab = "Species represented")
+barplot(sort(g), las = 2, ylim = c(0, 350), cex.names = 1.2, ylab = "Species")
 mtext("(B)", 2, las = 1, at = 350, line = -2, cex = 1.5)
 # dev.off()
 
@@ -276,3 +284,24 @@ par(mar = c(7.8, 4.5, 1, 1))
 barplot(sort(gprime), las = 2, cex.names = 1.2, ylab = "Proportion  of species represented", ylim = c(0, 1.0))
 mtext("(C)", 2, las = 1, at = 1.0, line = -2, cex = 1.5)
 # dev.off()
+
+
+# Pull the 95% CIs from individual models
+CIrange <- apply(avgF, 2, quantile, probs = c(0.025, 0.975))
+colnames(CIrange) <- fams
+CIrange
+str(CIrange)
+FamRange <- CIrange[2, ] - CIrange[1, ]
+FamRange <- data.frame(Family = names(FamRange), CIRange = FamRange[1:28])
+FamRange <- tbl_df(FamRange)
+FamRange$Family <- as.character(FamRange$Family)
+
+ttys <- left_join(FamRange, w1, by = "Family")
+
+plot(x = ttys$sum, y = ttys$CIRange, pch = 19, ylab = "HPD range", xlab = "Samples", las = 1, ylim = c(0, 1))
+CI.lm <- lm(scale(CIRange, center = TRUE, scale = TRUE) ~ sum, data = ttys)
+summary(CI.lm)
+
+pdf(file = "N_CI.pdf", bg = "white")
+ggplot(ttys, aes(x = sum, y = CIRange)) + geom_point(size = 2, shape = 19) + ylim(-0.4, 1) + stat_smooth(method = lm, se = TRUE, color = "black", level = 0.95) + labs(x = "Samples", y = "95% HPD Range")
+dev.off()
