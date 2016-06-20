@@ -16,3 +16,4 @@ Major commits by date (2016):
   * 14 May - Corrected model averaging error for family level predictions
   * 24 May - Added correlation and plots for association between CI and sample size
   * 14 June - Updated repo to reflect state upon submission of ms. Latex docs in folder, code in submitted state. Fingers crossed. 
+  * 20 June - Removed the paper files, too soon to have them posted on git (should have been on ArXiv, honestly)
