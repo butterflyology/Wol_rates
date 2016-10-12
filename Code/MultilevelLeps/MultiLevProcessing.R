@@ -213,19 +213,19 @@ par(mar = c(6.6, 3.4, 0.17, 0))
 par(xpd = FALSE)
 
 par(las = 2)
-pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "n", las = 2, xaxt = "n", xlab = "Lepidoptera family", ylab = "Infection frequency")
+pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "n", las = 2, xaxt = "n", xlab = "Lepidoptera family", ylab = "Infection frequency")
            
-pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = lower, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
+pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = lower, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
            
-pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
+pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
 # dev.off()
 
 
-pPlot2(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", point.pch = 19)
+pPlot2(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", point.pch = 19)
     
-pPlot3(prob ~ families, data = out, ylim = c(0, 1), line.fun = lower, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", line.lwd = 2.5, add = TRUE)
+pPlot3(prob ~ families, data = out, ylim = c(0, 1), line.fun = lower, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0.0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", line.lwd = 2.5, add = TRUE)
 
-pPlot3(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", line.lwd = 2.5, add = TRUE)
+pPlot3(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", line.lwd = 2.5, add = TRUE)
        
 
 mtext("Infection probability", 2, cex=1.11, line = 2.37, font=1)
@@ -240,8 +240,9 @@ mtext("Family", 1, cex=1.11, line = 5.5, font = 1)
 
 probS <- as.matrix(fitOU1, "infectS")
 medS <- apply(probS, 2, median)
-probS <- probS[oS, ]
 oS <- order(medS)
+probS <- probS[oS, ]
+
 plot(1:ncol(probS), medS[oS], ylim = c(0, 1),type = "n")
 for(s in 1:ncol(probS)) {
   lines(rep(s, nrow(probS)), probS[, s], pch = 16, col = adjustcolor("grey20", alpha.f = 0.1))
@@ -260,7 +261,9 @@ length(g)
 
 
 # plots by samples
-w1 <- wol %>% group_by(Family) %>% summarize(sum = sum(Total))
+w1 <- wol %>% 
+	group_by(Family) %>% 
+	summarize(sum = sum(Total))
 w1 <- w1[order(w1$sum), ]
 
 # pdf(file = "Images/samples_plot.pdf", bg = "white")
@@ -302,6 +305,177 @@ plot(x = ttys$sum, y = ttys$CIRange, pch = 19, ylab = "HPD range", xlab = "Sampl
 CI.lm <- lm(scale(CIRange, center = TRUE, scale = TRUE) ~ sum, data = ttys)
 summary(CI.lm)
 
-pdf(file = "N_CI.pdf", bg = "white")
+# pdf(file = "N_CI.pdf", bg = "white")
 ggplot(ttys, aes(x = sum, y = CIRange)) + geom_point(size = 2, shape = 19) + ylim(-0.4, 1) + stat_smooth(method = lm, se = TRUE, color = "black", level = 0.95) + labs(x = "Samples", y = "95% HPD Range")
-dev.off()
+# dev.off()
+
+
+#####
+##### Posterior predictive simulation plots
+#####
+
+pp_fitNPhy <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datNPhy, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars = c("yNew"))
+
+pp_fitBM <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datBM, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars = c("yNew"))
+
+pp_fitOU1 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU1, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars = c("yNew"))
+
+pp_fitOU5 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU5, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars = c("yNew"))
+
+pp_fitOU9 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU9, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars = c("yNew"))
+
+obs <- wol$Infected
+
+pp_yList <- list(
+  as.matrix(pp_fitNPhy, "yNew") * 0.03, 
+  as.matrix(pp_fitBM, "yNew") * 0.05,  
+  as.matrix(pp_fitOU1, "yNew") * 0.79,
+  as.matrix(pp_fitOU5, "yNew") * 0.1,
+  as.matrix(pp_fitOU9, "yNew") * 0.02)
+pp_avgY <- as.data.frame(Reduce('+', pp_yList))
+
+# mods <- list(fitNPhy=fitNPhy, fitBM=fitBM, fitOU1=fitOU1, fitOU5=fitOU5, fitOU9 = fitOU9)
+# save(mods, file="Code/MultilevelLeps/stanMods.R")
+# load("~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R")
+margins <- c(0.7, 1.1, 0.7, 0.25)
+
+quartz(height = 6, width = 5.52)	
+par(mar = c(0, 0, 0, 0))
+par(mai = rep(0.01, 4))
+par(xpd = FALSE)
+
+plot(0:1, 0:1, bty = "n", type = "n", xaxt = "n", yaxt = "n", xlab = "n", ylab = "n")
+side.margins <- c(0.1, 1)
+tops.margins <-c (0.07, 1)
+# columns<-seq(from=side.margins[1],to=side.margins[2],length=3)
+columns <- c(0.09, 0.53, 0.56, 1)
+rows<-seq(from = tops.margins[1], to = tops.margins[2], length = 4)
+
+par(fig = c(columns[1], columns[2], rows[3], rows[4]))
+par(mar = margins)
+yNew <- as.matrix(pp_fitOU9, pars = "yNew")
+yMn <- colMeans(yNew)
+yL <- apply(yNew, 2, quantile, probs = 0.025)
+yU <- apply(yNew, 2, quantile, probs = 0.975)
+mod <- lm(yMn ~ obs)
+
+plot(obs, yMn, frame.plot=FALSE, las = 1, pch = 16, cex = 0.8, col = "#47474750", ylim = c(0, 250), axes = FALSE, xlim = c(0, 250))
+for(i in 1:length(obs)){
+  lines(rep(obs[i], 2), c(yL[i], yU[i]), col = "#47474750")
+}
+abline(a = 0,b = 1,col = "black")
+axis(side = 1, at = seq(0, 250, by = 50),tcl = -0.3, mgp = c(0, 1.25, 0), padj = -1, cex.axis = 0.9, labels = FALSE)
+axis(side = 2, at = seq(0, 250, by = 50), tcl = -0.3, mgp = c(0, 0.4, 0), hadj = 1.0, las = 1, cex.axis = 0.9)
+
+text(0, 225, expression(bold(OU[alpha == 0.9])), cex = 1.1, adj = c(0, 0))
+
+
+
+par(fig = c(columns[3], columns[4], rows[3], rows[4]), new = TRUE)
+par(mar = margins)
+yMn <- colMeans(avgY)
+yL <- apply(avgY, 2, quantile, probs = 0.025)
+yU <- apply(avgY, 2, quantile, probs = 0.975)
+mod <- lm(yMn ~ obs)
+
+
+plot(obs, yMn, frame.plot = FALSE, las = 1, pch = 16, cex = 0.8, col = "#47474750", ylim = c(0, 250), axes = FALSE, xlim = c(0, 250))
+for(i in 1:length(obs)){
+  lines(rep(obs[i], 2), c(yL[i], yU[i]), col = "#47474750")
+}
+abline(a = 0,b = 1, col = "black")
+axis(side = 1, at = seq(0, 250, by = 50), tcl = -0.3, mgp = c(0, 1.25, 0), padj = -1, cex.axis = 0.9, labels = FALSE)
+axis(side = 2, at = seq(0, 250, by = 50), tcl = -0.3, mgp = c(0, 0.4, 0), hadj = 1.0, las = 1, cex.axis = 0.9, labels = FALSE)
+text(0, 225, "MA", cex = 1.1, adj = c(0, 0), font = 2)
+
+
+par(fig = c(columns[1], columns[2], rows[2], rows[3]), new = TRUE)
+par(mar = margins)
+yNew <- as.matrix(fitOU1, pars = "yNew")
+yMn <- colMeans(yNew)
+yL <- apply(yNew, 2, quantile, probs = 0.025)
+yU <- apply(yNew, 2, quantile, probs = 0.975)
+mod <- lm(yMn ~ obs)
+
+plot(obs, yMn, frame.plot = FALSE, las = 1, pch = 16, cex = 0.8, col = "#47474750", ylim = c(0, 250), axes = FALSE, xlim = c(0, 250))
+for(i in 1:length(obs)){
+  lines(rep(obs[i], 2), c(yL[i], yU[i]), col = "#47474750")
+}
+abline(a = 0,b = 1, col = "black")
+axis(side = 1, at = seq(0, 250, by = 50), tcl = -0.3, mgp = c(0, 1.25, 0), padj = -1, cex.axis = 0.9, labels = FALSE)
+axis(side = 2, at = seq(0, 250, by = 50), tcl = -0.3, mgp = c(0, 0.4, 0), hadj = 1.0, las = 1, cex.axis = 0.9)
+text(0, 225, expression(bold(OU[alpha == 0.1])), cex = 1.1, adj = c(0, 0))
+
+### gamma p = 0.12
+par(fig=c(columns[3], columns[4], rows[2], rows[3]), new = TRUE)
+
+yNew <- as.matrix(fitOU5, pars = "yNew")
+yMn <- colMeans(yNew)
+yL <- apply(yNew, 2, quantile, probs = 0.025)
+yU <- apply(yNew, 2, quantile, probs = 0.975)
+mod <- lm(yMn ~ obs)
+
+plot(obs, yMn, frame.plot = FALSE, las = 1, pch = 16, cex = 0.8, col = "#47474750", ylim = c(0, 250), axes = FALSE, xlim = c(0, 250))
+
+for(i in 1:length(obs)){
+  lines(rep(obs[i], 2),c(yL[i], yU[i]), col = "#47474750")
+}
+abline(a = 0,b = 1,col = "black")
+
+axis(side = 1, at = seq(0, 250, by = 50), tcl = -0.3, mgp = c(0, 1.25, 0), padj = -1, cex.axis = 0.9, labels = FALSE)# cex.axis = cex.axis, padj = -2.4, tcl = tcl, mgp=c(0, 1.25, 0), labels = xlab, col.axis = textCol, col.ticks = textCol, col = textCol, lwd = lwdAx, lwd.ticks = lwdAx)
+axis(side = 2, at = seq(0,250,by=50),tcl = -0.3, mgp = c(0, 0.4, 0),hadj = 1.0, las = 1, cex.axis = 0.9, labels = FALSE)
+text(0, 225, expression(bold(OU[alpha == 0.5])), cex = 1.1, adj = c(0, 0))
+
+
+par(fig = c(columns[1], columns[2], rows[1], rows[2]), new = TRUE)
+
+yNew <- as.matrix(fitNPhy, pars = "yNew")
+yMn <- colMeans(yNew)
+yL <- apply(yNew, 2, quantile, probs = 0.025)
+yU <- apply(yNew, 2, quantile, probs = 0.975)
+mod <- lm(yMn ~ obs)
+plot(obs,yMn, frame.plot = FALSE, las = 1, pch = 16, cex = 0.8, col = "#47474750", ylim = c(0, 250), axes = FALSE, xlim = c(0, 250))
+
+for(i in 1:length(obs)){
+  lines(rep(obs[i], 2), c(yL[i], yU[i]), col = "#47474750")
+}
+abline(a = 0,b = 1,col = "black")
+
+axis(side = 1, at = seq(0, 250,by = 50),tcl = -0.3, mgp = c(0, 0.8, 0),padj = -1, cex.axis = 0.9)# cex.axis = cex.axis, padj = -2.4, tcl = tcl, mgp = c(0, 1.25, 0), labels = xlab, col.axis = textCol, col.ticks = textCol, col = textCol, lwd = lwdAx, lwd.ticks = lwdAx)
+axis(side = 2, at = seq(0, 250,by = 50),tcl = -0.3, mgp = c(0, 0.4, 0), hadj = 1.0, las = 1, cex.axis = 0.9)
+text(0, 225, "NP", cex = 1.1, adj = c(0, 0), font = 2)
+
+
+par(fig = c(columns[3], columns[4], rows[1], rows[2]), new = TRUE)
+
+yNew <- as.matrix(fitBM, pars = "yNew")
+yMn <- colMeans(yNew)
+yL <- apply(yNew, 2, quantile, probs = 0.025)
+yU <- apply(yNew, 2, quantile, probs = 0.975)
+mod <- lm(yMn ~ obs)
+plot(obs, yMn, frame.plot = FALSE, las = 1, pch = 16, cex = 0.8, col = "#47474750", ylim = c(0, 250), axes = FALSE, xlim = c(0, 250))
+
+for(i in 1:length(obs)){
+  lines(rep(obs[i], 2), c(yL[i], yU[i]), col="#47474750")
+}
+abline(a = 0,b = 1, col = "black")
+
+axis(side = 1, at = seq(0, 250, by = 50), tcl = -0.3, mgp = c(0, 0.8, 0), padj = -1, cex.axis = 0.9)# cex.axis = cex.axis, padj = -2.4, tcl = tcl, mgp = c(0, 1.25,0), labels = xlab, col.axis = textCol, col.ticks = textCol, col = textCol, lwd = lwdAx, lwd.ticks = lwdAx)
+axis(side = 2, at = seq(0, 250, by = 50),tcl = -0.3, mgp = c(0, 0.4, 0), hadj = 1.0, las = 1, cex.axis = 0.9, labels = FALSE)
+text(0, 225, "BM", cex = 1.1, adj = c(0, 0), font =2)
+
+
+par(fig = c(0, 1, 0, 1),new = TRUE)
+par(mar = c(0, 0, 0, 0))
+par(xpd = TRUE)
+plot(0:1, 0:1, bty = "n", type = "n", xaxt = "n", yaxt = "n",xlab = "n", ylab = "n")
+
+
+
+
+
+text(0.545, -0.022,expression(paste("Observed data (",y[obs],")")), cex = 1.1)
+
+text(-0.01, 0.53, expression(paste("Posterior predictive simulations (", tilde(y),")")), cex = 1.1, srt = 90)
+
+quartz.save(file = "PPplot.pdf", type = "pdf")

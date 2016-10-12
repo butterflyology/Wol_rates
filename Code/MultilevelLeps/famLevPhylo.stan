@@ -12,7 +12,7 @@ data {
 transformed data {
   matrix[nFam, nFam] pCor;
   
-  pCor <- cholesky_decompose(phyCor);
+  pCor = cholesky_decompose(phyCor);
 }
 
 parameters {
@@ -31,11 +31,11 @@ transformed parameters {
   vector[nFam] famLogit;
   vector[nSpp] sppLogit; 
  
-  famLogit <- globalLogit +(diag_pre_multiply(rep_vector(sigmaG, nFam), pCor) * zFam);
+  famLogit = globalLogit +(diag_pre_multiply(rep_vector(sigmaG, nFam), pCor) * zFam);
 
   
   for (s in 1:nSpp)
-     sppLogit[s] <- famLogit[Family[s]] + sigmaF[Family[s]] * zSpp[s];
+     sppLogit[s] = famLogit[Family[s]] + sigmaF[Family[s]] * zSpp[s];
     
 }
 
@@ -62,18 +62,18 @@ generated quantities {
   real infectG;
   
      
-  infectG <- inv_logit(globalLogit);
+  infectG = inv_logit(globalLogit);
  
   for(f in 1:nFam) 
-    infectF[f] <- inv_logit(famLogit[f]);
+    infectF[f] = inv_logit(famLogit[f]);
     
   
   for(s in 1:nSpp) 
-    infectS[s] <- inv_logit(sppLogit[s]);
+    infectS[s] = inv_logit(sppLogit[s]);
     
   
     for(n in 1:nObs) {
-      yNew[n] <- binomial_rng(N[n], infectS[Species[n]]);
-      log_lik[n] <- binomial_logit_log(Pos[n], N[n], sppLogit[Species[n]]);
+      yNew[n] = binomial_rng(N[n], infectS[Species[n]]);
+      log_lik[n] = binomial_logit_log(Pos[n], N[n], sppLogit[Species[n]]);
     }
 }
