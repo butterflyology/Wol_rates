@@ -6,9 +6,9 @@ lower <- function(x) {
   return(quantile(x, prob = 0.025))
 }
 
-pPlot1 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = gray(1), 
+pPlot1 <-function (formula, data, avg.line.fun = mean, pal = "appletv", back.col = gray(1), 
                   point.cex = 1, point.pch = 1, point.lwd = 1, cut.min = NULL, 
-                  cut.max = NULL, width.min = 0.3, width.max = NA, bean.o = NULL, 
+                  cut.max = NULL, width.min = 0.3, width.max = NA, bean.b.o = NULL, 
                   point.o = NULL, bar.o = NULL, hdi.o = NULL, line.o = NULL, 
                   theme.o = 1, hdi.iter = 1000, jitter.val = 0.03, line.lwd = 4, 
                   gl.col = NULL, ylim = NULL, xlim = NULL, xlab = NULL, ylab = NULL, 
@@ -62,38 +62,38 @@ pPlot1 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
   n.cols <- iv.lengths[1]
   if (theme.o == 1) {
     point.o <- ifelse(is.null(point.o), 0.3, point.o)
-    bean.o <- ifelse(is.null(bean.o), 0.1, bean.o)
+    bean.b.o <- ifelse(is.null(bean.b.o), 0.1, bean.b.o)
     hdi.o <- ifelse(is.null(hdi.o), 0, hdi.o)
     line.o <- ifelse(is.null(line.o), 0.5, line.o)
     bar.o <- ifelse(is.null(bar.o), 0.5, bar.o)
   }
   if (theme.o == 2) {
     point.o <- ifelse(is.null(point.o), 0.8, point.o)
-    bean.o <- ifelse(is.null(bean.o), 0.5, bean.o)
+    bean.b.o <- ifelse(is.null(bean.b.o), 0.5, bean.b.o)
     hdi.o <- ifelse(is.null(hdi.o), 0, hdi.o)
     line.o <- ifelse(is.null(line.o), 0.1, line.o)
     bar.o <- ifelse(is.null(bar.o), 0.1, bar.o)
   }
   if (theme.o == 3) {
     point.o <- ifelse(is.null(point.o), 0.2, point.o)
-    bean.o <- ifelse(is.null(bean.o), 0.2, bean.o)
+    bean.b.o <- ifelse(is.null(bean.b.o), 0.2, bean.b.o)
     hdi.o <- ifelse(is.null(hdi.o), 0.8, hdi.o)
     line.o <- ifelse(is.null(line.o), 1, line.o)
     bar.o <- ifelse(is.null(bar.o), 0.1, bar.o)
   }
   if (theme.o == 0) {
     point.o <- ifelse(is.null(point.o), 0, point.o)
-    bean.o <- ifelse(is.null(bean.o), 0, bean.o)
+    bean.b.o <- ifelse(is.null(bean.b.o), 0, bean.b.o)
     hdi.o <- ifelse(is.null(hdi.o), 0, hdi.o)
     line.o <- ifelse(is.null(line.o), 0, line.o)
     bar.o <- ifelse(is.null(bar.o), 0, bar.o)
   }
-  if (mean(pal %in% piratepal(action = "p")) == 1) {
+  if (mean(pal %in% piratepal("names")) == 1) {
     col.vec <- rep(piratepal(palette = pal, length.out = n.cols))
     point.col <- piratepal(palette = pal, length.out = n.cols, 
                            trans = 1 - point.o)
     bean.border.col <- piratepal(palette = pal, length.out = n.cols, 
-                                 trans = 1 - bean.o)
+                                 trans = 1 - bean.b.o)
     hdi.band.col <- piratepal(palette = pal, length.out = n.cols, 
                               trans = 1 - hdi.o)
     average.line.col <- piratepal(palette = pal, length.out = n.cols, 
@@ -101,7 +101,7 @@ pPlot1 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
     bar.col <- piratepal(palette = pal, length.out = n.cols, 
                          trans = 1 - bar.o)
   }
-  if (mean(pal %in% piratepal(action = "p")) != 1) {
+  if (mean(pal %in% piratepal("names")) != 1) {
     if (length(pal) < n.cols) {
       pal <- rep(pal, n.cols)
     }
@@ -110,7 +110,7 @@ pPlot1 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
       transparent(pal[x], trans.val = 1 - point.o)
     })
     bean.border.col <- sapply(1:length(pal), function(x) {
-      transparent(pal[x], trans.val = 1 - bean.o)
+      transparent(pal[x], trans.val = 1 - bean.b.o)
     })
     hdi.band.col <- sapply(1:length(pal), function(x) {
       transparent(pal[x], trans.val = 1 - hdi.o)
@@ -202,7 +202,7 @@ pPlot1 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
   }
   for (bean.i in 1:n.beans) {
     dv.i <- data.2[data.2$bean.num == bean.i, dv.name]
-    fun.val <- line.fun(dv.i)
+    fun.val <- avg.line.fun(dv.i)
     x.loc.i <- bean.mtx$x.loc[bean.i]
     rect(x.loc.i - width.max, 0, x.loc.i + width.max, fun.val, 
          col = bar.col[bean.i], border = bar.border.col[bean.i], 
@@ -232,7 +232,7 @@ pPlot1 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
                   x.loc.i + rev(dens.y.plot.i[1:(length(dens.x.plot.i))])), 
                 c(dens.x.plot.i[1:(length(dens.x.plot.i))], 
                   rev(dens.x.plot.i[1:(length(dens.x.plot.i))])), 
-                col = gray(1, alpha = bean.o), border = bean.border.col[bean.i], 
+                col = gray(1, alpha = bean.b.o), border = bean.border.col[bean.i], 
                 lwd = 2)
       }
     }
@@ -274,9 +274,9 @@ pPlot1 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
 }
 
 
-pPlot2 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = gray(1), 
+pPlot2 <-function (formula, data, avg.line.fun = mean, pal = "appletv", back.col = gray(1), 
           point.cex = 1, point.pch = 1, point.lwd = 1, cut.min = NULL, 
-          cut.max = NULL, width.min = 0.3, width.max = NA, bean.o = NULL, 
+          cut.max = NULL, width.min = 0.3, width.max = NA, bean.b.o = NULL, 
           point.o = NULL, bar.o = NULL, hdi.o = NULL, line.o = NULL, 
           theme.o = 1, hdi.iter = 1000, jitter.val = 0.03, line.lwd = 4, 
           gl.col = NULL, ylim = NULL, xlim = NULL, xlab = NULL, ylab = NULL, 
@@ -330,38 +330,38 @@ pPlot2 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
   n.cols <- iv.lengths[1]
   if (theme.o == 1) {
     point.o <- ifelse(is.null(point.o), 0.3, point.o)
-    bean.o <- ifelse(is.null(bean.o), 0.1, bean.o)
+    bean.b.o <- ifelse(is.null(bean.b.o), 0.1, bean.b.o)
     hdi.o <- ifelse(is.null(hdi.o), 0, hdi.o)
     line.o <- ifelse(is.null(line.o), 0.5, line.o)
     bar.o <- ifelse(is.null(bar.o), 0.5, bar.o)
   }
   if (theme.o == 2) {
     point.o <- ifelse(is.null(point.o), 0.8, point.o)
-    bean.o <- ifelse(is.null(bean.o), 0.5, bean.o)
+    bean.b.o <- ifelse(is.null(bean.b.o), 0.5, bean.b.o)
     hdi.o <- ifelse(is.null(hdi.o), 0, hdi.o)
     line.o <- ifelse(is.null(line.o), 0.1, line.o)
     bar.o <- ifelse(is.null(bar.o), 0.1, bar.o)
   }
   if (theme.o == 3) {
     point.o <- ifelse(is.null(point.o), 0.2, point.o)
-    bean.o <- ifelse(is.null(bean.o), 0.2, bean.o)
+    bean.b.o <- ifelse(is.null(bean.b.o), 0.2, bean.b.o)
     hdi.o <- ifelse(is.null(hdi.o), 0.8, hdi.o)
     line.o <- ifelse(is.null(line.o), 1, line.o)
     bar.o <- ifelse(is.null(bar.o), 0.1, bar.o)
   }
   if (theme.o == 0) {
     point.o <- ifelse(is.null(point.o), 0, point.o)
-    bean.o <- ifelse(is.null(bean.o), 0, bean.o)
+    bean.b.o <- ifelse(is.null(bean.b.o), 0, bean.b.o)
     hdi.o <- ifelse(is.null(hdi.o), 0, hdi.o)
     line.o <- ifelse(is.null(line.o), 0, line.o)
     bar.o <- ifelse(is.null(bar.o), 0, bar.o)
   }
-  if (mean(pal %in% piratepal(action = "p")) == 1) {
+  if (mean(pal %in% piratepal("names")) == 1) {
     col.vec <- rep(piratepal(palette = pal, length.out = n.cols))
     point.col <- piratepal(palette = pal, length.out = n.cols, 
                            trans = 1 - point.o)
     bean.border.col <- piratepal(palette = pal, length.out = n.cols, 
-                                 trans = 1 - bean.o)
+                                 trans = 1 - bean.b.o)
     hdi.band.col <- piratepal(palette = pal, length.out = n.cols, 
                               trans = 1 - hdi.o)
     average.line.col <- piratepal(palette = pal, length.out = n.cols, 
@@ -369,7 +369,7 @@ pPlot2 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
     bar.col <- piratepal(palette = pal, length.out = n.cols, 
                          trans = 1 - bar.o)
   }
-  if (mean(pal %in% piratepal(action = "p")) != 1) {
+  if (mean(pal %in% piratepal("names")) != 1) {
     if (length(pal) < n.cols) {
       pal <- rep(pal, n.cols)
     }
@@ -378,7 +378,7 @@ pPlot2 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
       transparent(pal[x], trans.val = 1 - point.o)
     })
     bean.border.col <- sapply(1:length(pal), function(x) {
-      transparent(pal[x], trans.val = 1 - bean.o)
+      transparent(pal[x], trans.val = 1 - bean.b.o)
     })
     hdi.band.col <- sapply(1:length(pal), function(x) {
       transparent(pal[x], trans.val = 1 - hdi.o)
@@ -470,7 +470,7 @@ pPlot2 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
   }
   for (bean.i in 1:n.beans) {
     dv.i <- data.2[data.2$bean.num == bean.i, dv.name]
-    fun.val <- line.fun(dv.i)
+    fun.val <- avg.line.fun(dv.i)
     x.loc.i <- bean.mtx$x.loc[bean.i]
     rect(x.loc.i - width.max, 0, x.loc.i + width.max, fun.val, 
          col = bar.col[bean.i], border = bar.border.col[bean.i], 
@@ -500,7 +500,7 @@ pPlot2 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
                   x.loc.i + rev(dens.y.plot.i[1:(length(dens.x.plot.i))])), 
                 c(dens.x.plot.i[1:(length(dens.x.plot.i))], 
                   rev(dens.x.plot.i[1:(length(dens.x.plot.i))])), 
-                col = gray(1, alpha = bean.o), border = bean.border.col[bean.i], 
+                col = gray(1, alpha = bean.b.o), border = bean.border.col[bean.i], 
                 lwd = 2)
       }
     }
@@ -541,9 +541,9 @@ pPlot2 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
   }
 }
 
-pPlot3 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = gray(1), 
+pPlot3 <-function (formula, data, avg.line.fun = mean, pal = "appletv", back.col = gray(1), 
                    point.cex = 1, point.pch = 1, point.lwd = 1, cut.min = NULL, 
-                   cut.max = NULL, width.min = 0.3, width.max = NA, bean.o = NULL, 
+                   cut.max = NULL, width.min = 0.3, width.max = NA, bean.b.o = NULL, 
                    point.o = NULL, bar.o = NULL, hdi.o = NULL, line.o = NULL, 
                    theme.o = 1, hdi.iter = 1000, jitter.val = 0.03, line.lwd = 4, 
                    gl.col = NULL, ylim = NULL, xlim = NULL, xlab = NULL, ylab = NULL, 
@@ -597,38 +597,38 @@ pPlot3 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
   n.cols <- iv.lengths[1]
   if (theme.o == 1) {
     point.o <- ifelse(is.null(point.o), 0.3, point.o)
-    bean.o <- ifelse(is.null(bean.o), 0.1, bean.o)
+    bean.b.o <- ifelse(is.null(bean.b.o), 0.1, bean.b.o)
     hdi.o <- ifelse(is.null(hdi.o), 0, hdi.o)
     line.o <- ifelse(is.null(line.o), 0.5, line.o)
     bar.o <- ifelse(is.null(bar.o), 0.5, bar.o)
   }
   if (theme.o == 2) {
     point.o <- ifelse(is.null(point.o), 0.8, point.o)
-    bean.o <- ifelse(is.null(bean.o), 0.5, bean.o)
+    bean.b.o <- ifelse(is.null(bean.b.o), 0.5, bean.b.o)
     hdi.o <- ifelse(is.null(hdi.o), 0, hdi.o)
     line.o <- ifelse(is.null(line.o), 0.1, line.o)
     bar.o <- ifelse(is.null(bar.o), 0.1, bar.o)
   }
   if (theme.o == 3) {
     point.o <- ifelse(is.null(point.o), 0.2, point.o)
-    bean.o <- ifelse(is.null(bean.o), 0.2, bean.o)
+    bean.b.o <- ifelse(is.null(bean.b.o), 0.2, bean.b.o)
     hdi.o <- ifelse(is.null(hdi.o), 0.8, hdi.o)
     line.o <- ifelse(is.null(line.o), 1, line.o)
     bar.o <- ifelse(is.null(bar.o), 0.1, bar.o)
   }
   if (theme.o == 0) {
     point.o <- ifelse(is.null(point.o), 0, point.o)
-    bean.o <- ifelse(is.null(bean.o), 0, bean.o)
+    bean.b.o <- ifelse(is.null(bean.b.o), 0, bean.b.o)
     hdi.o <- ifelse(is.null(hdi.o), 0, hdi.o)
     line.o <- ifelse(is.null(line.o), 0, line.o)
     bar.o <- ifelse(is.null(bar.o), 0, bar.o)
   }
-  if (mean(pal %in% piratepal(action = "p")) == 1) {
+  if (mean(pal %in% piratepal("names")) == 1) {
     col.vec <- rep(piratepal(palette = pal, length.out = n.cols))
     point.col <- piratepal(palette = pal, length.out = n.cols, 
                            trans = 1 - point.o)
     bean.border.col <- piratepal(palette = pal, length.out = n.cols, 
-                                 trans = 1 - bean.o)
+                                 trans = 1 - bean.b.o)
     hdi.band.col <- piratepal(palette = pal, length.out = n.cols, 
                               trans = 1 - hdi.o)
     average.line.col <- piratepal(palette = pal, length.out = n.cols, 
@@ -636,7 +636,7 @@ pPlot3 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
     bar.col <- piratepal(palette = pal, length.out = n.cols, 
                          trans = 1 - bar.o)
   }
-  if (mean(pal %in% piratepal(action = "p")) != 1) {
+  if (mean(pal %in% piratepal("names")) != 1) {
     if (length(pal) < n.cols) {
       pal <- rep(pal, n.cols)
     }
@@ -645,7 +645,7 @@ pPlot3 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
       transparent(pal[x], trans.val = 1 - point.o)
     })
     bean.border.col <- sapply(1:length(pal), function(x) {
-      transparent(pal[x], trans.val = 1 - bean.o)
+      transparent(pal[x], trans.val = 1 - bean.b.o)
     })
     hdi.band.col <- sapply(1:length(pal), function(x) {
       transparent(pal[x], trans.val = 1 - hdi.o)
@@ -737,7 +737,7 @@ pPlot3 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
   }
   for (bean.i in 1:n.beans) {
     dv.i <- data.2[data.2$bean.num == bean.i, dv.name]
-    fun.val <- line.fun(dv.i)
+    fun.val <- avg.line.fun(dv.i)
     x.loc.i <- bean.mtx$x.loc[bean.i]
     rect(x.loc.i - width.max, 0, x.loc.i + width.max, fun.val, 
          col = bar.col[bean.i], border = bar.border.col[bean.i], 
@@ -767,7 +767,7 @@ pPlot3 <-function (formula, data, line.fun = mean, pal = "appletv", back.col = g
                   x.loc.i + rev(dens.y.plot.i[1:(length(dens.x.plot.i))])), 
                 c(dens.x.plot.i[1:(length(dens.x.plot.i))], 
                   rev(dens.x.plot.i[1:(length(dens.x.plot.i))])), 
-                col = gray(1, alpha = bean.o), border = bean.border.col[bean.i], 
+                col = gray(1, alpha = bean.b.o), border = bean.border.col[bean.i], 
                 lwd = 2)
       }
     }

@@ -4,8 +4,7 @@ library("shinystan")
 library("loo")
 library("yarrr")
 library("rethinking")
-library("dplyr"); options(dplyr.print_max = 30)
-library("ggplot2")
+library("tidyverse"); options(dplyr.print_max = 30)
 
 sessID <- sessionInfo()
 # setwd("~/Dropbox/Wol_rates")
@@ -162,12 +161,12 @@ out <- data.frame(prob = prob, mod = mod)
 #quartz(width=3.4, height=4, bg="white")
 
 par(mar = c(2.9, 3.4, 0.16, 0))
-par(xpd=TRUE)
-pPlot1(prob ~ mod, data = out, ylim = c(0, 1), line.fun = median, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.03, yaxt = "l", bty = "l", las = 1, ylab = "", col.lab="white", point.pch = 19)
+par(xpd = TRUE)
+pPlot1(prob ~ mod, data = out, ylim = c(0, 1), line.fun = median, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.03, yaxt = "l", bty = "l", las = 1, ylab = "", col.lab = "white", point.pch = 19) # can run with pirateplot
 
-pPlot3(prob ~ mod, data = out, ylim = c(0, 1), line.fun = lower, line.lwd=2.5, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE, ylab = "" )
+pPlot3(prob ~ mod, data = out, ylim = c(0, 1), line.fun = lower, line.lwd = 2.5, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE, ylab = "" )
 
-pPlot3(prob ~ mod, data = out, ylim = c(0, 1), line.fun = upper, pal = "ghostbusters", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE, line.lwd = 2.5)
+pPlot3(prob ~ mod, data = out, ylim = c(0, 1), line.fun = upper, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE, line.lwd = 2.5)
 
 mtext("Infection probability", 2, cex = 1.11, line = 2.37, font = 1)
 segments(x0 = 2.7, y0 = -0.15, x1 = 5.3, y1 = -0.15, lwd = 3)
@@ -213,19 +212,19 @@ par(mar = c(6.6, 3.4, 0.17, 0))
 par(xpd = FALSE)
 
 par(las = 2)
-pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "n", las = 2, xaxt = "n", xlab = "Lepidoptera family", ylab = "Infection frequency")
+pirateplot(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = upper, pal = "evildead", bar.o = 0, line.o = 0.7, bean.b.o = 0.8, point.o = 0.05, yaxt = "l", bty = "n", las = 2, xaxt = "n", xlab = "Lepidoptera family", ylab = "Infection frequency")
            
-pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = lower, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
+pirateplot(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = lower, pal = "evildead", bar.o = 0, line.o = 0.7, bean.b.o = 0, point.o = 0, add = TRUE)
            
-pirateplot(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, add = TRUE)
+pirateplot(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = median, pal = "evildead", bar.o = 0, line.o = 0.7, bean.b.o = 0, point.o = 0, add = TRUE)
 # dev.off()
 
 
-pPlot2(prob ~ families, data = out, ylim = c(0, 1), line.fun = median, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.05, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", point.pch = 19)
+pPlot2(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = median, pal = "evildead", bar.o = 0, line.o = 0.7, bean.b.o = 0.8, point.o = 0.05, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", point.pch = 19)
     
-pPlot3(prob ~ families, data = out, ylim = c(0, 1), line.fun = lower, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0.0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", line.lwd = 2.5, add = TRUE)
+pPlot3(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = lower, pal = "evildead", bar.o = 0, line.o = 0.7, bean.b.o = 0.0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", line.lwd = 2.5, add = TRUE)
 
-pPlot3(prob ~ families, data = out, ylim = c(0, 1), line.fun = upper, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", line.lwd = 2.5, add = TRUE)
+pPlot3(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = upper, pal = "evildead", bar.o = 0, line.o = 0.7, bean.b.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", line.lwd = 2.5, add = TRUE)
        
 
 mtext("Infection probability", 2, cex=1.11, line = 2.37, font=1)
