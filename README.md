@@ -19,3 +19,4 @@ Major commits by date (2016):
   * 20 June - Removed the paper files, too soon to have them posted on git (should have been on ArXiv, honestly)
   * 11 October - Ammended code to accomodate changes in stan, added code for posterior predictive checks of the model.
   * 1 November - Ammended code to work with new "yaRrr" package
+  * 15 November - Release version of cade created.
