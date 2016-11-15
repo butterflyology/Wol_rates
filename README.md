@@ -1,4 +1,5 @@
 ### Repo for Marion and Hamm (2016) "A hierarchical Bayesian approach to estimate endosymbiont infection rates" for a special issue of in *Frontiers in Microbiology*
+Release 1.0 of code. [![DOI](https://zenodo.org/badge/51758300.svg)](https://zenodo.org/badge/latestdoi/51758300)
 
 Major commits by date (2016):
 
