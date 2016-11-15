@@ -226,9 +226,8 @@ pPlot3(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = lower, pal = 
 
 pPlot3(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = upper, pal = "evildead", bar.o = 0, line.o = 0.7, bean.b.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", line.lwd = 2.5, add = TRUE)
        
-
-mtext("Infection probability", 2, cex=1.11, line = 2.37, font=1)
-mtext("Family", 1, cex=1.11, line = 5.5, font = 1)
+mtext("Infection probability", 2, cex = 1.11, line = 2.37, font = 1)
+mtext("Family", 1, cex = 1.11, line = 5.5, font = 1)
 
 # quartz.save(type = "pdf", file="familyProb.pdf")
 
