@@ -4,6 +4,7 @@ library("shinystan")
 library("loo")
 library("yarrr")
 library("rethinking")
+library("spaceMovie")
 library("tidyverse"); options(dplyr.print_max = 30)
 
 sessID <- sessionInfo()
@@ -18,7 +19,7 @@ options(mc.cores = parallel::detectCores())
 # load("Data/Lep.vcv.ultra.R")
 # load("Data/Wolbachia_output.RData")
 # load("~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R")
-
+# source("Code/pplots.R")
 
 weinDat <- read.csv("Data/Weinert_data_cleaned.csv", stringsAsFactors = FALSE)
 
@@ -98,7 +99,7 @@ datOU9 <- list(nObs = dim(wol)[1],
 
 fitNPhy <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datNPhy, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
 
-fitBM <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datBM, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
+fitBM <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datBM, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars = c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
 
 fitOU1 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU1, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
 
@@ -106,7 +107,7 @@ fitOU5 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU5, ite
 
 fitOU9 <- stan(file = "Code/MultilevelLeps/famLevPhylo.stan", data = datOU9, iter = 5000, chains = 4, seed = 4, control = list(adapt_delta = 0.96), pars=c("zFam", "zSpp", "sppLogit", "yNew", "infectS"), include = FALSE)
 
-# mods <- list(fitNPhy=fitNPhy, fitBM=fitBM, fitOU1=fitOU1, fitOU5=fitOU5, fitOU9 = fitOU9)
+mods <- list(fitNPhy=fitNPhy, fitBM=fitBM, fitOU1=fitOU1, fitOU5=fitOU5, fitOU9 = fitOU9)
 # save(mods, file="Code/MultilevelLeps/stanMods.R")
 # load("~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R")
  fitNPhy <- mods$fitNPhy
@@ -162,11 +163,11 @@ out <- data.frame(prob = prob, mod = mod)
 
 par(mar = c(2.9, 3.4, 0.16, 0))
 par(xpd = TRUE)
-pPlot1(prob ~ mod, data = out, ylim = c(0, 1), line.fun = median, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.03, yaxt = "l", bty = "l", las = 1, ylab = "", col.lab = "white", point.pch = 19) # can run with pirateplot
+pPlot1(prob ~ mod, data = out, ylim = c(0, 1), line.fun = median, pal = SW_palette("AOTC"), bar.o = 0, line.o = 0.7, bean.o = 0.8, point.o = 0.03, yaxt = "l", bty = "l", las = 1, ylab = "", col.lab = "white", point.pch = 19) # can run with pirateplot
 
-pPlot3(prob ~ mod, data = out, ylim = c(0, 1), line.fun = lower, line.lwd = 2.5, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE, ylab = "" )
+pPlot3(prob ~ mod, data = out, ylim = c(0, 1), line.fun = lower, line.lwd = 2.5, pal = SW_palette("ATOC"), bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE, ylab = "" )
 
-pPlot3(prob ~ mod, data = out, ylim = c(0, 1), line.fun = upper, pal = "evildead", bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE, line.lwd = 2.5)
+pPlot3(prob ~ mod, data = out, ylim = c(0, 1), line.fun = upper, pal = SW_palette("ATOC"), bar.o = 0, line.o = 0.7, bean.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, add = TRUE, line.lwd = 2.5)
 
 mtext("Infection probability", 2, cex = 1.11, line = 2.37, font = 1)
 segments(x0 = 2.7, y0 = -0.15, x1 = 5.3, y1 = -0.15, lwd = 3)
@@ -212,19 +213,19 @@ par(mar = c(6.6, 3.4, 0.17, 0))
 par(xpd = FALSE)
 
 par(las = 2)
-pirateplot(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = upper, pal = "evildead", bar.o = 0, line.o = 0.7, bean.b.o = 0.8, point.o = 0.05, yaxt = "l", bty = "n", las = 2, xaxt = "n", xlab = "Lepidoptera family", ylab = "Infection frequency")
+pirateplot(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = upper, pal = SW_palette("AOTC"), bar.o = 0, line.o = 0.7, bean.b.o = 0.8, point.o = 0.05, yaxt = "l", bty = "n", las = 2, xaxt = "n", xlab = "Lepidoptera family", ylab = "Infection frequency")
            
-pirateplot(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = lower, pal = "evildead", bar.o = 0, line.o = 0.7, bean.b.o = 0, point.o = 0, add = TRUE)
+pirateplot(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = lower, pal = SW_palette("AOTC"), bar.o = 0, line.o = 0.7, bean.b.o = 0, point.o = 0, add = TRUE)
            
-pirateplot(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = median, pal = "evildead", bar.o = 0, line.o = 0.7, bean.b.o = 0, point.o = 0, add = TRUE)
+pirateplot(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = median, pal = SW_palette("AOTC"), bar.o = 0, line.o = 0.7, bean.b.o = 0, point.o = 0, add = TRUE)
 # dev.off()
 
 
-pPlot2(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = median, pal = "evildead", bar.o = 0, line.o = 0.7, bean.b.o = 0.8, point.o = 0.05, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", point.pch = 19)
+pPlot2(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = median, pal = SW_palette("AOTC"), bar.o = 0, line.o = 0.7, bean.b.o = 0.8, point.o = 0.05, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", point.pch = 19)
     
-pPlot3(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = lower, pal = "evildead", bar.o = 0, line.o = 0.7, bean.b.o = 0.0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", line.lwd = 2.5, add = TRUE)
+pPlot3(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = lower, pal = SW_palette("AOTC"), bar.o = 0, line.o = 0.7, bean.b.o = 0.0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", line.lwd = 2.5, add = TRUE)
 
-pPlot3(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = upper, pal = "evildead", bar.o = 0, line.o = 0.7, bean.b.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", line.lwd = 2.5, add = TRUE)
+pPlot3(prob ~ families, data = out, ylim = c(0, 1), avg.line.fun = upper, pal = SW_palette("AOTC"), bar.o = 0, line.o = 0.7, bean.b.o = 0, point.o = 0, yaxt = "l", bty = "l", las = 1, xaxt = "n", xlab = "", ylab = "", line.lwd = 2.5, add = TRUE)
        
 mtext("Infection probability", 2, cex = 1.11, line = 2.37, font = 1)
 mtext("Family", 1, cex = 1.11, line = 5.5, font = 1)
@@ -405,7 +406,7 @@ axis(side = 2, at = seq(0, 250, by = 50), tcl = -0.3, mgp = c(0, 0.4, 0), hadj =
 text(0, 225, expression(bold(OU[alpha == 0.1])), cex = 1.1, adj = c(0, 0))
 
 ### gamma p = 0.12
-par(fig=c(columns[3], columns[4], rows[2], rows[3]), new = TRUE)
+par(fig = c(columns[3], columns[4], rows[2], rows[3]), new = TRUE)
 
 yNew <- as.matrix(fitOU5, pars = "yNew")
 yMn <- colMeans(yNew)
@@ -476,4 +477,4 @@ text(0.545, -0.022,expression(paste("Observed data (",y[obs],")")), cex = 1.1)
 
 text(-0.01, 0.53, expression(paste("Posterior predictive simulations (", tilde(y),")")), cex = 1.1, srt = 90)
 
-quartz.save(file = "PPplot.pdf", type = "pdf")
+# quartz.save(file = "PPplot.pdf", type = "pdf")
