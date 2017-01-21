@@ -21,3 +21,6 @@ Major commits by date (2016):
   * 11 October - Ammended code to accomodate changes in stan, added code for posterior predictive checks of the model.
   * 1 November - Ammended code to work with new "yaRrr" package
   * 15 November - Release version of cade created.
+
+Major commits by date (2017):
+  * 21 January - Updated code to use `spaceMovie` color palette, started issue to correct depreciate (but still functional) code for `stan`.
