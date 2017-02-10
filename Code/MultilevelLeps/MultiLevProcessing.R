@@ -10,16 +10,16 @@ library("tidyverse"); options(dplyr.print_max = 30)
 sessID <- sessionInfo()
 # setwd("~/Dropbox/Wol_rates")
 # setwd("~/Desktop/Projects/Wolbachia_rates")
-# source("Code/pplots.R")
+source("Code/pplots.R")
 rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())
 
 # save(file = "Data/Wolbachia_output.RData", list = ls())
-# load("Data/Lep.vcv.R")
+load("Data/Lep.vcv.R")
 # load("Data/Lep.vcv.ultra.R")
 # load("Data/Wolbachia_output.RData")
 # load("~/Dropbox/Wol-Leps/MultiLevModel/stanMods.R")
-# source("Code/pplots.R")
+
 
 weinDat <- read.csv("Data/Weinert_data_cleaned.csv", stringsAsFactors = FALSE)
 
@@ -38,7 +38,7 @@ wol <- wol[order(wol$spp), ]
 str(wol)
 sum(wol$Total)
 sum(wol$Infected)
-unique(wol$spp)
+# unique(wol$spp)
 length(unique(wol$spp))
 which(wol$spp == "Nymphalidae")
 length(unique(wol$Family))
